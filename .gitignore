@@ -1,2 +1,5 @@
-.DS_Store
+_Store
 build/
+MacGuarder.xcodeproj/xcuserdata/
+MacGuarder.xcodeproj/project.xcworkspace/xcshareddata/
+MacGuarder.xcodeproj/project.xcworkspace/xcuserdata/
