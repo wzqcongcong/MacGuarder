@@ -33,6 +33,11 @@
 		CEBF849A197FDEB500EBE976 /* GCDWebServerStreamedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF848D197FDEB500EBE976 /* GCDWebServerStreamedResponse.m */; };
 		CEBF849E197FDF2200EBE976 /* MacGuarderHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF849D197FDF2200EBE976 /* MacGuarderHelper.m */; };
 		CEBF84A0197FE11700EBE976 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBF849F197FE11700EBE976 /* libz.dylib */; };
+		CEBF84A61980AD2300EBE976 /* DeviceTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF84A51980AD2300EBE976 /* DeviceTracker.m */; };
+		CEBF84A91980AD3400EBE976 /* DeviceKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF84A81980AD3400EBE976 /* DeviceKeeper.m */; };
+		CEBF84AB1980B2F600EBE976 /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBF84AA1980B2F600EBE976 /* IOBluetooth.framework */; };
+		CEBF84AD1980B2FD00EBE976 /* IOBluetoothUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBF84AC1980B2FD00EBE976 /* IOBluetoothUI.framework */; };
+		CEBF84B01980B61300EBE976 /* RSSISmootheningFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF84AF1980B61300EBE976 /* RSSISmootheningFilter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +101,14 @@
 		CEBF849C197FDF2200EBE976 /* MacGuarderHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacGuarderHelper.h; sourceTree = "<group>"; };
 		CEBF849D197FDF2200EBE976 /* MacGuarderHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacGuarderHelper.m; sourceTree = "<group>"; };
 		CEBF849F197FE11700EBE976 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		CEBF84A41980AD2300EBE976 /* DeviceTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceTracker.h; sourceTree = "<group>"; };
+		CEBF84A51980AD2300EBE976 /* DeviceTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceTracker.m; sourceTree = "<group>"; };
+		CEBF84A71980AD3400EBE976 /* DeviceKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceKeeper.h; sourceTree = "<group>"; };
+		CEBF84A81980AD3400EBE976 /* DeviceKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceKeeper.m; sourceTree = "<group>"; };
+		CEBF84AA1980B2F600EBE976 /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = System/Library/Frameworks/IOBluetooth.framework; sourceTree = SDKROOT; };
+		CEBF84AC1980B2FD00EBE976 /* IOBluetoothUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetoothUI.framework; path = System/Library/Frameworks/IOBluetoothUI.framework; sourceTree = SDKROOT; };
+		CEBF84AE1980B61300EBE976 /* RSSISmootheningFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSISmootheningFilter.h; sourceTree = "<group>"; };
+		CEBF84AF1980B61300EBE976 /* RSSISmootheningFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSISmootheningFilter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,8 +116,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEBF84A0197FE11700EBE976 /* libz.dylib in Frameworks */,
+				CEBF84AD1980B2FD00EBE976 /* IOBluetoothUI.framework in Frameworks */,
+				CEBF84AB1980B2F600EBE976 /* IOBluetooth.framework in Frameworks */,
 				CEBF843B197FDE5400EBE976 /* Cocoa.framework in Frameworks */,
+				CEBF84A0197FE11700EBE976 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +158,8 @@
 			isa = PBXGroup;
 			children = (
 				CEBF849F197FE11700EBE976 /* libz.dylib */,
+				CEBF84AC1980B2FD00EBE976 /* IOBluetoothUI.framework */,
+				CEBF84AA1980B2F600EBE976 /* IOBluetooth.framework */,
 				CEBF843A197FDE5400EBE976 /* Cocoa.framework */,
 				CEBF8459197FDE5400EBE976 /* XCTest.framework */,
 				CEBF843C197FDE5400EBE976 /* Other Frameworks */,
@@ -165,6 +182,8 @@
 			children = (
 				CEBF844C197FDE5400EBE976 /* AppDelegate.h */,
 				CEBF844D197FDE5400EBE976 /* AppDelegate.m */,
+				CEBF84A31980ACB700EBE976 /* DeviceTracker */,
+				CEBF84A21980ACA000EBE976 /* DeviceKeeper */,
 				CEBF849B197FDF2200EBE976 /* Helper */,
 				CEBF846E197FDEB500EBE976 /* GCDWebServer */,
 				CEBF84A1197FE44C00EBE976 /* UI */,
@@ -280,6 +299,26 @@
 			name = UI;
 			sourceTree = "<group>";
 		};
+		CEBF84A21980ACA000EBE976 /* DeviceKeeper */ = {
+			isa = PBXGroup;
+			children = (
+				CEBF84A71980AD3400EBE976 /* DeviceKeeper.h */,
+				CEBF84A81980AD3400EBE976 /* DeviceKeeper.m */,
+			);
+			name = DeviceKeeper;
+			sourceTree = "<group>";
+		};
+		CEBF84A31980ACB700EBE976 /* DeviceTracker */ = {
+			isa = PBXGroup;
+			children = (
+				CEBF84A41980AD2300EBE976 /* DeviceTracker.h */,
+				CEBF84A51980AD2300EBE976 /* DeviceTracker.m */,
+				CEBF84AE1980B61300EBE976 /* RSSISmootheningFilter.h */,
+				CEBF84AF1980B61300EBE976 /* RSSISmootheningFilter.m */,
+			);
+			name = DeviceTracker;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -383,10 +422,13 @@
 				CEBF8493197FDEB500EBE976 /* GCDWebServerDataRequest.m in Sources */,
 				CEBF849A197FDEB500EBE976 /* GCDWebServerStreamedResponse.m in Sources */,
 				CEBF8499197FDEB500EBE976 /* GCDWebServerFileResponse.m in Sources */,
+				CEBF84B01980B61300EBE976 /* RSSISmootheningFilter.m in Sources */,
 				CEBF8447197FDE5400EBE976 /* main.m in Sources */,
 				CEBF8496197FDEB500EBE976 /* GCDWebServerURLEncodedFormRequest.m in Sources */,
 				CEBF848F197FDEB500EBE976 /* GCDWebServerConnection.m in Sources */,
 				CEBF849E197FDF2200EBE976 /* MacGuarderHelper.m in Sources */,
+				CEBF84A91980AD3400EBE976 /* DeviceKeeper.m in Sources */,
+				CEBF84A61980AD2300EBE976 /* DeviceTracker.m in Sources */,
 				CEBF8494197FDEB500EBE976 /* GCDWebServerFileRequest.m in Sources */,
 				CEBF8492197FDEB500EBE976 /* GCDWebServerResponse.m in Sources */,
 				CEBF8491197FDEB500EBE976 /* GCDWebServerRequest.m in Sources */,
@@ -608,6 +650,7 @@
 				CEBF846A197FDE5400EBE976 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CEBF846B197FDE5400EBE976 /* Build configuration list for PBXNativeTarget "MacGuarderTests" */ = {
 			isa = XCConfigurationList;
@@ -616,6 +659,7 @@
 				CEBF846D197FDE5400EBE976 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
