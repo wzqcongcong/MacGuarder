@@ -3,3 +3,5 @@ build/
 MacGuarder.xcodeproj/xcuserdata/
 MacGuarder.xcodeproj/project.xcworkspace/xcshareddata/
 MacGuarder.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcuserstate
+.gitignore~

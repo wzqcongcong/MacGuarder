@@ -117,11 +117,19 @@
     };
     [DeviceTracker sharedTracker].deviceRangeStatusUpdateBlock = ^(DeviceTracker *tracker){
         if (tracker.deviceInRange) {
-            NSLog(@"unlock Mac");
-            [MacGuarderHelper unlock];
+            if ([MacGuarderHelper isScreenLocked]) {
+                NSLog(@"unlock Mac");
+                [MacGuarderHelper unlock];
+            } else {
+                NSLog(@"Mac was unlocked already, do nothing.");
+            }
         } else {
-            NSLog(@"lock Mac");
-            [MacGuarderHelper lock];
+            if (![MacGuarderHelper isScreenLocked]) {
+                NSLog(@"lock Mac");
+                [MacGuarderHelper lock];
+            } else {
+                NSLog(@"Mac was locked already, do nothing.");
+            }
         }
     };
     //*/
