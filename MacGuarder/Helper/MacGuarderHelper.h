@@ -11,10 +11,12 @@
 
 @interface MacGuarderHelper : NSObject
 
-+ (void)lock;
-+ (void)unlock;
++ (BOOL)isScreenLocked; // check if Mac is locked
 
-+ (NSString*)getPassword;
-+ (void)setPassword:(NSString*)password;
++ (void)lock;           // lock the Mac
++ (void)unlock;         // unlock the Mac
+
++ (NSString*)getPassword;                   // get Mac password
++ (void)setPassword:(NSString*)password;    // set Mac password
 
 @end

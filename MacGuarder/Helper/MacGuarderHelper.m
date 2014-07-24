@@ -9,6 +9,7 @@
 #import "MacGuarderHelper.h"
 
 
+// TODO: password maybe need encryption
 NSString *password;
 
 
@@ -28,12 +29,15 @@ NSString *password;
 {
     if ([MacGuarderHelper isScreenLocked]) return;
 
+    // get the old setting
     int screensaverDelay = [MacGuarderHelper getScreensaverDelay];
     BOOL screensaverAskForPassword = [MacGuarderHelper getScreensaverAskForPassword];
-
+    
+    // set the new setting
     [MacGuarderHelper setScreensaverDelay:0];
     [MacGuarderHelper setScreensaverAskForPassword:YES];
 
+    // lock Mac
     io_registry_entry_t r = IORegistryEntryFromPath(kIOMasterPortDefault,
                                                     "IOService:/IOResources/IODisplayWrangler");
     if (r) {
@@ -41,6 +45,7 @@ NSString *password;
         IOObjectRelease(r);
     }
 
+    // restore the old setting after Mac is locked
     double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -58,7 +63,7 @@ NSString *password;
 
 + (void)unlock
 {
-    while(![MacGuarderHelper isScreenLocked]) {};
+    if (![MacGuarderHelper isScreenLocked]) return;
 
     io_registry_entry_t r = IORegistryEntryFromPath(kIOMasterPortDefault,
                                                     "IOService:/IOResources/IODisplayWrangler");
@@ -67,6 +72,7 @@ NSString *password;
         IOObjectRelease(r);
     }
 
+    // use Apple Script to unlock Mac
     NSString *s = @"tell application \"System Events\" to keystroke \"%@\"\n\
                     tell application \"System Events\" to keystroke return";
 
