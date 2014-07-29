@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <IOBluetooth/IOBluetooth.h>
+#import <IOBluetoothUI/IOBluetoothUI.h>
 
 
 @class DeviceTracker;

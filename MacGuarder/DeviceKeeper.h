@@ -8,20 +8,31 @@
 
 #import <Foundation/Foundation.h>
 
+/* by Plist */
+#define kUserInfo                                   @"UserInfo"         // UserInfo.plist
+#define kDevicesConfig                              @"DevicesConfig"    // DevicesConfig.plist
+#define kDevicesConfig_favoriteDevices              @"favoriteDevices"  // array
+#define kDevicesConfig_storedDevices                @"storedDevices"    // dictionary
+#define kDevicesConfig_storedDevices_idleRSSI       @"idleRSSI"
+#define kDevicesConfig_storedDevices_thresholdRSSI  @"thresholdRSSI"
 
-#define kDevices                    @"MacGuarderDevices"
-#define kIdleRSSI                   @"MacGuarderIdleRSSI"
-#define kThresholdRSSI              @"MacGuarderThresholdRSSI"
-#define kDefaultInRangeThreshold    -60
+/* by NSUserDefaults*/
+#define kDevices                                    @"com.trendmicro.MacGuarder.Devices"
+#define kIdleRSSI                                   @"MacGuarderIdleRSSI"
+#define kThresholdRSSI                              @"MacGuarderThresholdRSSI"
+#define kDefaultInRangeThreshold                    -60
 
 @interface DeviceKeeper : NSObject
 
 + (BOOL)deviceExists:(NSString*)deviceAddress;
 
-+ (void)setIdleRSSI:(int)RSSI forDevice:(NSString*)deviceAddress;
-+ (void)setThresholdRSSI:(int)RSSI forDevice:(NSString*)deviceAddress;
++ (void)setThresholdRSSI:(int)RSSI ofDevice:(NSString*)deviceAddress forUser:(NSString *)uid;
++ (int)getThresholdRSSIOfDevice:(NSString*)deviceAddress forUser:(NSString *)uid;
 
-+ (int)getIdleRSSIForDevice:(NSString*)deviceAddress;
-+ (int)getThresholdRSSIForDevice:(NSString*)deviceAddress;
++ (void)saveFavoriteDevice:(NSString*)deviceAddress forUser:(NSString *)uid;
++ (NSArray *)getFavoriteDevicesForUser:(NSString *)uid;
+
++ (void)savePassword:(NSString *)password forUser:(NSString *)uid;
++ (NSString *)getPasswordForUser:(NSString *)uid;
 
 @end

@@ -7,9 +7,8 @@
 //
 
 #import "DeviceTracker.h"
-#import <IOBluetoothUI/IOBluetoothUI.h>
-#import "RSSISmootheningFilter.h"
 #import "DeviceKeeper.h"
+#import "RSSISmootheningFilter.h"
 
 
 @interface DeviceTracker ()
@@ -36,7 +35,7 @@
 {
     _isMonitoring = YES;
     
-    self.inRangeThreshold = [DeviceKeeper getThresholdRSSIForDevice:self.device.addressString];
+    self.inRangeThreshold = [DeviceKeeper getThresholdRSSIOfDevice:self.device.addressString forUser:nil];
     NSLog(@"get threshold of device %@: %d", self.device.name, self.inRangeThreshold);
     
     [[RSSISmootheningFilter sharedInstance] reset];

@@ -11,11 +11,15 @@
 #import "DeviceTracker.h"
 #import "DeviceKeeper.h"
 
+/*
 #import "GCDWebServer.h"
 #import "GCDWebServerDataResponse.h"
+*/
 
 
 @implementation AppDelegate
+
+#pragma mark - UI action
 
 - (IBAction)didClickSelectDevice:(id)sender
 {
@@ -24,44 +28,95 @@
     
     if ([DeviceTracker sharedTracker].device) {
         if (![DeviceKeeper deviceExists:[DeviceTracker sharedTracker].device.addressString]) {
-            // save this device
+            // save config for this device
             NSLog(@"save threshold of device %@: %d", [DeviceTracker sharedTracker].device.name, kDefaultInRangeThreshold);
-            [DeviceKeeper setThresholdRSSI:kDefaultInRangeThreshold forDevice:[DeviceTracker sharedTracker].device.addressString];
+            [DeviceKeeper setThresholdRSSI:kDefaultInRangeThreshold ofDevice:[DeviceTracker sharedTracker].device.addressString forUser:nil];
         }
         
-        self.btStart.Hidden = NO;
+        self.btSaveDevice.Enabled = YES;
+        self.btStart.Enabled = YES;
+        self.btStop.Enabled = NO;
         self.lbSelectedDevice.stringValue = [DeviceTracker sharedTracker].device.name;
         NSLog(@"select device: %@ [%@]", [DeviceTracker sharedTracker].device.name, [DeviceTracker sharedTracker].device.addressString);
+        
     } else {
         self.lbSelectedDevice.stringValue = @"No Device Selected";
     }
 }
 
+- (IBAction)didClickSaveDevice:(id)sender {
+    if ([DeviceTracker sharedTracker].device) {
+        [DeviceKeeper saveFavoriteDevice:[DeviceTracker sharedTracker].device.addressString forUser:nil];
+    }
+    [DeviceKeeper savePassword:self.tfMacPassword.stringValue forUser:self.user];
+}
+
 - (IBAction)didClickStart:(id)sender
 {
-    self.btSelectDevice.Hidden = YES;
-    self.btStart.Hidden = YES;
+    self.btStart.Enabled = NO;
+    self.btSelectDevice.Enabled = NO;
+    self.btSaveDevice.Enabled = NO;
     [self.tfMacPassword setEditable:NO];
+    
     [MacGuarderHelper setPassword:self.tfMacPassword.stringValue];
     if (![[DeviceTracker sharedTracker] isMonitoring]) {
         [[DeviceTracker sharedTracker] startMonitoring];
     }
-    self.btStop.Hidden = NO;
+    
+    self.btStop.Enabled = YES;
 }
 
 - (IBAction)didClickStop:(id)sender
 {
-    self.btStop.Hidden = YES;
+    self.btStop.Enabled = NO;
+    
     [[DeviceTracker sharedTracker] stopMonitoring];
+    
     [self.tfMacPassword setEditable:YES];
-    self.btStart.Hidden = NO;
-    self.btSelectDevice.Hidden = NO;
+    self.btStart.Enabled = YES;
+    self.btSelectDevice.Enabled = YES;
+    self.btSaveDevice.Enabled = YES;
 }
 
 - (IBAction)didClickQuit:(id)sender
 {
     [[DeviceTracker sharedTracker] stopMonitoring];
     [[NSRunningApplication currentApplication] terminate];
+}
+
+#pragma mark - startup
+
+- (void)trackFavoriteDevicesNow
+{
+    NSArray *favoriteDevices = [DeviceKeeper getFavoriteDevicesForUser:nil];
+    if (favoriteDevices) {
+        NSString *theFavoriteDevice = [favoriteDevices firstObject];
+        
+        if (theFavoriteDevice) {
+            NSLog(@"tracking device: [%@]", theFavoriteDevice);
+            
+            // construct favorite device
+            BluetoothDeviceAddress *deviceAddress = malloc(sizeof(BluetoothDeviceAddress));
+            IOBluetoothNSStringToDeviceAddress(theFavoriteDevice, deviceAddress);
+            [DeviceTracker sharedTracker].device = [IOBluetoothDevice deviceWithAddress:deviceAddress];
+            
+            if ([DeviceTracker sharedTracker].device) {
+                self.lbSelectedDevice.stringValue = theFavoriteDevice;
+                self.btSelectDevice.Enabled = NO;
+                self.btSaveDevice.Enabled = NO;
+                self.btStart.Enabled = NO;
+                
+                self.tfMacPassword.stringValue = [DeviceKeeper getPasswordForUser:self.user];
+                [self.tfMacPassword setEditable:NO];
+                [MacGuarderHelper setPassword:self.tfMacPassword.stringValue];
+                
+                if (![[DeviceTracker sharedTracker] isMonitoring]) {
+                    [[DeviceTracker sharedTracker] startMonitoring];
+                }
+                self.btStop.Enabled = YES;
+            }
+        }
+    }
 }
 
 
@@ -109,8 +164,10 @@
 
 
     //* By BLE
-    self.btStart.Hidden = YES;
-    self.btStop.Hidden = YES;
+    self.btSelectDevice.Enabled = YES;
+    self.btSaveDevice.Enabled = NO;
+    self.btStart.Enabled = NO;
+    self.btStop.Enabled = NO;
     
     [DeviceTracker sharedTracker].deviceSelectedBlock = ^(DeviceTracker *tracker){
         // TODO
@@ -121,7 +178,7 @@
                 NSLog(@"unlock Mac");
                 [MacGuarderHelper unlock];
             } else {
-                NSLog(@"Mac was unlocked already, do nothing.");
+                NSLog(@"Mac was unlocked already, do Enabledthing.");
             }
         } else {
             if (![MacGuarderHelper isScreenLocked]) {
@@ -132,6 +189,10 @@
             }
         }
     };
+    
+    // startup
+    self.user = [NSString stringWithFormat:@"%d", getuid()];
+    [self trackFavoriteDevicesNow];
     //*/
     
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE420BA2198794F10026B346 /* DevicesConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE420BA1198794F10026B346 /* DevicesConfig.plist */; };
+		CE420BA51987B7070026B346 /* UserInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE420BA41987B7070026B346 /* UserInfo.plist */; };
 		CEBF843B197FDE5400EBE976 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBF843A197FDE5400EBE976 /* Cocoa.framework */; };
 		CEBF8445197FDE5400EBE976 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEBF8443197FDE5400EBE976 /* InfoPlist.strings */; };
 		CEBF8447197FDE5400EBE976 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF8446197FDE5400EBE976 /* main.m */; };
@@ -51,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE420BA1198794F10026B346 /* DevicesConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DevicesConfig.plist; sourceTree = "<group>"; };
+		CE420BA41987B7070026B346 /* UserInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInfo.plist; sourceTree = "<group>"; };
 		CEBF8437197FDE5400EBE976 /* MacGuarder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacGuarder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEBF843A197FDE5400EBE976 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		CEBF843D197FDE5400EBE976 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -304,6 +308,8 @@
 			children = (
 				CEBF84A71980AD3400EBE976 /* DeviceKeeper.h */,
 				CEBF84A81980AD3400EBE976 /* DeviceKeeper.m */,
+				CE420BA1198794F10026B346 /* DevicesConfig.plist */,
+				CE420BA41987B7070026B346 /* UserInfo.plist */,
 			);
 			name = DeviceKeeper;
 			sourceTree = "<group>";
@@ -398,6 +404,8 @@
 				CEBF8445197FDE5400EBE976 /* InfoPlist.strings in Resources */,
 				CEBF8453197FDE5400EBE976 /* Images.xcassets in Resources */,
 				CEBF844B197FDE5400EBE976 /* Credits.rtf in Resources */,
+				CE420BA51987B7070026B346 /* UserInfo.plist in Resources */,
+				CE420BA2198794F10026B346 /* DevicesConfig.plist in Resources */,
 				CEBF8451197FDE5400EBE976 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
