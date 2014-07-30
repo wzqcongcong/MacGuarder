@@ -9,8 +9,10 @@
 
 
 @interface RSSISmootheningFilter ()
+
 @property (nonatomic, retain) NSMutableArray *samples;
 @property (nonatomic, assign) int currentSampleIndex;
+
 @end
 
 @implementation RSSISmootheningFilter
@@ -21,7 +23,7 @@
     static dispatch_once_t onceToken = 0;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[RSSISmootheningFilter alloc] init];
-        sharedInstance.numberOfSamples = 5;
+        sharedInstance.numberOfSamples = kDefaultNumberOfSamples;
         sharedInstance.currentSampleIndex = 0;
     });
     return sharedInstance;
@@ -76,6 +78,7 @@
 }
 
 #pragma mark - setters
+
 - (void)setNumberOfSamples:(int)numberOfSamples
 {
     _numberOfSamples = numberOfSamples;

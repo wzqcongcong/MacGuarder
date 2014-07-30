@@ -13,12 +13,10 @@
 #define kDevicesConfig                              @"DevicesConfig"    // DevicesConfig.plist
 #define kDevicesConfig_favoriteDevices              @"favoriteDevices"  // array
 #define kDevicesConfig_storedDevices                @"storedDevices"    // dictionary
-#define kDevicesConfig_storedDevices_idleRSSI       @"idleRSSI"
 #define kDevicesConfig_storedDevices_thresholdRSSI  @"thresholdRSSI"
 
 /* by NSUserDefaults*/
 #define kDevices                                    @"com.trendmicro.MacGuarder.Devices"
-#define kIdleRSSI                                   @"MacGuarderIdleRSSI"
 #define kThresholdRSSI                              @"MacGuarderThresholdRSSI"
 #define kDefaultInRangeThreshold                    -60
 
