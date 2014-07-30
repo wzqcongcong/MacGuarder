@@ -1,7 +1,8 @@
 .DS_Store
+.gitignore~
 build/
+*.xcuserstate
 MacGuarder.xcodeproj/xcuserdata/
 MacGuarder.xcodeproj/project.xcworkspace/xcshareddata/
 MacGuarder.xcodeproj/project.xcworkspace/xcuserdata/
-*.xcuserstate
-.gitignore~
+MacGuarder.xcodeproj/project.xcworkspace/xcuserdata/user.xcuserdatad/UserInterfaceState.xcuserstate

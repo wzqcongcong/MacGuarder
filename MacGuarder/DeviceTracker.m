@@ -40,8 +40,7 @@
     
     [[RSSISmootheningFilter sharedInstance] reset];
     
-    [NSThread detachNewThreadSelector:@selector(_updateRSSI) toTarget:self withObject:nil];
-    [NSThread detachNewThreadSelector:@selector(_updateStatus) toTarget:self withObject:nil];
+    [NSThread detachNewThreadSelector:@selector(updateStatus) toTarget:self withObject:nil];
     
     self.deviceInRange = YES;
     self.initialRSSI = -127;
@@ -69,7 +68,7 @@
     }
 }
 
-- (void)_updateRSSI
+- (void)updateStatus
 {
     while (self.isMonitoring) {
         if (self.device) {
@@ -86,65 +85,56 @@
                 [[RSSISmootheningFilter sharedInstance] addSample:rawRSSI];
                 self.currentRSSI = [[RSSISmootheningFilter sharedInstance] getMedianValue];
                 NSLog(@"connected, current RSSI: %d", self.currentRSSI);
-            } else {
+                
+                // device is in area
+                if (self.currentRSSI > self.inRangeThreshold) {
+                    NSLog(@"connected, device is in area.");
+                    // device was out of area before, trigger unlock.
+                    if (!self.deviceInRange) {
+                        NSLog(@"connected, device was out of area before, trigger unlock.");
+                        self.deviceInRange = YES;
+                        
+                        if (self.deviceRangeStatusUpdateBlock) {
+                            self.deviceRangeStatusUpdateBlock(self);
+                        }
+                    }
+                    // device was in area already, do nothing.
+                    else {
+                        NSLog(@"device was in area already, do nothing.");
+                    }
+                }
+                // device is out of area
+                else {
+                    NSLog(@"connected, device is out of area.");
+                    // device was in area before, trigger lock.
+                    if (self.deviceInRange) {
+                        NSLog(@"connected, device was in area before, trigger lock.");
+                        self.deviceInRange = NO;
+                        
+                        if (self.deviceRangeStatusUpdateBlock) {
+                            self.deviceRangeStatusUpdateBlock(self);
+                        }
+                    }
+                    // device was out of area already, do nothing.
+                    else {
+                        NSLog(@"device was out of area already, do nothing.");
+                    }
+                }
             }
             
             if (reconnected) {
                 self.initialRSSI = self.currentRSSI;
             }
+            
         } else {
             NSLog(@"no device");
         }
         
-        [NSThread sleepForTimeInterval:0.25];
+        [NSThread sleepForTimeInterval:0.5];
     }
     
     NSLog(@"close connection");
     [self.device closeConnection];
-}
-
-- (void)_updateStatus
-{
-    while (self.isMonitoring) {
-        if (self.device && [self.device isConnected]) {
-            // device is in area
-            if (self.currentRSSI > self.inRangeThreshold) {
-                NSLog(@"connected, device is in area.");
-                // device was out of area before, trigger unlock.
-                if (!self.deviceInRange) {
-                    NSLog(@"connected, device was out of area before, trigger unlock.");
-                    self.deviceInRange = YES;
-                    
-                    if (self.deviceRangeStatusUpdateBlock) {
-                        self.deviceRangeStatusUpdateBlock(self);
-                    }
-                }
-                // device was in area already, do nothing.
-                else {
-                    NSLog(@"device was in area already, do nothing.");
-                }
-            }
-            // device is out of area
-            else {
-                NSLog(@"connected, device is out of area.");
-                // device was in area before, trigger lock.
-                if (self.deviceInRange) {
-                    NSLog(@"connected, device was in area before, trigger lock.");
-                    self.deviceInRange = NO;
-                    
-                    if (self.deviceRangeStatusUpdateBlock) {
-                        self.deviceRangeStatusUpdateBlock(self);
-                    }
-                }
-                // device was out of area already, do nothing.
-                else {
-                    NSLog(@"device was out of area already, do nothing.");
-                }
-            }
-        }
-        
-        [NSThread sleepForTimeInterval:0.25];
-    }
 }
 
 @end
