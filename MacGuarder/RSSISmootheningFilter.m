@@ -21,7 +21,7 @@
     static dispatch_once_t onceToken = 0;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[RSSISmootheningFilter alloc] init];
-        sharedInstance.numberOfSamples = 10;
+        sharedInstance.numberOfSamples = 5;
         sharedInstance.currentSampleIndex = 0;
     });
     return sharedInstance;
@@ -29,16 +29,13 @@
 
 - (void)addSample:(int)value
 {
-    if(self.currentSampleIndex == 0)
-    {
+    if (self.currentSampleIndex == 0) {
         self.samples = [NSMutableArray array];
     }
     
-    if(self.currentSampleIndex > self.numberOfSamples-1)
-    {
+    if (self.currentSampleIndex > self.numberOfSamples-1) {
         [self.samples removeLastObject];
-    }else
-    {
+    } else {
         self.currentSampleIndex++;
     }
     
@@ -58,8 +55,7 @@
 - (int)getMedianValue
 {
     int accumulator = 0;
-    for(NSNumber *n in self.samples)
-    {
+    for (NSNumber *n in self.samples) {
         accumulator += [n intValue];
     }
     return accumulator / (int)self.samples.count;
@@ -70,8 +66,7 @@
     int min = [[self.samples firstObject] intValue];
     int max = [[self.samples firstObject] intValue];
     
-    for(NSNumber *n in self.samples)
-    {
+    for (NSNumber *n in self.samples) {
         int nn = [n intValue];
         if(nn > max) max = nn;
         if(nn < min) min = nn;

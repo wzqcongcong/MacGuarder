@@ -12,14 +12,14 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet NSButton *btSelectDevice;
-@property (assign) IBOutlet NSButton *btSaveDevice;
-@property (assign) IBOutlet NSTextField *lbSelectedDevice;
-@property (assign) IBOutlet NSSecureTextField *tfMacPassword;
-@property (assign) IBOutlet NSButton *btStart;
-@property (assign) IBOutlet NSButton *btStop;
-@property (assign) IBOutlet NSButton *btQuit;
+@property (weak) IBOutlet NSButton *btSelectDevice;
+@property (weak) IBOutlet NSButton *btSaveDevice;
+@property (weak) IBOutlet NSTextField *lbSelectedDevice;
+@property (weak) IBOutlet NSSecureTextField *tfMacPassword;
+@property (weak) IBOutlet NSButton *btStart;
+@property (weak) IBOutlet NSButton *btStop;
+@property (weak) IBOutlet NSButton *btQuit;
 
-@property (assign) NSString *user;  // uid of current user
+@property (strong) NSString *user;  // uid of current user
 
 @end

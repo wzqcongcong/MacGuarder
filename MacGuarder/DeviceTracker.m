@@ -84,6 +84,7 @@
                 BluetoothHCIRSSIValue rawRSSI = [self.device rawRSSI];
                 [[RSSISmootheningFilter sharedInstance] addSample:rawRSSI];
                 self.currentRSSI = [[RSSISmootheningFilter sharedInstance] getMedianValue];
+                NSLog(@"connected, current raw RSSI: %d", rawRSSI);
                 NSLog(@"connected, current RSSI: %d", self.currentRSSI);
                 
                 // device is in area

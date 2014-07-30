@@ -9,7 +9,6 @@
 #import "MacGuarderHelper.h"
 
 
-// TODO: password maybe need encryption
 NSString *password;
 
 
@@ -18,7 +17,7 @@ NSString *password;
 + (BOOL)isScreenLocked
 {
     BOOL locked = NO;
-    id o = [(NSDictionary*)CGSessionCopyCurrentDictionary() objectForKey:@"CGSSessionScreenIsLocked"];
+    id o = [(__bridge NSDictionary*)CGSessionCopyCurrentDictionary() objectForKey:@"CGSSessionScreenIsLocked"];
     if (o) {
         locked = [o boolValue];
     }
@@ -29,35 +28,35 @@ NSString *password;
 {
     if ([MacGuarderHelper isScreenLocked]) return;
 
-    // get the old setting
-    int screensaverDelay = [MacGuarderHelper getScreensaverDelay];
+    // get user's old setting
     BOOL screensaverAskForPassword = [MacGuarderHelper getScreensaverAskForPassword];
+    int screensaverDelay = [MacGuarderHelper getScreensaverDelay];
     
-    // set the new setting
-    [MacGuarderHelper setScreensaverDelay:0];
-    [MacGuarderHelper setScreensaverAskForPassword:YES];
+    // set the new setting for locking operation
+    [MacGuarderHelper setScreensaverAskForPassword:YES];    // ask for password to unlock
+    [MacGuarderHelper setScreensaverDelay:0];               // show login window immediately
 
-    // lock Mac
-    io_registry_entry_t r = IORegistryEntryFromPath(kIOMasterPortDefault,
-                                                    "IOService:/IOResources/IODisplayWrangler");
+    // shutdown display to idle status
+    io_registry_entry_t r = IORegistryEntryFromPath(kIOMasterPortDefault, "IOService:/IOResources/IODisplayWrangler");
     if (r) {
         IORegistryEntrySetCFProperty(r, CFSTR("IORequestIdle"), kCFBooleanTrue);
         IOObjectRelease(r);
     }
 
-    // restore the old setting after Mac is locked
+    // show login window 1s after display idle
     double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        io_registry_entry_t r = IORegistryEntryFromPath(kIOMasterPortDefault,
-                                                        "IOService:/IOResources/IODisplayWrangler");
+        // wakeup display from idle status to show login window
+        io_registry_entry_t r = IORegistryEntryFromPath(kIOMasterPortDefault, "IOService:/IOResources/IODisplayWrangler");
         if (r) {
             IORegistryEntrySetCFProperty(r, CFSTR("IORequestIdle"), kCFBooleanFalse);
             IOObjectRelease(r);
         }
 
-        [MacGuarderHelper setScreensaverDelay:screensaverDelay];
+        // restore user's old setting, the old setting only takes effect after next display idle.
         [MacGuarderHelper setScreensaverAskForPassword:screensaverAskForPassword];
+        [MacGuarderHelper setScreensaverDelay:screensaverDelay];
     });
 }
 
@@ -65,33 +64,24 @@ NSString *password;
 {
     if (![MacGuarderHelper isScreenLocked]) return;
 
-    io_registry_entry_t r = IORegistryEntryFromPath(kIOMasterPortDefault,
-                                                    "IOService:/IOResources/IODisplayWrangler");
+    // wakeup display from idle status to show login window
+    io_registry_entry_t r = IORegistryEntryFromPath(kIOMasterPortDefault, "IOService:/IOResources/IODisplayWrangler");
     if (r) {
         IORegistryEntrySetCFProperty(r, CFSTR("IORequestIdle"), kCFBooleanFalse);
         IOObjectRelease(r);
     }
 
-    // use Apple Script to unlock Mac
+    // use Apple Script to input password and unlock Mac
     NSString *s = @"tell application \"System Events\" to keystroke \"%@\"\n\
                     tell application \"System Events\" to keystroke return";
 
-    NSAppleScript *script = [[[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:s, password]] autorelease];
+    NSAppleScript *script = [[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:s, password]];
     [script executeAndReturnError:nil];
 }
 
 + (void)setPassword:(NSString*)p
 {
-    if (password) {
-        [password release];
-    }
-
     password = [p copy];
-}
-
-+ (NSString*)getPassword
-{
-    return [[password copy] autorelease];
 }
 
 
@@ -112,7 +102,7 @@ NSString *password;
 + (void)setScreensaverDelay:(int)value
 {
     NSArray *arguments = @[@"write",@"com.apple.screensaver",@"askForPasswordDelay", [NSString stringWithFormat:@"%i", value]];
-    NSTask *resetDelayTask = [[[NSTask alloc] init] autorelease];
+    NSTask *resetDelayTask = [[NSTask alloc] init];
     [resetDelayTask setArguments:arguments];
     [resetDelayTask setLaunchPath: @"/usr/bin/defaults"];
     [resetDelayTask launch];
@@ -121,12 +111,12 @@ NSString *password;
 + (void)setScreensaverAskForPassword:(BOOL)value
 {
     NSArray *arguments = @[@"write",@"com.apple.screensaver",@"askForPassword", [NSString stringWithFormat:@"%i", value]];
-    NSTask *resetDelayTask = [[[NSTask alloc] init] autorelease];
+    NSTask *resetDelayTask = [[NSTask alloc] init];
     [resetDelayTask setArguments:arguments];
     [resetDelayTask setLaunchPath: @"/usr/bin/defaults"];
     [resetDelayTask launch];
 
-    NSAppleScript *kickSecurityPreferencesScript = [[[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:@"tell application \"System Events\" to tell security preferences to set require password to wake to %@", value ? @"true" : @"false"]] autorelease];
+    NSAppleScript *kickSecurityPreferencesScript = [[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:@"tell application \"System Events\" to tell security preferences to set require password to wake to %@", value ? @"true" : @"false"]];
     [kickSecurityPreferencesScript executeAndReturnError:nil];
 }
 
