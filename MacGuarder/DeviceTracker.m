@@ -51,16 +51,34 @@
     _isMonitoring = NO;
 }
 
+// just for test scanning services
+- (void)testService
+{
+    IOBluetoothServiceBrowserController *serviceSelector = [IOBluetoothServiceBrowserController serviceBrowserController:kNilOptions];
+    [serviceSelector runModal];
+    
+    NSArray *results = [serviceSelector getResults];
+    [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        IOBluetoothSDPServiceRecord *service = (IOBluetoothSDPServiceRecord *)obj;
+        NSLog(@"%@", [service getServiceName]);
+        
+        NSDictionary *attributes = [service attributes];
+        [attributes enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            NSLog(@"%@, %@", key, obj);
+        }];
+    }];
+}
+
 - (void)selectDevice
 {
     IOBluetoothDeviceSelectorController *deviceSelector = [IOBluetoothDeviceSelectorController deviceSelector];
+    // show dialog to select
     [deviceSelector runModal];
     
     NSArray *results = [deviceSelector getResults];
     
     if (results) {
         self.device = [results objectAtIndex:0];
-        //[self.device closeConnection];
         
         if (self.deviceSelectedBlock) {
             self.deviceSelectedBlock(self);
@@ -131,7 +149,7 @@
             NSLog(@"no device");
         }
         
-        [NSThread sleepForTimeInterval:0.5];
+        [NSThread sleepForTimeInterval:kTrackerTimeInteval];
     }
     
     NSLog(@"close connection");

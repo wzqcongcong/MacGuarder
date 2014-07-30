@@ -727,7 +727,7 @@
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G1q-lV-peJ">
-                        <rect key="frame" x="18" y="197" width="102" height="17"/>
+                        <rect key="frame" x="18" y="194" width="102" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Mac Password" id="0T7-EG-9Dy">
                             <font key="font" metaFont="system"/>
@@ -765,6 +765,17 @@
                         </buttonCell>
                         <connections>
                             <action selector="didClickSaveDevice:" target="Voe-Tx-rLC" id="9ht-6s-vpQ"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="saK-l8-7dh">
+                        <rect key="frame" x="227" y="134" width="112" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Test Service" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DqS-Ba-iph">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="testService:" target="Voe-Tx-rLC" id="j4f-r9-VMs"/>
                         </connections>
                     </button>
                 </subviews>

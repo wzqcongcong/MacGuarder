@@ -16,7 +16,6 @@
 #import "GCDWebServerDataResponse.h"
 */
 
-
 @implementation AppDelegate
 
 #pragma mark - UI action
@@ -84,6 +83,10 @@
     [[NSRunningApplication currentApplication] terminate];
 }
 
+- (IBAction)testService:(id)sender {
+    [[DeviceTracker sharedTracker] testService];
+}
+
 #pragma mark - startup
 
 - (void)trackFavoriteDevicesNow
@@ -93,15 +96,16 @@
         NSString *theFavoriteDevice = [favoriteDevices firstObject];
         
         if (theFavoriteDevice) {
-            NSLog(@"tracking device: [%@]", theFavoriteDevice);
-            
             // construct favorite device
             BluetoothDeviceAddress *deviceAddress = malloc(sizeof(BluetoothDeviceAddress));
             IOBluetoothNSStringToDeviceAddress(theFavoriteDevice, deviceAddress);
             [DeviceTracker sharedTracker].device = [IOBluetoothDevice deviceWithAddress:deviceAddress];
+            if (deviceAddress) free(deviceAddress);
             
             if ([DeviceTracker sharedTracker].device) {
-                self.lbSelectedDevice.stringValue = theFavoriteDevice;
+                NSLog(@"tracking favorite device: %@ [%@]", [DeviceTracker sharedTracker].device.name, theFavoriteDevice);
+                
+                self.lbSelectedDevice.stringValue = [DeviceTracker sharedTracker].device.name; // cache
                 self.btSelectDevice.Enabled = NO;
                 self.btSaveDevice.Enabled = NO;
                 self.btStart.Enabled = NO;
@@ -114,6 +118,9 @@
                     [[DeviceTracker sharedTracker] startMonitoring];
                 }
                 self.btStop.Enabled = YES;
+                
+            } else {
+                NSLog(@"no favorite device to track");
             }
         }
     }

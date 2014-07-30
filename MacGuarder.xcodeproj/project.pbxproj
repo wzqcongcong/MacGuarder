@@ -21,7 +21,6 @@
 		CEBF8463197FDE5400EBE976 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEBF8461197FDE5400EBE976 /* InfoPlist.strings */; };
 		CEBF8465197FDE5400EBE976 /* MacGuarderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF8464197FDE5400EBE976 /* MacGuarderTests.m */; };
 		CEBF849E197FDF2200EBE976 /* MacGuarderHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF849D197FDF2200EBE976 /* MacGuarderHelper.m */; };
-		CEBF84A0197FE11700EBE976 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBF849F197FE11700EBE976 /* libz.dylib */; };
 		CEBF84A61980AD2300EBE976 /* DeviceTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF84A51980AD2300EBE976 /* DeviceTracker.m */; };
 		CEBF84A91980AD3400EBE976 /* DeviceKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF84A81980AD3400EBE976 /* DeviceKeeper.m */; };
 		CEBF84AB1980B2F600EBE976 /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBF84AA1980B2F600EBE976 /* IOBluetooth.framework */; };
@@ -63,7 +62,6 @@
 		CEBF8464197FDE5400EBE976 /* MacGuarderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MacGuarderTests.m; sourceTree = "<group>"; };
 		CEBF849C197FDF2200EBE976 /* MacGuarderHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacGuarderHelper.h; sourceTree = "<group>"; };
 		CEBF849D197FDF2200EBE976 /* MacGuarderHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacGuarderHelper.m; sourceTree = "<group>"; };
-		CEBF849F197FE11700EBE976 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		CEBF84A41980AD2300EBE976 /* DeviceTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceTracker.h; sourceTree = "<group>"; };
 		CEBF84A51980AD2300EBE976 /* DeviceTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceTracker.m; sourceTree = "<group>"; };
 		CEBF84A71980AD3400EBE976 /* DeviceKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceKeeper.h; sourceTree = "<group>"; };
@@ -82,7 +80,6 @@
 				CEBF84AD1980B2FD00EBE976 /* IOBluetoothUI.framework in Frameworks */,
 				CEBF84AB1980B2F600EBE976 /* IOBluetooth.framework in Frameworks */,
 				CEBF843B197FDE5400EBE976 /* Cocoa.framework in Frameworks */,
-				CEBF84A0197FE11700EBE976 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,7 +117,6 @@
 		CEBF8439197FDE5400EBE976 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CEBF849F197FE11700EBE976 /* libz.dylib */,
 				CEBF84AC1980B2FD00EBE976 /* IOBluetoothUI.framework */,
 				CEBF84AA1980B2F600EBE976 /* IOBluetooth.framework */,
 				CEBF843A197FDE5400EBE976 /* Cocoa.framework */,

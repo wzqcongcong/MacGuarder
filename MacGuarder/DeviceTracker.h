@@ -11,6 +11,10 @@
 #import <IOBluetoothUI/IOBluetoothUI.h>
 
 
+#define kService                @"com.trendmicro.MacGuarder"    // service provided by iPhone installed with MacGuarder app
+#define kTrackerTimeInteval     0.5
+
+
 @class DeviceTracker;
 typedef void (^DeviceRangeStatusUpdateBlock)(DeviceTracker *tracker);   // callback for updating device range status
 typedef void (^DeviceSelectedBlock)(DeviceTracker *tracker);            // callback for select a device to monitor
@@ -33,5 +37,7 @@ typedef void (^DeviceSelectedBlock)(DeviceTracker *tracker);            // callb
 - (void)selectDevice;
 - (void)startMonitoring;
 - (void)stopMonitoring;
+
+- (void)testService;
 
 @end

@@ -17,10 +17,14 @@ NSString *password;
 + (BOOL)isScreenLocked
 {
     BOOL locked = NO;
-    id o = [(__bridge NSDictionary*)CGSessionCopyCurrentDictionary() objectForKey:@"CGSSessionScreenIsLocked"];
+    
+    CFDictionaryRef CGSessionCurrentDictionary = CGSessionCopyCurrentDictionary();
+    id o = [(__bridge NSDictionary*)CGSessionCurrentDictionary objectForKey:@"CGSSessionScreenIsLocked"];
     if (o) {
         locked = [o boolValue];
     }
+    CFRelease(CGSessionCurrentDictionary);
+    
     return locked;
 }
 
@@ -101,7 +105,7 @@ NSString *password;
 
 + (void)setScreensaverDelay:(int)value
 {
-    NSArray *arguments = @[@"write",@"com.apple.screensaver",@"askForPasswordDelay", [NSString stringWithFormat:@"%i", value]];
+    NSArray *arguments = @[@"write", @"com.apple.screensaver", @"askForPasswordDelay", [NSString stringWithFormat:@"%i", value]];
     NSTask *resetDelayTask = [[NSTask alloc] init];
     [resetDelayTask setArguments:arguments];
     [resetDelayTask setLaunchPath: @"/usr/bin/defaults"];
@@ -110,7 +114,7 @@ NSString *password;
 
 + (void)setScreensaverAskForPassword:(BOOL)value
 {
-    NSArray *arguments = @[@"write",@"com.apple.screensaver",@"askForPassword", [NSString stringWithFormat:@"%i", value]];
+    NSArray *arguments = @[@"write", @"com.apple.screensaver", @"askForPassword", [NSString stringWithFormat:@"%i", value]];
     NSTask *resetDelayTask = [[NSTask alloc] init];
     [resetDelayTask setArguments:arguments];
     [resetDelayTask setLaunchPath: @"/usr/bin/defaults"];

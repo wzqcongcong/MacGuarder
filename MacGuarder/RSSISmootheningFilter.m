@@ -1,9 +1,3 @@
-//
-//  RSSISmootheningFilter.m
-//
-//  Created by Bogdan Covaci on 29.11.2013.
-//  Copyright (c) 2013 Alex Covaci. All rights reserved.
-//
 
 #import "RSSISmootheningFilter.h"
 
@@ -70,8 +64,8 @@
     
     for (NSNumber *n in self.samples) {
         int nn = [n intValue];
-        if(nn > max) max = nn;
-        if(nn < min) min = nn;
+        if (nn > max) max = nn;
+        if (nn < min) min = nn;
     }
     
     return max - min;

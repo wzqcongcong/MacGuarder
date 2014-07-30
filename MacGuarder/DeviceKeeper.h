@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 /* by Plist */
 #define kUserInfo                                   @"UserInfo"         // UserInfo.plist
 #define kDevicesConfig                              @"DevicesConfig"    // DevicesConfig.plist
@@ -19,6 +20,7 @@
 #define kDevices                                    @"com.trendmicro.MacGuarder.Devices"
 #define kThresholdRSSI                              @"MacGuarderThresholdRSSI"
 #define kDefaultInRangeThreshold                    -60
+
 
 @interface DeviceKeeper : NSObject
 
