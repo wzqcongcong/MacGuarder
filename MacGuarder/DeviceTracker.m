@@ -80,6 +80,8 @@
     if (results) {
         self.device = [results objectAtIndex:0];
         
+        [self.device performSDPQuery:self];
+        
         if (self.deviceSelectedBlock) {
             self.deviceSelectedBlock(self);
         }
@@ -154,6 +156,36 @@
     
     NSLog(@"close connection");
     [self.device closeConnection];
+}
+
+
+#pragma mark - delegate
+
+- (void)sdpQueryComplete:(IOBluetoothDevice *)device status:(IOReturn)status
+{
+    if (status == kIOReturnSuccess) {
+        // get services of this device
+        NSArray *services = device.services;
+        [services enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            IOBluetoothSDPServiceRecord *service = (IOBluetoothSDPServiceRecord *)obj;
+            // match desired services
+            NSArray *matchedUUIDs = @[[IOBluetoothSDPUUID uuid16:kBluetoothSDPUUID16ServiceClassAudioSource],
+                                      [IOBluetoothSDPUUID uuid16:kBluetoothSDPUUID16ServiceClassPhonebookAccess]];
+            NSLog(@"%@ %@", [service getServiceName], ([service hasServiceFromArray:matchedUUIDs] ? @"- Matched!" : @""));
+        }];
+    } else {
+        NSLog(@"failed to get services of device: %@", device.name);
+    }
+}
+
+- (void)connectionComplete:(IOBluetoothDevice *)device status:(IOReturn)status
+{
+    
+}
+
+- (void)remoteNameRequestComplete:(IOBluetoothDevice *)device status:(IOReturn)status
+{
+    
 }
 
 @end

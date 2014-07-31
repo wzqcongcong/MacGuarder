@@ -20,7 +20,7 @@ typedef void (^DeviceRangeStatusUpdateBlock)(DeviceTracker *tracker);   // callb
 typedef void (^DeviceSelectedBlock)(DeviceTracker *tracker);            // callback for select a device to monitor
 
 
-@interface DeviceTracker : NSObject
+@interface DeviceTracker : NSObject <IOBluetoothDeviceAsyncCallbacks>
 
 @property (nonatomic, strong) IOBluetoothDevice *device;                // the device to be monitored
 @property (nonatomic, assign) BluetoothHCIRSSIValue initialRSSI;
