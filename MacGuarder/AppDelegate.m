@@ -16,6 +16,10 @@
 #import "GCDWebServerDataResponse.h"
 */
 
+
+#define kAUTH_RIGHT_CONFIG_MODIFY    "com.trendmicro.iTIS.MacGuarder"
+
+
 @implementation AppDelegate
 
 #pragma mark - UI action
@@ -55,7 +59,7 @@
     self.btStart.Enabled = NO;
     self.btSelectDevice.Enabled = NO;
     self.btSaveDevice.Enabled = NO;
-    [self.tfMacPassword setEditable:NO];
+    self.tfMacPassword.Enabled = NO;
     
     [MacGuarderHelper setPassword:self.tfMacPassword.stringValue];
     if (![[DeviceTracker sharedTracker] isMonitoring]) {
@@ -71,7 +75,7 @@
     
     [[DeviceTracker sharedTracker] stopMonitoring];
     
-    [self.tfMacPassword setEditable:YES];
+    self.tfMacPassword.Enabled = YES;
     self.btStart.Enabled = YES;
     self.btSelectDevice.Enabled = YES;
     self.btSaveDevice.Enabled = YES;
@@ -111,7 +115,7 @@
                 self.btStart.Enabled = NO;
                 
                 self.tfMacPassword.stringValue = [DeviceKeeper getPasswordForUser:self.user];
-                [self.tfMacPassword setEditable:NO];
+                self.tfMacPassword.Enabled = NO;
                 [MacGuarderHelper setPassword:self.tfMacPassword.stringValue];
                 
                 if (![[DeviceTracker sharedTracker] isMonitoring]) {
@@ -126,6 +130,21 @@
     }
 }
 
+-(void)awakeFromNib
+{
+    // request a default admin user right
+    // PS:
+    // 1. This default admin user right is shared with other app, like Apple's Preferences->Sharing,
+    //    this means the lock they use are in sync mode.
+    //    Once the admin user logins Mac, this kind of right is got, and their locks are automatically unlocked.
+    // 2. But Apple's Preferences->Users & Groups app uses a higher super root user right,
+    //    even the admin user logins Mac, this kind of right is still not got, need to input password to get it.
+    [_authorizationView setString:kAUTH_RIGHT_CONFIG_MODIFY];
+    
+    // setup
+    [_authorizationView setAutoupdate:YES];
+    [_authorizationView setDelegate:self];
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -176,6 +195,9 @@
     self.btStart.Enabled = NO;
     self.btStop.Enabled = NO;
     
+    // mannually sync lock status of admin user rights
+    [self.authorizationView updateStatus:nil];
+    
     [DeviceTracker sharedTracker].deviceSelectedBlock = ^(DeviceTracker *tracker){
         // TODO
     };
@@ -202,6 +224,24 @@
     [self trackFavoriteDevicesNow];
     //*/
     
+}
+
+#pragma mark - delegate
+
+-(void)authorizationViewDidAuthorize:(SFAuthorizationView *)view
+{
+    _tfMacPassword.Enabled = YES;
+    
+    AuthorizationRights *rights = self.authorizationView.authorizationRights;
+    AuthorizationItem *items = rights->items;
+    for (int i=0; i < rights->count; ++i) {
+        NSLog(@"%s", items[i].name);
+    }
+}
+
+- (void)authorizationViewDidDeauthorize:(SFAuthorizationView *)view
+{
+    _tfMacPassword.Enabled = NO;
 }
 
 @end

@@ -13,6 +13,7 @@
         <customObject id="-3" userLabel="Application"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
+                <outlet property="authorizationView" destination="PN1-Tx-we8" id="gvR-FY-rL9"/>
                 <outlet property="btQuit" destination="Iin-2e-mSL" id="8w5-d2-dUA"/>
                 <outlet property="btSaveDevice" destination="tox-dM-6cv" id="9IO-cU-4P4"/>
                 <outlet property="btSelectDevice" destination="gmA-3V-L3x" id="lYr-ij-kKE"/>
@@ -676,14 +677,14 @@
         </menu>
         <window title="MacGuarder" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES"/>
-            <rect key="contentRect" x="335" y="390" width="353" height="236"/>
+            <rect key="contentRect" x="335" y="390" width="353" height="264"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" placeholderIntrinsicWidth="353" placeholderIntrinsicHeight="207" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="353" height="236"/>
+                <rect key="frame" x="0.0" y="0.0" width="353" height="264"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gmA-3V-L3x">
-                        <rect key="frame" x="14" y="86" width="112" height="32"/>
+                        <rect key="frame" x="14" y="114" width="112" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Select Device" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9NB-ud-atH">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -727,7 +728,7 @@
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G1q-lV-peJ">
-                        <rect key="frame" x="18" y="194" width="102" height="17"/>
+                        <rect key="frame" x="18" y="222" width="102" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Mac Password" id="0T7-EG-9Dy">
                             <font key="font" metaFont="system"/>
@@ -736,7 +737,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ahq-7r-5SZ">
-                        <rect key="frame" x="18" y="143" width="317" height="17"/>
+                        <rect key="frame" x="18" y="171" width="317" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Please Select a Device" id="oRs-gE-tiO">
                             <font key="font" metaFont="system"/>
@@ -745,7 +746,7 @@
                         </textFieldCell>
                     </textField>
                     <secureTextField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OOL-iv-YRx">
-                        <rect key="frame" x="148" y="194" width="185" height="22"/>
+                        <rect key="frame" x="148" y="222" width="185" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="PU8-6P-AzS">
                             <font key="font" metaFont="system"/>
@@ -757,7 +758,7 @@
                         </secureTextFieldCell>
                     </secureTextField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tox-dM-6cv">
-                        <rect key="frame" x="227" y="86" width="112" height="32"/>
+                        <rect key="frame" x="227" y="114" width="112" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Save Device" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LAg-NO-2Uh">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -768,7 +769,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="saK-l8-7dh">
-                        <rect key="frame" x="227" y="134" width="112" height="32"/>
+                        <rect key="frame" x="227" y="162" width="112" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Test Service" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DqS-Ba-iph">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -778,6 +779,10 @@
                             <action selector="testService:" target="Voe-Tx-rLC" id="j4f-r9-VMs"/>
                         </connections>
                     </button>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PN1-Tx-we8" customClass="SFAuthorizationView">
+                        <rect key="frame" x="20" y="61" width="313" height="40"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                 </subviews>
             </view>
         </window>
