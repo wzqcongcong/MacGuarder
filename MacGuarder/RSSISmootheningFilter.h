@@ -9,7 +9,7 @@
 
 @property (nonatomic, assign) int numberOfSamples;
 
-+ (RSSISmootheningFilter*)sharedInstance;
++ (RSSISmootheningFilter *)sharedInstance;
 - (void)addSample:(int)value;
 - (void)reset;
 - (int)getMedianValue;

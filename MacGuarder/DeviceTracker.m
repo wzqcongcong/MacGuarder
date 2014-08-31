@@ -20,7 +20,7 @@
 
 @implementation DeviceTracker
 
-+ (DeviceTracker*)sharedTracker
++ (DeviceTracker *)sharedTracker
 {
     static DeviceTracker *sharedInstance = nil;
     static dispatch_once_t onceToken = 0;

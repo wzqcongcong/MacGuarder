@@ -34,7 +34,7 @@ typedef void (^DeviceSelectedBlock)(DeviceTracker *tracker);            // callb
 @property (nonatomic, copy) DeviceRangeStatusUpdateBlock deviceRangeStatusUpdateBlock;
 @property (nonatomic, copy) DeviceSelectedBlock deviceSelectedBlock;
 
-+ (DeviceTracker*)sharedTracker;
++ (DeviceTracker *)sharedTracker;
 - (void)selectDevice;
 - (void)startMonitoring;
 - (void)stopMonitoring;

@@ -11,7 +11,7 @@
 
 @implementation RSSISmootheningFilter
 
-+ (RSSISmootheningFilter*)sharedInstance
++ (RSSISmootheningFilter *)sharedInstance
 {
     static RSSISmootheningFilter *sharedInstance = nil;
     static dispatch_once_t onceToken = 0;
