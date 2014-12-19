@@ -51,6 +51,10 @@
 - (int)getMedianValue
 {
     int accumulator = 0;
+    if (self.samples.count == 0) {
+        return accumulator;
+    }
+
     for (NSNumber *n in self.samples) {
         accumulator += [n intValue];
     }
