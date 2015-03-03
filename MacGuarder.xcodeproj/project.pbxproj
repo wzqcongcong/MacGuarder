@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84E68BA21AA5B8E600D3811A /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E68BA11AA5B8E600D3811A /* SecurityInterface.framework */; };
+		84E68BA41AA5BA3700D3811A /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E68BA31AA5BA3700D3811A /* CoreBluetooth.framework */; };
 		CE420BA2198794F10026B346 /* DevicesConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE420BA1198794F10026B346 /* DevicesConfig.plist */; };
 		CE420BA51987B7070026B346 /* UserInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE420BA41987B7070026B346 /* UserInfo.plist */; };
 		CEBF843B197FDE5400EBE976 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBF843A197FDE5400EBE976 /* Cocoa.framework */; };
@@ -16,10 +18,6 @@
 		CEBF844E197FDE5400EBE976 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF844D197FDE5400EBE976 /* AppDelegate.m */; };
 		CEBF8451197FDE5400EBE976 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEBF844F197FDE5400EBE976 /* MainMenu.xib */; };
 		CEBF8453197FDE5400EBE976 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEBF8452197FDE5400EBE976 /* Images.xcassets */; };
-		CEBF845A197FDE5400EBE976 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBF8459197FDE5400EBE976 /* XCTest.framework */; };
-		CEBF845B197FDE5400EBE976 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBF843A197FDE5400EBE976 /* Cocoa.framework */; };
-		CEBF8463197FDE5400EBE976 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEBF8461197FDE5400EBE976 /* InfoPlist.strings */; };
-		CEBF8465197FDE5400EBE976 /* MacGuarderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF8464197FDE5400EBE976 /* MacGuarderTests.m */; };
 		CEBF849E197FDF2200EBE976 /* MacGuarderHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF849D197FDF2200EBE976 /* MacGuarderHelper.m */; };
 		CEBF84A61980AD2300EBE976 /* DeviceTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF84A51980AD2300EBE976 /* DeviceTracker.m */; };
 		CEBF84A91980AD3400EBE976 /* DeviceKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF84A81980AD3400EBE976 /* DeviceKeeper.m */; };
@@ -28,17 +26,9 @@
 		CEBF84B01980B61300EBE976 /* RSSISmootheningFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF84AF1980B61300EBE976 /* RSSISmootheningFilter.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		CEBF845C197FDE5400EBE976 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CEBF842F197FDE5400EBE976 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CEBF8436197FDE5400EBE976;
-			remoteInfo = MacGuarder;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		84E68BA11AA5B8E600D3811A /* SecurityInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityInterface.framework; path = System/Library/Frameworks/SecurityInterface.framework; sourceTree = SDKROOT; };
+		84E68BA31AA5BA3700D3811A /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		CE420BA1198794F10026B346 /* DevicesConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DevicesConfig.plist; sourceTree = "<group>"; };
 		CE420BA41987B7070026B346 /* UserInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInfo.plist; sourceTree = "<group>"; };
 		CEBF8437197FDE5400EBE976 /* MacGuarder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacGuarder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,11 +45,6 @@
 		CEBF844D197FDE5400EBE976 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CEBF8450197FDE5400EBE976 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		CEBF8452197FDE5400EBE976 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		CEBF8458197FDE5400EBE976 /* MacGuarderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacGuarderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEBF8459197FDE5400EBE976 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		CEBF8460197FDE5400EBE976 /* MacGuarderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MacGuarderTests-Info.plist"; sourceTree = "<group>"; };
-		CEBF8462197FDE5400EBE976 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CEBF8464197FDE5400EBE976 /* MacGuarderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MacGuarderTests.m; sourceTree = "<group>"; };
 		CEBF849C197FDF2200EBE976 /* MacGuarderHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacGuarderHelper.h; sourceTree = "<group>"; };
 		CEBF849D197FDF2200EBE976 /* MacGuarderHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacGuarderHelper.m; sourceTree = "<group>"; };
 		CEBF84A41980AD2300EBE976 /* DeviceTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceTracker.h; sourceTree = "<group>"; };
@@ -77,18 +62,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84E68BA41AA5BA3700D3811A /* CoreBluetooth.framework in Frameworks */,
 				CEBF84AD1980B2FD00EBE976 /* IOBluetoothUI.framework in Frameworks */,
 				CEBF84AB1980B2F600EBE976 /* IOBluetooth.framework in Frameworks */,
+				84E68BA21AA5B8E600D3811A /* SecurityInterface.framework in Frameworks */,
 				CEBF843B197FDE5400EBE976 /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CEBF8455197FDE5400EBE976 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CEBF845B197FDE5400EBE976 /* Cocoa.framework in Frameworks */,
-				CEBF845A197FDE5400EBE976 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,7 +77,6 @@
 			isa = PBXGroup;
 			children = (
 				CEBF8440197FDE5400EBE976 /* MacGuarder */,
-				CEBF845E197FDE5400EBE976 /* MacGuarderTests */,
 				CEBF8439197FDE5400EBE976 /* Frameworks */,
 				CEBF8438197FDE5400EBE976 /* Products */,
 			);
@@ -109,7 +86,6 @@
 			isa = PBXGroup;
 			children = (
 				CEBF8437197FDE5400EBE976 /* MacGuarder.app */,
-				CEBF8458197FDE5400EBE976 /* MacGuarderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,10 +93,11 @@
 		CEBF8439197FDE5400EBE976 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84E68BA31AA5BA3700D3811A /* CoreBluetooth.framework */,
 				CEBF84AC1980B2FD00EBE976 /* IOBluetoothUI.framework */,
 				CEBF84AA1980B2F600EBE976 /* IOBluetooth.framework */,
+				84E68BA11AA5B8E600D3811A /* SecurityInterface.framework */,
 				CEBF843A197FDE5400EBE976 /* Cocoa.framework */,
-				CEBF8459197FDE5400EBE976 /* XCTest.framework */,
 				CEBF843C197FDE5400EBE976 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -158,24 +135,6 @@
 				CEBF8446197FDE5400EBE976 /* main.m */,
 				CEBF8448197FDE5400EBE976 /* MacGuarder-Prefix.pch */,
 				CEBF8449197FDE5400EBE976 /* Credits.rtf */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		CEBF845E197FDE5400EBE976 /* MacGuarderTests */ = {
-			isa = PBXGroup;
-			children = (
-				CEBF8464197FDE5400EBE976 /* MacGuarderTests.m */,
-				CEBF845F197FDE5400EBE976 /* Supporting Files */,
-			);
-			path = MacGuarderTests;
-			sourceTree = "<group>";
-		};
-		CEBF845F197FDE5400EBE976 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				CEBF8460197FDE5400EBE976 /* MacGuarderTests-Info.plist */,
-				CEBF8461197FDE5400EBE976 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -240,24 +199,6 @@
 			productReference = CEBF8437197FDE5400EBE976 /* MacGuarder.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CEBF8457197FDE5400EBE976 /* MacGuarderTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CEBF846B197FDE5400EBE976 /* Build configuration list for PBXNativeTarget "MacGuarderTests" */;
-			buildPhases = (
-				CEBF8454197FDE5400EBE976 /* Sources */,
-				CEBF8455197FDE5400EBE976 /* Frameworks */,
-				CEBF8456197FDE5400EBE976 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CEBF845D197FDE5400EBE976 /* PBXTargetDependency */,
-			);
-			name = MacGuarderTests;
-			productName = MacGuarderTests;
-			productReference = CEBF8458197FDE5400EBE976 /* MacGuarderTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -266,11 +207,6 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = TrendMicro;
-				TargetAttributes = {
-					CEBF8457197FDE5400EBE976 = {
-						TestTargetID = CEBF8436197FDE5400EBE976;
-					};
-				};
 			};
 			buildConfigurationList = CEBF8432197FDE5400EBE976 /* Build configuration list for PBXProject "MacGuarder" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -286,7 +222,6 @@
 			projectRoot = "";
 			targets = (
 				CEBF8436197FDE5400EBE976 /* MacGuarder */,
-				CEBF8457197FDE5400EBE976 /* MacGuarderTests */,
 			);
 		};
 /* End PBXProject section */
@@ -302,14 +237,6 @@
 				CE420BA51987B7070026B346 /* UserInfo.plist in Resources */,
 				CE420BA2198794F10026B346 /* DevicesConfig.plist in Resources */,
 				CEBF8451197FDE5400EBE976 /* MainMenu.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CEBF8456197FDE5400EBE976 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CEBF8463197FDE5400EBE976 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,23 +256,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CEBF8454197FDE5400EBE976 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CEBF8465197FDE5400EBE976 /* MacGuarderTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		CEBF845D197FDE5400EBE976 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CEBF8436197FDE5400EBE976 /* MacGuarder */;
-			targetProxy = CEBF845C197FDE5400EBE976 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CEBF8443197FDE5400EBE976 /* InfoPlist.strings */ = {
@@ -370,14 +281,6 @@
 				CEBF8450197FDE5400EBE976 /* Base */,
 			);
 			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-		CEBF8461197FDE5400EBE976 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CEBF8462197FDE5400EBE976 /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -415,7 +318,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -448,7 +351,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -481,46 +384,6 @@
 			};
 			name = Release;
 		};
-		CEBF846C197FDE5400EBE976 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MacGuarder.app/Contents/MacOS/MacGuarder";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MacGuarder/MacGuarder-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "MacGuarderTests/MacGuarderTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		CEBF846D197FDE5400EBE976 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MacGuarder.app/Contents/MacOS/MacGuarder";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MacGuarder/MacGuarder-Prefix.pch";
-				INFOPLIST_FILE = "MacGuarderTests/MacGuarderTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -538,15 +401,6 @@
 			buildConfigurations = (
 				CEBF8469197FDE5400EBE976 /* Debug */,
 				CEBF846A197FDE5400EBE976 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CEBF846B197FDE5400EBE976 /* Build configuration list for PBXNativeTarget "MacGuarderTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CEBF846C197FDE5400EBE976 /* Debug */,
-				CEBF846D197FDE5400EBE976 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
