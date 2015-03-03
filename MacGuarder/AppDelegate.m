@@ -10,17 +10,43 @@
 #import "MacGuarderHelper.h"
 #import "DeviceTracker.h"
 #import "DeviceKeeper.h"
+#import "DDLog.h"
+#import "DDASLLogger.h"
+#import "DDTTYLogger.h"
+#import "DDFileLogger.h"
+#import "LogFormatter.h"
 
 /*
 #import "GCDWebServer.h"
 #import "GCDWebServerDataResponse.h"
 */
 
-
 #define kAUTH_RIGHT_CONFIG_MODIFY    "com.trendmicro.iTIS.MacGuarder"
 
-
 @implementation AppDelegate
+
+int ddLogLevel = LOG_LEVEL_INFO;
+
++ (void)setupLog
+{
+    LogFormatter *logFormatter = [[LogFormatter alloc] init];
+
+    DDASLLogger *aslLogger = [DDASLLogger sharedInstance];
+    [aslLogger setLogFormatter:logFormatter];
+    [DDLog addLogger:aslLogger];
+
+    DDTTYLogger *ttyLogger = [DDTTYLogger sharedInstance];
+    [ttyLogger setLogFormatter:logFormatter];
+    [DDLog addLogger:ttyLogger];
+
+    NSString *logDir = [NSString stringWithFormat:@"%@/Library/Logs/TrendMicro/MacGuarder", NSHomeDirectory()];
+    DDLogFileManagerDefault *logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logDir];
+    DDFileLogger *fileLogger = [[DDFileLogger alloc] initWithLogFileManager:(logFileManager)];
+    fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+    fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
+    [fileLogger setLogFormatter:logFormatter];
+    [DDLog addLogger:fileLogger];
+}
 
 #pragma mark - UI action
 
@@ -148,6 +174,10 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    [AppDelegate setupLog];
+
+    DDLogInfo(@"%s", __FUNCTION__);
+
     /* By Web Server
     @autoreleasepool {
          
