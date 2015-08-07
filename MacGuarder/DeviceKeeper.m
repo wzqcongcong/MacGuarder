@@ -7,6 +7,7 @@
 //
 
 #import "DeviceKeeper.h"
+#import "LogFormatter.h"
 
 NSInteger const kDefaultInRangeThreshold = -60;
 

@@ -10,4 +10,7 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+- (void)showSettingsWindow;
+- (void)updateStatusOfStatusBar;
+
 @end

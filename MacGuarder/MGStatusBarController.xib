@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="MGStatusBarController">
+            <connections>
+                <outlet property="menuItemQuit" destination="viq-E4-Sdj" id="Ipb-2a-25O"/>
+                <outlet property="menuItemSettings" destination="U5p-M7-iHJ" id="vpS-ry-nFF"/>
+                <outlet property="menuItemStart" destination="h3W-0p-2UE" id="VjB-nX-KCy"/>
+                <outlet property="menuItemStop" destination="ZbX-u4-fJS" id="M5G-F6-XZq"/>
+                <outlet property="statusBarMenu" destination="OGE-gG-nPb" id="ngf-Ix-ZL4"/>
+                <outlet property="view" destination="7fy-Nl-aFX" id="NDY-pL-cNK"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <menu id="OGE-gG-nPb">
+            <items>
+                <menuItem title="Settings" id="U5p-M7-iHJ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="clickMenuItemSettings:" target="-2" id="jeG-Mh-IEY"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="DsU-xs-f6f"/>
+                <menuItem title="Start" id="h3W-0p-2UE">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="clickMenuItemStart:" target="-2" id="XfF-my-Szv"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Stop" id="ZbX-u4-fJS">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="clickMenuItemStop:" target="-2" id="Oxg-MP-FBT"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="iHn-uV-K7Q"/>
+                <menuItem title="Quit" id="viq-E4-Sdj">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="clickMenuItemQuit:" target="-2" id="MVT-lN-Q5v"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="348" y="301.5"/>
+        </menu>
+        <customView id="7fy-Nl-aFX">
+            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <point key="canvasLocation" x="348.5" y="500"/>
+        </customView>
+    </objects>
+</document>

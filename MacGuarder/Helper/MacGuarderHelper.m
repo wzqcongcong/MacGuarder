@@ -7,10 +7,18 @@
 //
 
 #import "MacGuarderHelper.h"
+#import "LogFormatter.h"
 
-NSString *password;
+static NSString *password;
+
+extern int ddLogLevel;
 
 @implementation MacGuarderHelper
+
++ (void)setPassword:(NSString *)p
+{
+    password = [p copy];
+}
 
 + (BOOL)isScreenLocked
 {
@@ -79,11 +87,6 @@ NSString *password;
 
     NSAppleScript *script = [[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:s, password]];
     [script executeAndReturnError:nil];
-}
-
-+ (void)setPassword:(NSString *)p
-{
-    password = [p copy];
 }
 
 #pragma mark - inner

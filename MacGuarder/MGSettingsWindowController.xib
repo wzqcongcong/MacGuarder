@@ -7,8 +7,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="MGSettingsWindowController">
             <connections>
                 <outlet property="authorizationView" destination="9IM-2H-jVb" id="QJa-oy-oFK"/>
-                <outlet property="btQuit" destination="2xe-En-Zdb" id="dop-lx-U06"/>
-                <outlet property="btSaveDevice" destination="gyD-gF-QR7" id="O5o-m2-pIs"/>
                 <outlet property="btSelectDevice" destination="T1S-vk-V59" id="OXK-L4-ab8"/>
                 <outlet property="btStart" destination="uwD-mH-Y6O" id="NcK-hU-9mg"/>
                 <outlet property="btStop" destination="ptD-cI-tHA" id="Hnf-34-Fzn"/>
@@ -20,25 +18,53 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Settings" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="default" id="1Np-GZ-R3E">
-            <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES"/>
-            <rect key="contentRect" x="335" y="390" width="370" height="311"/>
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+            <rect key="contentRect" x="335" y="390" width="400" height="286"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <view key="contentView" placeholderIntrinsicWidth="353" placeholderIntrinsicHeight="207" id="Q4N-1Z-NFM">
-                <rect key="frame" x="0.0" y="0.0" width="370" height="311"/>
+                <rect key="frame" x="0.0" y="0.0" width="400" height="286"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PWY-ue-OCZ" userLabel="info">
-                        <rect key="frame" x="113" y="274" width="145" height="17"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Please Select a Device" id="0I0-yb-I3O">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <box autoresizesSubviews="NO" title="Mac" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="ld1-Fm-4On">
-                        <rect key="frame" x="17" y="54" width="336" height="124"/>
+                    <box autoresizesSubviews="NO" title="Device" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="bEo-AR-4gJ">
+                        <rect key="frame" x="17" y="182" width="366" height="84"/>
                         <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="334" height="108"/>
+                            <rect key="frame" x="1" y="1" width="364" height="68"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T1S-vk-V59">
+                                    <rect key="frame" x="20" y="18" width="109" height="29"/>
+                                    <buttonCell key="cell" type="bevel" title="Select Device" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="itK-ib-pxF">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="didClickSelectDevice:" target="-2" id="SRi-DA-FH5"/>
+                                    </connections>
+                                </button>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PWY-ue-OCZ" userLabel="info">
+                                    <rect key="frame" x="145" y="25" width="4" height="17"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="0I0-yb-I3O">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                        </view>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="PWY-ue-OCZ" secondAttribute="centerY" constant="-10" id="8w7-o6-YkP"/>
+                            <constraint firstItem="T1S-vk-V59" firstAttribute="leading" secondItem="bEo-AR-4gJ" secondAttribute="leading" constant="20" id="Sak-H9-JWz"/>
+                            <constraint firstAttribute="height" constant="80" id="Xtp-H9-UXF"/>
+                            <constraint firstItem="PWY-ue-OCZ" firstAttribute="leading" secondItem="T1S-vk-V59" secondAttribute="trailing" constant="20" id="l2t-dC-fB1"/>
+                            <constraint firstAttribute="centerY" secondItem="T1S-vk-V59" secondAttribute="centerY" constant="-10" id="xr5-cx-Rq1"/>
+                        </constraints>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </box>
+                    <box autoresizesSubviews="NO" title="Mac" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="ld1-Fm-4On">
+                        <rect key="frame" x="17" y="54" width="366" height="124"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="364" height="108"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dBa-Gf-Y8p">
@@ -50,7 +76,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hQz-z7-ouW">
-                                    <rect key="frame" x="141" y="74" width="181" height="22"/>
+                                    <rect key="frame" x="141" y="74" width="211" height="22"/>
                                     <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="bCI-YA-5Px">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -61,7 +87,7 @@
                                     </secureTextFieldCell>
                                 </secureTextField>
                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="9IM-2H-jVb" customClass="SFAuthorizationView">
-                                    <rect key="frame" x="22" y="13" width="300" height="41"/>
+                                    <rect key="frame" x="22" y="13" width="330" height="41"/>
                                 </customView>
                             </subviews>
                         </view>
@@ -80,22 +106,22 @@
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="drn-Xh-qyC" userLabel="action">
-                        <rect key="frame" x="20" y="10" width="330" height="40"/>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="drn-Xh-qyC" userLabel="Action">
+                        <rect key="frame" x="0.0" y="10" width="400" height="40"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uwD-mH-Y6O">
-                                <rect key="frame" x="18" y="5" width="54" height="29"/>
-                                <buttonCell key="cell" type="bevel" title="Start" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eDh-G3-u6y">
+                                <rect key="frame" x="215" y="5" width="167" height="29"/>
+                                <buttonCell key="cell" type="bevel" title="Save &amp; Restart Monitor" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eDh-G3-u6y">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="didClickStart:" target="-2" id="jpo-Hi-a27"/>
+                                    <action selector="saveAndRestart:" target="-2" id="NC2-0w-S8l"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ptD-cI-tHA">
-                                <rect key="frame" x="138" y="5" width="54" height="29"/>
-                                <buttonCell key="cell" type="bevel" title="Stop" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="v47-6j-JnR">
+                                <rect key="frame" x="18" y="5" width="105" height="29"/>
+                                <buttonCell key="cell" type="bevel" title="Stop Monitor" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="v47-6j-JnR">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -103,84 +129,32 @@
                                     <action selector="didClickStop:" target="-2" id="jwl-1G-4Hj"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2xe-En-Zdb">
-                                <rect key="frame" x="262" y="5" width="50" height="29"/>
-                                <buttonCell key="cell" type="bevel" title="Quit" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="u8R-1w-ztr">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="didClickQuit:" target="-2" id="7KO-Kk-jfc"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="ptD-cI-tHA" secondAttribute="centerX" id="OA3-Ed-OCO"/>
+                            <constraint firstItem="ptD-cI-tHA" firstAttribute="leading" secondItem="drn-Xh-qyC" secondAttribute="leading" constant="20" symbolic="YES" id="LCK-MI-T7l"/>
+                            <constraint firstAttribute="trailing" secondItem="uwD-mH-Y6O" secondAttribute="trailing" constant="20" symbolic="YES" id="RYO-pB-W4M"/>
                             <constraint firstAttribute="centerY" secondItem="ptD-cI-tHA" secondAttribute="centerY" id="U3S-DA-b0f"/>
                             <constraint firstAttribute="centerY" secondItem="uwD-mH-Y6O" secondAttribute="centerY" id="YfP-Ez-EL4"/>
-                            <constraint firstAttribute="centerY" secondItem="2xe-En-Zdb" secondAttribute="centerY" id="fhJ-hG-Duk"/>
-                            <constraint firstItem="uwD-mH-Y6O" firstAttribute="leading" secondItem="drn-Xh-qyC" secondAttribute="leading" constant="20" symbolic="YES" id="jJV-Bc-S1g"/>
                             <constraint firstAttribute="height" constant="40" id="klM-r9-nhd"/>
-                            <constraint firstAttribute="trailing" secondItem="2xe-En-Zdb" secondAttribute="trailing" constant="20" symbolic="YES" id="r6I-bM-wYK"/>
                         </constraints>
                     </customView>
-                    <box autoresizesSubviews="NO" title="Device" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="bEo-AR-4gJ">
-                        <rect key="frame" x="17" y="182" width="336" height="84"/>
-                        <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="334" height="68"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T1S-vk-V59">
-                                    <rect key="frame" x="20" y="18" width="109" height="29"/>
-                                    <buttonCell key="cell" type="bevel" title="Select Device" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="itK-ib-pxF">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="didClickSelectDevice:" target="-2" id="SRi-DA-FH5"/>
-                                    </connections>
-                                </button>
-                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gyD-gF-QR7">
-                                    <rect key="frame" x="213" y="18" width="101" height="29"/>
-                                    <buttonCell key="cell" type="bevel" title="Save Device" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Dfr-dz-3O6">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="didClickSaveDevice:" target="-2" id="Qux-d8-3F7"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </view>
-                        <constraints>
-                            <constraint firstItem="T1S-vk-V59" firstAttribute="leading" secondItem="bEo-AR-4gJ" secondAttribute="leading" constant="20" id="Sak-H9-JWz"/>
-                            <constraint firstAttribute="height" constant="80" id="Xtp-H9-UXF"/>
-                            <constraint firstAttribute="centerY" secondItem="gyD-gF-QR7" secondAttribute="centerY" constant="-10" id="Z4o-DN-40p"/>
-                            <constraint firstAttribute="trailing" secondItem="gyD-gF-QR7" secondAttribute="trailing" constant="20" id="lWP-me-CZ7"/>
-                            <constraint firstAttribute="centerY" secondItem="T1S-vk-V59" secondAttribute="centerY" constant="-10" id="xr5-cx-Rq1"/>
-                        </constraints>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </box>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="drn-Xh-qyC" secondAttribute="bottom" constant="10" id="1Ty-I3-WtN"/>
-                    <constraint firstAttribute="centerX" secondItem="PWY-ue-OCZ" secondAttribute="centerX" id="3Im-Ly-mTp"/>
-                    <constraint firstAttribute="trailing" secondItem="drn-Xh-qyC" secondAttribute="trailing" constant="20" symbolic="YES" id="AeI-Bv-xyg"/>
-                    <constraint firstItem="PWY-ue-OCZ" firstAttribute="top" secondItem="Q4N-1Z-NFM" secondAttribute="top" constant="20" symbolic="YES" id="EEc-7I-1hY"/>
+                    <constraint firstAttribute="trailing" secondItem="drn-Xh-qyC" secondAttribute="trailing" id="AeI-Bv-xyg"/>
                     <constraint firstItem="bEo-AR-4gJ" firstAttribute="leading" secondItem="Q4N-1Z-NFM" secondAttribute="leading" constant="20" symbolic="YES" id="H4O-h7-4mK"/>
                     <constraint firstItem="drn-Xh-qyC" firstAttribute="top" secondItem="ld1-Fm-4On" secondAttribute="bottom" constant="8" symbolic="YES" id="HFb-0N-hRF"/>
-                    <constraint firstItem="drn-Xh-qyC" firstAttribute="leading" secondItem="Q4N-1Z-NFM" secondAttribute="leading" constant="20" symbolic="YES" id="JZd-Od-Vf7"/>
+                    <constraint firstItem="drn-Xh-qyC" firstAttribute="leading" secondItem="Q4N-1Z-NFM" secondAttribute="leading" id="JZd-Od-Vf7"/>
                     <constraint firstItem="drn-Xh-qyC" firstAttribute="top" secondItem="ld1-Fm-4On" secondAttribute="bottom" constant="8" symbolic="YES" id="K3z-hJ-FSk"/>
-                    <constraint firstItem="bEo-AR-4gJ" firstAttribute="top" secondItem="PWY-ue-OCZ" secondAttribute="bottom" constant="8" symbolic="YES" id="Kov-Kj-iYF"/>
                     <constraint firstAttribute="trailing" secondItem="bEo-AR-4gJ" secondAttribute="trailing" constant="20" symbolic="YES" id="OMl-cF-nXF"/>
                     <constraint firstItem="ld1-Fm-4On" firstAttribute="top" secondItem="bEo-AR-4gJ" secondAttribute="bottom" constant="8" symbolic="YES" id="RN8-JH-KBa"/>
                     <constraint firstAttribute="trailing" secondItem="ld1-Fm-4On" secondAttribute="trailing" constant="20" symbolic="YES" id="Rwz-N1-zSw"/>
                     <constraint firstItem="ld1-Fm-4On" firstAttribute="top" secondItem="bEo-AR-4gJ" secondAttribute="bottom" constant="8" symbolic="YES" id="WXc-tO-SXH"/>
                     <constraint firstItem="ld1-Fm-4On" firstAttribute="leading" secondItem="Q4N-1Z-NFM" secondAttribute="leading" constant="20" symbolic="YES" id="Yi2-dP-gO7"/>
+                    <constraint firstItem="bEo-AR-4gJ" firstAttribute="top" secondItem="Q4N-1Z-NFM" secondAttribute="top" constant="20" symbolic="YES" id="bKG-Q3-zDM"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="454" y="569.5"/>
+            <point key="canvasLocation" x="481.5" y="569"/>
         </window>
     </objects>
 </document>

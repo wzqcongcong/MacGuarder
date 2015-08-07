@@ -8,12 +8,15 @@
 
 #import "AppDelegate.h"
 #import "LogFormatter.h"
+#import "MGMonitorController.h"
+#import "MGStatusBarController.h"
 #import "MGSettingsWindowController.h"
 
 int ddLogLevel = DDLogLevelInfo;
 
 @interface AppDelegate ()
 
+@property (nonatomic, strong) MGStatusBarController *statusBarController;
 @property (nonatomic, strong) MGSettingsWindowController *settingsWindowController;
 
 @end
@@ -45,17 +48,23 @@ int ddLogLevel = DDLogLevelInfo;
 {
     [AppDelegate setupLog];
 
-    [self showSettingsWindow];
+    [[MGMonitorController sharedMonitorController] automaticallyStartMonitor];
+
+    self.statusBarController = [[MGStatusBarController alloc] init];
+    self.statusBarController.view.hidden = YES; // load status bar menu
 }
 
 - (void)showSettingsWindow
 {
-    if (!self.settingsWindowController) {
-        self.settingsWindowController = [[MGSettingsWindowController alloc] init];
-    }
-
+    self.settingsWindowController = [[MGSettingsWindowController alloc] init];
     [self.settingsWindowController showWindow:self];
+    [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
     [self.settingsWindowController.window orderFront:self];
+}
+
+- (void)updateStatusOfStatusBar
+{
+    [self.statusBarController updateStatusOfStatusBar];
 }
 
 @end

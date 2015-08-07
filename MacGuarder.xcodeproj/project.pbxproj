@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		84478F291B74972400B766AF /* MGSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84478F271B74972400B766AF /* MGSettingsWindowController.m */; };
 		84478F2A1B74972400B766AF /* MGSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84478F281B74972400B766AF /* MGSettingsWindowController.xib */; };
+		84478F2F1B74A3EF00B766AF /* MGStatusBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84478F2D1B74A3EF00B766AF /* MGStatusBarController.m */; };
+		84478F301B74A3EF00B766AF /* MGStatusBarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84478F2E1B74A3EF00B766AF /* MGStatusBarController.xib */; };
+		84478F331B74A90600B766AF /* MGMonitorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84478F321B74A90600B766AF /* MGMonitorController.m */; };
 		84E68BA21AA5B8E600D3811A /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E68BA11AA5B8E600D3811A /* SecurityInterface.framework */; };
 		84E68BA41AA5BA3700D3811A /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E68BA31AA5BA3700D3811A /* CoreBluetooth.framework */; };
 		84E68BA81AA5D8DA00D3811A /* LogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E68BA71AA5D8DA00D3811A /* LogFormatter.m */; };
@@ -36,6 +39,11 @@
 		84478F261B74972400B766AF /* MGSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSettingsWindowController.h; sourceTree = "<group>"; };
 		84478F271B74972400B766AF /* MGSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSettingsWindowController.m; sourceTree = "<group>"; };
 		84478F281B74972400B766AF /* MGSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGSettingsWindowController.xib; sourceTree = "<group>"; };
+		84478F2C1B74A3EF00B766AF /* MGStatusBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGStatusBarController.h; sourceTree = "<group>"; };
+		84478F2D1B74A3EF00B766AF /* MGStatusBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGStatusBarController.m; sourceTree = "<group>"; };
+		84478F2E1B74A3EF00B766AF /* MGStatusBarController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGStatusBarController.xib; sourceTree = "<group>"; };
+		84478F311B74A90600B766AF /* MGMonitorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMonitorController.h; sourceTree = "<group>"; };
+		84478F321B74A90600B766AF /* MGMonitorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMonitorController.m; sourceTree = "<group>"; };
 		84E68BA11AA5B8E600D3811A /* SecurityInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityInterface.framework; path = System/Library/Frameworks/SecurityInterface.framework; sourceTree = SDKROOT; };
 		84E68BA31AA5BA3700D3811A /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		84E68BA61AA5D8DA00D3811A /* LogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogFormatter.h; sourceTree = "<group>"; };
@@ -149,10 +157,12 @@
 		CEBF8440197FDE5400EBE976 /* MacGuarder */ = {
 			isa = PBXGroup;
 			children = (
+				84E68BA51AA5D88700D3811A /* Common */,
 				CEBF844C197FDE5400EBE976 /* AppDelegate.h */,
 				CEBF844D197FDE5400EBE976 /* AppDelegate.m */,
+				84478F311B74A90600B766AF /* MGMonitorController.h */,
+				84478F321B74A90600B766AF /* MGMonitorController.m */,
 				CEBF84A1197FE44C00EBE976 /* ViewController */,
-				84E68BA51AA5D88700D3811A /* Common */,
 				CEBF84A31980ACB700EBE976 /* DeviceTracker */,
 				CEBF84A21980ACA000EBE976 /* DeviceKeeper */,
 				CEBF849B197FDF2200EBE976 /* Helper */,
@@ -187,6 +197,9 @@
 		CEBF84A1197FE44C00EBE976 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				84478F2C1B74A3EF00B766AF /* MGStatusBarController.h */,
+				84478F2D1B74A3EF00B766AF /* MGStatusBarController.m */,
+				84478F2E1B74A3EF00B766AF /* MGStatusBarController.xib */,
 				84478F261B74972400B766AF /* MGSettingsWindowController.h */,
 				84478F271B74972400B766AF /* MGSettingsWindowController.m */,
 				84478F281B74972400B766AF /* MGSettingsWindowController.xib */,
@@ -273,6 +286,7 @@
 				CEBF8445197FDE5400EBE976 /* InfoPlist.strings in Resources */,
 				CEBF8453197FDE5400EBE976 /* Images.xcassets in Resources */,
 				CEBF844B197FDE5400EBE976 /* Credits.rtf in Resources */,
+				84478F301B74A3EF00B766AF /* MGStatusBarController.xib in Resources */,
 				84478F2A1B74972400B766AF /* MGSettingsWindowController.xib in Resources */,
 				CE420BA51987B7070026B346 /* UserInfo.plist in Resources */,
 				CE420BA2198794F10026B346 /* DevicesConfig.plist in Resources */,
@@ -320,6 +334,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84478F331B74A90600B766AF /* MGMonitorController.m in Sources */,
+				84478F2F1B74A3EF00B766AF /* MGStatusBarController.m in Sources */,
 				84478F291B74972400B766AF /* MGSettingsWindowController.m in Sources */,
 				CEBF844E197FDE5400EBE976 /* AppDelegate.m in Sources */,
 				CEBF84B01980B61300EBE976 /* RSSISmootheningFilter.m in Sources */,
