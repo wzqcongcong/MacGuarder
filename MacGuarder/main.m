@@ -2,8 +2,8 @@
 //  main.m
 //  MacGuarder
 //
-//  Created by user on 14-7-23.
-//  Copyright (c) 2014年 TrendMicro. All rights reserved.
+//  Created by GoKu on 14-7-23.
+//  Copyright (c) 2014年 GoKuStudio. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

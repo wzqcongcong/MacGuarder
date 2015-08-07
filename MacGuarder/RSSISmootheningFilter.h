@@ -1,19 +1,16 @@
 
 #import <Foundation/Foundation.h>
 
-
-#define kDefaultNumberOfSamples     5
-
-
 @interface RSSISmootheningFilter : NSObject
 
-@property (nonatomic, assign) int numberOfSamples;
+@property (nonatomic, assign) NSInteger numberOfSamples;
 
 + (RSSISmootheningFilter *)sharedInstance;
-- (void)addSample:(int)value;
+
+- (void)addSample:(NSInteger)value;
 - (void)reset;
-- (int)getMedianValue;
-- (int)getMaximumVariation;
+- (NSInteger)getMedianValue;
+- (NSInteger)getMaximumVariation;
 - (BOOL)isFilterFull;
 
 @end

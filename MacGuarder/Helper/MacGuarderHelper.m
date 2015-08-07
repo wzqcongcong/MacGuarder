@@ -2,15 +2,13 @@
 //  MacGuarderHelper.m
 //  MacGuarder
 //
-//  Created by user on 14-7-23.
-//  Copyright (c) 2014年 TrendMicro. All rights reserved.
+//  Created by GoKu on 14-7-23.
+//  Copyright (c) 2014年 GoKuStudio. All rights reserved.
 //
 
 #import "MacGuarderHelper.h"
 
-
 NSString *password;
-
 
 @implementation MacGuarderHelper
 
@@ -19,7 +17,7 @@ NSString *password;
     BOOL locked = NO;
     
     CFDictionaryRef CGSessionCurrentDictionary = CGSessionCopyCurrentDictionary();
-    id o = [(__bridge NSDictionary*)CGSessionCurrentDictionary objectForKey:@"CGSSessionScreenIsLocked"];
+    id o = [(__bridge NSDictionary *)CGSessionCurrentDictionary objectForKey:@"CGSSessionScreenIsLocked"];
     if (o) {
         locked = [o boolValue];
     }
@@ -34,7 +32,7 @@ NSString *password;
 
     // get user's old setting
     BOOL screensaverAskForPassword = [MacGuarderHelper getScreensaverAskForPassword];
-    int screensaverDelay = [MacGuarderHelper getScreensaverDelay];
+    NSInteger screensaverDelay = [MacGuarderHelper getScreensaverDelay];
     
     // set the new setting for locking operation
     [MacGuarderHelper setScreensaverAskForPassword:YES];    // ask for password to unlock
@@ -83,15 +81,14 @@ NSString *password;
     [script executeAndReturnError:nil];
 }
 
-+ (void)setPassword:(NSString*)p
++ (void)setPassword:(NSString *)p
 {
     password = [p copy];
 }
 
-
 #pragma mark - inner
 
-+ (int)getScreensaverDelay
++ (NSInteger)getScreensaverDelay
 {
     NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.apple.screensaver"];
     return [[prefs objectForKey:@"askForPasswordDelay"] intValue];
@@ -103,9 +100,9 @@ NSString *password;
     return [[prefs objectForKey:@"askForPassword"] boolValue];
 }
 
-+ (void)setScreensaverDelay:(int)value
++ (void)setScreensaverDelay:(NSInteger)value
 {
-    NSArray *arguments = @[@"write", @"com.apple.screensaver", @"askForPasswordDelay", [NSString stringWithFormat:@"%i", value]];
+    NSArray *arguments = @[@"write", @"com.apple.screensaver", @"askForPasswordDelay", [NSString stringWithFormat:@"%li", value]];
     NSTask *resetDelayTask = [[NSTask alloc] init];
     [resetDelayTask setArguments:arguments];
     [resetDelayTask setLaunchPath: @"/usr/bin/defaults"];

@@ -2,34 +2,22 @@
 //  DeviceKeeper.h
 //  MacGuarder
 //
-//  Created by user on 14-7-24.
-//  Copyright (c) 2014年 TrendMicro. All rights reserved.
+//  Created by GoKu on 14-7-24.
+//  Copyright (c) 2014年 GoKuStudio. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-
-/* by Plist */
-#define kUserInfo                                   @"UserInfo"         // UserInfo.plist
-#define kDevicesConfig                              @"DevicesConfig"    // DevicesConfig.plist
-#define kDevicesConfig_favoriteDevices              @"favoriteDevices"  // array
-#define kDevicesConfig_storedDevices                @"storedDevices"    // dictionary
-#define kDevicesConfig_storedDevices_thresholdRSSI  @"thresholdRSSI"
-
-/* by NSUserDefaults*/
-#define kDevices                                    @"com.trendmicro.MacGuarder.Devices"
-#define kThresholdRSSI                              @"MacGuarderThresholdRSSI"
-#define kDefaultInRangeThreshold                    -60
-
+extern NSInteger const kDefaultInRangeThreshold;
 
 @interface DeviceKeeper : NSObject
 
-+ (BOOL)deviceExists:(NSString*)deviceAddress;
++ (BOOL)deviceExists:(NSString *)deviceAddress;
 
-+ (void)setThresholdRSSI:(int)RSSI ofDevice:(NSString*)deviceAddress forUser:(NSString *)uid;
-+ (int)getThresholdRSSIOfDevice:(NSString*)deviceAddress forUser:(NSString *)uid;
++ (void)setThresholdRSSI:(NSInteger)RSSI ofDevice:(NSString *)deviceAddress forUser:(NSString *)uid;
++ (NSInteger)getThresholdRSSIOfDevice:(NSString *)deviceAddress forUser:(NSString *)uid;
 
-+ (void)saveFavoriteDevice:(NSString*)deviceAddress forUser:(NSString *)uid;
++ (void)saveFavoriteDevice:(NSString *)deviceAddress forUser:(NSString *)uid;
 + (NSArray *)getFavoriteDevicesForUser:(NSString *)uid;
 
 + (void)savePassword:(NSString *)password forUser:(NSString *)uid;

@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84478F291B74972400B766AF /* MGSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84478F271B74972400B766AF /* MGSettingsWindowController.m */; };
+		84478F2A1B74972400B766AF /* MGSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84478F281B74972400B766AF /* MGSettingsWindowController.xib */; };
 		84E68BA21AA5B8E600D3811A /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E68BA11AA5B8E600D3811A /* SecurityInterface.framework */; };
 		84E68BA41AA5BA3700D3811A /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E68BA31AA5BA3700D3811A /* CoreBluetooth.framework */; };
 		84E68BA81AA5D8DA00D3811A /* LogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E68BA71AA5D8DA00D3811A /* LogFormatter.m */; };
@@ -31,6 +33,9 @@
 /* Begin PBXFileReference section */
 		18485F5168589B19A4D497A3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		46D7CA48E9101EEC9D6C855E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		84478F261B74972400B766AF /* MGSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSettingsWindowController.h; sourceTree = "<group>"; };
+		84478F271B74972400B766AF /* MGSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSettingsWindowController.m; sourceTree = "<group>"; };
+		84478F281B74972400B766AF /* MGSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGSettingsWindowController.xib; sourceTree = "<group>"; };
 		84E68BA11AA5B8E600D3811A /* SecurityInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityInterface.framework; path = System/Library/Frameworks/SecurityInterface.framework; sourceTree = SDKROOT; };
 		84E68BA31AA5BA3700D3811A /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		84E68BA61AA5D8DA00D3811A /* LogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogFormatter.h; sourceTree = "<group>"; };
@@ -146,11 +151,11 @@
 			children = (
 				CEBF844C197FDE5400EBE976 /* AppDelegate.h */,
 				CEBF844D197FDE5400EBE976 /* AppDelegate.m */,
+				CEBF84A1197FE44C00EBE976 /* ViewController */,
 				84E68BA51AA5D88700D3811A /* Common */,
 				CEBF84A31980ACB700EBE976 /* DeviceTracker */,
 				CEBF84A21980ACA000EBE976 /* DeviceKeeper */,
 				CEBF849B197FDF2200EBE976 /* Helper */,
-				CEBF84A1197FE44C00EBE976 /* UI */,
 				CEBF8441197FDE5400EBE976 /* Supporting Files */,
 			);
 			path = MacGuarder;
@@ -159,6 +164,8 @@
 		CEBF8441197FDE5400EBE976 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CEBF8452197FDE5400EBE976 /* Images.xcassets */,
+				CEBF844F197FDE5400EBE976 /* MainMenu.xib */,
 				CEBF8442197FDE5400EBE976 /* MacGuarder-Info.plist */,
 				CEBF8443197FDE5400EBE976 /* InfoPlist.strings */,
 				CEBF8446197FDE5400EBE976 /* main.m */,
@@ -177,13 +184,14 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		CEBF84A1197FE44C00EBE976 /* UI */ = {
+		CEBF84A1197FE44C00EBE976 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				CEBF844F197FDE5400EBE976 /* MainMenu.xib */,
-				CEBF8452197FDE5400EBE976 /* Images.xcassets */,
+				84478F261B74972400B766AF /* MGSettingsWindowController.h */,
+				84478F271B74972400B766AF /* MGSettingsWindowController.m */,
+				84478F281B74972400B766AF /* MGSettingsWindowController.xib */,
 			);
-			name = UI;
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 		CEBF84A21980ACA000EBE976 /* DeviceKeeper */ = {
@@ -237,10 +245,10 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = TrendMicro;
+				ORGANIZATIONNAME = GoKuStudio;
 			};
 			buildConfigurationList = CEBF8432197FDE5400EBE976 /* Build configuration list for PBXProject "MacGuarder" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -265,6 +273,7 @@
 				CEBF8445197FDE5400EBE976 /* InfoPlist.strings in Resources */,
 				CEBF8453197FDE5400EBE976 /* Images.xcassets in Resources */,
 				CEBF844B197FDE5400EBE976 /* Credits.rtf in Resources */,
+				84478F2A1B74972400B766AF /* MGSettingsWindowController.xib in Resources */,
 				CE420BA51987B7070026B346 /* UserInfo.plist in Resources */,
 				CE420BA2198794F10026B346 /* DevicesConfig.plist in Resources */,
 				CEBF8451197FDE5400EBE976 /* MainMenu.xib in Resources */,
@@ -311,6 +320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84478F291B74972400B766AF /* MGSettingsWindowController.m in Sources */,
 				CEBF844E197FDE5400EBE976 /* AppDelegate.m in Sources */,
 				CEBF84B01980B61300EBE976 /* RSSISmootheningFilter.m in Sources */,
 				CEBF8447197FDE5400EBE976 /* main.m in Sources */,

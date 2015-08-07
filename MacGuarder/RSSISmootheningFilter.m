@@ -1,11 +1,12 @@
 
 #import "RSSISmootheningFilter.h"
 
+static NSUInteger const kDefaultNumberOfSamples = 5;
 
 @interface RSSISmootheningFilter ()
 
-@property (nonatomic, retain) NSMutableArray *samples;
-@property (nonatomic, assign) int currentSampleIndex;
+@property (nonatomic, strong) NSMutableArray *samples;
+@property (nonatomic, assign) NSInteger currentSampleIndex;
 
 @end
 
@@ -23,7 +24,7 @@
     return sharedInstance;
 }
 
-- (void)addSample:(int)value
+- (void)addSample:(NSInteger)value
 {
     if (self.currentSampleIndex == 0) {
         self.samples = [NSMutableArray array];
@@ -35,7 +36,7 @@
         self.currentSampleIndex++;
     }
     
-    [self.samples insertObject:[NSNumber numberWithInt:value] atIndex:0];
+    [self.samples insertObject:[NSNumber numberWithInteger:value] atIndex:0];
 }
 
 - (void)reset
@@ -48,9 +49,9 @@
     return (self.currentSampleIndex == self.numberOfSamples);
 }
 
-- (int)getMedianValue
+- (NSInteger)getMedianValue
 {
-    int accumulator = 0;
+    NSInteger accumulator = 0;
     if (self.samples.count == 0) {
         return accumulator;
     }
@@ -58,16 +59,16 @@
     for (NSNumber *n in self.samples) {
         accumulator += [n intValue];
     }
-    return accumulator / (int)self.samples.count;
+    return accumulator / (NSInteger)self.samples.count;
 }
 
-- (int)getMaximumVariation
+- (NSInteger)getMaximumVariation
 {
-    int min = [[self.samples firstObject] intValue];
-    int max = [[self.samples firstObject] intValue];
+    NSInteger min = [[self.samples firstObject] intValue];
+    NSInteger max = [[self.samples firstObject] intValue];
     
     for (NSNumber *n in self.samples) {
-        int nn = [n intValue];
+        NSInteger nn = [n intValue];
         if (nn > max) max = nn;
         if (nn < min) min = nn;
     }
@@ -77,7 +78,7 @@
 
 #pragma mark - setters
 
-- (void)setNumberOfSamples:(int)numberOfSamples
+- (void)setNumberOfSamples:(NSInteger)numberOfSamples
 {
     _numberOfSamples = numberOfSamples;
     self.currentSampleIndex = 0;

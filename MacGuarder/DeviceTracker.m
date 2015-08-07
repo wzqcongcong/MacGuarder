@@ -2,21 +2,22 @@
 //  DeviceTracker.m
 //  MacGuarder
 //
-//  Created by user on 14-7-24.
-//  Copyright (c) 2014年 TrendMicro. All rights reserved.
+//  Created by GoKu on 14-7-24.
+//  Copyright (c) 2014年 GoKuStudio. All rights reserved.
 //
 
 #import "DeviceTracker.h"
 #import "DeviceKeeper.h"
 #import "RSSISmootheningFilter.h"
+#import "LogFormatter.h"
 
+extern int ddLogLevel;
 
 @interface DeviceTracker ()
 
 @property (nonatomic, readwrite) BOOL isMonitoring;
 
 @end
-
 
 @implementation DeviceTracker
 
@@ -33,10 +34,11 @@
 
 - (void)startMonitoring
 {
-    _isMonitoring = YES;
+    self.isMonitoring = YES;
     
     self.inRangeThreshold = [DeviceKeeper getThresholdRSSIOfDevice:self.device.addressString forUser:nil];
-    NSLog(@"get threshold of device %@: %d", self.device.name, self.inRangeThreshold);
+    DDLogInfo(@"get threshold for device %@: %ld", self.device.name, self.inRangeThreshold);
+    DDLogInfo(@"monitoring: %@", self.device.name);
     
     [[RSSISmootheningFilter sharedInstance] reset];
     
@@ -48,25 +50,7 @@
 
 - (void)stopMonitoring
 {
-    _isMonitoring = NO;
-}
-
-// just for test scanning services
-- (void)testService
-{
-    IOBluetoothServiceBrowserController *serviceSelector = [IOBluetoothServiceBrowserController serviceBrowserController:kNilOptions];
-    [serviceSelector runModal];
-    
-    NSArray *results = [serviceSelector getResults];
-    [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        IOBluetoothSDPServiceRecord *service = (IOBluetoothSDPServiceRecord *)obj;
-        NSLog(@"%@", [service getServiceName]);
-        
-        NSDictionary *attributes = [service attributes];
-        [attributes enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            NSLog(@"%@, %@", key, obj);
-        }];
-    }];
+    self.isMonitoring = NO;
 }
 
 - (void)selectDevice
@@ -91,28 +75,34 @@
 - (void)updateStatus
 {
     while (self.isMonitoring) {
+
         if (self.device) {
             BOOL reconnected = NO;
             
             if (![self.device isConnected]) {
-                NSLog(@"connecting");
+                DDLogInfo(@"connecting");
                 reconnected = ([self.device openConnection] == kIOReturnSuccess);
                 [[RSSISmootheningFilter sharedInstance] reset];
+
+                if (reconnected) {
+                    DDLogInfo(@"connected");
+                    self.initialRSSI = self.currentRSSI;
+                }
             }
-            
+
             if ([self.device isConnected]) {
                 BluetoothHCIRSSIValue rawRSSI = [self.device rawRSSI];
                 [[RSSISmootheningFilter sharedInstance] addSample:rawRSSI];
                 self.currentRSSI = [[RSSISmootheningFilter sharedInstance] getMedianValue];
-                NSLog(@"connected, current raw RSSI: %d", rawRSSI);
-                NSLog(@"connected, current RSSI: %d", self.currentRSSI);
+                DDLogVerbose(@"connected, current raw RSSI: %d", rawRSSI);
+                DDLogVerbose(@"connected, current RSSI: %d", self.currentRSSI);
                 
                 // device is in area
                 if (self.currentRSSI > self.inRangeThreshold) {
-                    NSLog(@"connected, device is in area.");
+                    DDLogVerbose(@"connected, device is in area.");
                     // device was out of area before, trigger unlock.
                     if (!self.deviceInRange) {
-                        NSLog(@"connected, device was out of area before, trigger unlock.");
+                        DDLogInfo(@"connected, device was out of area before, trigger unlock.");
                         self.deviceInRange = YES;
                         
                         if (self.deviceRangeStatusUpdateBlock) {
@@ -121,15 +111,15 @@
                     }
                     // device was in area already, do nothing.
                     else {
-                        NSLog(@"device was in area already, do nothing.");
+                        DDLogVerbose(@"device was in area already, do nothing.");
                     }
                 }
                 // device is out of area
                 else {
-                    NSLog(@"connected, device is out of area.");
+                    DDLogVerbose(@"connected, device is out of area.");
                     // device was in area before, trigger lock.
                     if (self.deviceInRange) {
-                        NSLog(@"connected, device was in area before, trigger lock.");
+                        DDLogInfo(@"connected, device was in area before, trigger lock.");
                         self.deviceInRange = NO;
                         
                         if (self.deviceRangeStatusUpdateBlock) {
@@ -138,28 +128,23 @@
                     }
                     // device was out of area already, do nothing.
                     else {
-                        NSLog(@"device was out of area already, do nothing.");
+                        DDLogVerbose(@"device was out of area already, do nothing.");
                     }
                 }
             }
             
-            if (reconnected) {
-                self.initialRSSI = self.currentRSSI;
-            }
-            
         } else {
-            NSLog(@"no device");
+            DDLogWarn(@"no device");
         }
         
         [NSThread sleepForTimeInterval:kTrackerTimeInteval];
     }
     
-    NSLog(@"close connection");
+    DDLogInfo(@"close connection");
     [self.device closeConnection];
 }
 
-
-#pragma mark - delegate
+#pragma mark - IOBluetoothDeviceAsyncCallbacks delegate
 
 - (void)sdpQueryComplete:(IOBluetoothDevice *)device status:(IOReturn)status
 {
@@ -171,10 +156,10 @@
             // match desired services
             NSArray *matchedUUIDs = @[[IOBluetoothSDPUUID uuid16:kBluetoothSDPUUID16ServiceClassAudioSource],
                                       [IOBluetoothSDPUUID uuid16:kBluetoothSDPUUID16ServiceClassPhonebookAccess]];
-            NSLog(@"%@ %@", [service getServiceName], ([service hasServiceFromArray:matchedUUIDs] ? @"- Matched!" : @""));
+            DDLogVerbose(@"%@ %@", [service getServiceName], ([service hasServiceFromArray:matchedUUIDs] ? @"- Matched!" : @""));
         }];
     } else {
-        NSLog(@"failed to get services of device: %@", device.name);
+        DDLogError(@"failed to get services of device: %@", device.name);
     }
 }
 

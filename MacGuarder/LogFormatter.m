@@ -2,8 +2,8 @@
 //  LogFormatter.m
 //  MacGuarder
 //
-//  Created by user on 3/3/15.
-//  Copyright (c) 2015 TrendMicro. All rights reserved.
+//  Created by GoKu on 3/3/15.
+//  Copyright (c) 2015 GoKuStudio. All rights reserved.
 //
 
 #import "LogFormatter.h"
@@ -30,17 +30,17 @@
 - (NSString *)formatLogMessage:(DDLogMessage *)logMessage
 {
     NSString *logLevel;
-    switch (logMessage->logFlag)
+    switch (logMessage->_flag)
     {
-        case LOG_FLAG_ERROR : logLevel = @"[ERRO]"; break;
-        case LOG_FLAG_WARN  : logLevel = @"[WARN]"; break;
-        case LOG_FLAG_INFO  : logLevel = @"[INFO]"; break;
-        default             : logLevel = @"[VERB]"; break;
+        case DDLogFlagError     : logLevel = @"[ERRO]"; break;
+        case DDLogFlagWarning   : logLevel = @"[WARN]"; break;
+        case DDLogFlagInfo      : logLevel = @"[INFO]"; break;
+        default                 : logLevel = @"[VERB]"; break;
     }
 
-    NSString *dateAndTime = [self.dateFormat stringFromDate:(logMessage->timestamp)];
+    NSString *dateAndTime = [self.dateFormat stringFromDate:(logMessage->_timestamp)];
 
-    return [NSString stringWithFormat:@"%@, %@, %@", dateAndTime, logLevel, logMessage->logMsg];
+    return [NSString stringWithFormat:@"%@, %@, %@", dateAndTime, logLevel, logMessage->_message];
 }
 
 @end
