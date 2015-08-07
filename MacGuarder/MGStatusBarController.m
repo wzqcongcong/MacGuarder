@@ -41,7 +41,7 @@ extern int ddLogLevel;
     [super loadView];
 
     self.statusItem.toolTip = @"MacGuarder";
-    self.statusItem.image = [NSApplication sharedApplication].applicationIconImage;
+    self.statusItem.title = self.statusItem.toolTip;
     self.statusItem.menu = self.statusBarMenu;
 }
 
@@ -55,9 +55,15 @@ extern int ddLogLevel;
 }
 
 - (IBAction)clickMenuItemStart:(id)sender {
+    if ((![DeviceTracker sharedTracker].isMonitoring) && [[MGMonitorController sharedMonitorController] isPreparedToStartMonitor]) {
+        [[DeviceTracker sharedTracker] startMonitoring];
+        [self updateStatusOfStatusBar];
+    }
 }
 
 - (IBAction)clickMenuItemStop:(id)sender {
+    [[DeviceTracker sharedTracker] stopMonitoring];
+    [self updateStatusOfStatusBar];
 }
 
 - (IBAction)clickMenuItemQuit:(id)sender {
@@ -70,7 +76,7 @@ extern int ddLogLevel;
     if (menuItem == self.menuItemSettings || menuItem == self.menuItemQuit) {
         return YES;
     } else if (menuItem == self.menuItemStart) {
-        return (![DeviceTracker sharedTracker].isMonitoring) && [[MGMonitorController sharedMonitorController] isReadyToManuallyStartMonitor];
+        return (![DeviceTracker sharedTracker].isMonitoring) && [[MGMonitorController sharedMonitorController] isPreparedToStartMonitor];
     } else if (menuItem == self.menuItemStop) {
         return [DeviceTracker sharedTracker].isMonitoring;
     } else {

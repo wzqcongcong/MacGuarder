@@ -29,6 +29,8 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
 @property (weak) IBOutlet NSButton *btStart;
 @property (weak) IBOutlet NSButton *btStop;
 
+@property (nonatomic, strong) IOBluetoothDevice *tmpSelectedDevice;
+
 @end
 
 @implementation MGSettingsWindowController
@@ -56,54 +58,63 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
 
     // mannually sync lock status of admin user rights
     [self.authorizationView updateStatus:self.authorizationView];
+
+    self.tmpSelectedDevice = [MGMonitorController sharedMonitorController].selectedDevice;
+    self.infoLabel.stringValue = self.tmpSelectedDevice ? self.tmpSelectedDevice.name : @"Please select a device";
+    self.tfMacPassword.stringValue = [MGMonitorController sharedMonitorController].password ? : @"";
 }
 
 #pragma mark - UI action
 
 - (IBAction)didClickSelectDevice:(id)sender
 {
-    [MGMonitorController sharedMonitorController].selectedDevice = [[DeviceTracker sharedTracker] selectDevice];
+    IOBluetoothDevice *newSelectedDevice = [[MGMonitorController sharedMonitorController] selectDevice];
 
-    if ([MGMonitorController sharedMonitorController].selectedDevice) {
-        if (![DeviceKeeper deviceExists:[MGMonitorController sharedMonitorController].selectedDevice.addressString]) {
-            // save config for this device
-            DDLogInfo(@"save threshold of device %@: %ld", [MGMonitorController sharedMonitorController].selectedDevice.name, kDefaultInRangeThreshold);
-            [DeviceKeeper setThresholdRSSI:kDefaultInRangeThreshold ofDevice:[MGMonitorController sharedMonitorController].selectedDevice.addressString forUser:nil];
-        }
+    if (newSelectedDevice) {
+        self.tmpSelectedDevice = newSelectedDevice;
 
-        DDLogInfo(@"select device: %@ [%@]", [MGMonitorController sharedMonitorController].selectedDevice.name, [MGMonitorController sharedMonitorController].selectedDevice.addressString);
+        DDLogInfo(@"select device: %@ [%@]", self.tmpSelectedDevice.name, self.tmpSelectedDevice.addressString);
+        self.infoLabel.stringValue = self.tmpSelectedDevice.name;
 
     } else {
-        DDLogWarn(@"no device selected");
-    }
-}
-
-- (IBAction)saveAndRestart:(id)sender
-{
-    // process password
-
-    if ([MGMonitorController sharedMonitorController].selectedDevice) {
-        [[DeviceTracker sharedTracker] stopMonitoring];
-
-        [DeviceKeeper saveFavoriteDevice:[MGMonitorController sharedMonitorController].selectedDevice.addressString forUser:nil];
-
-        [DeviceKeeper savePassword:self.tfMacPassword.stringValue
-                           forUser:[MGMonitorController sharedMonitorController].userUID];
-
-        [MacGuarderHelper setPassword:self.tfMacPassword.stringValue];
-
-        [[DeviceTracker sharedTracker] startMonitoring];
-
-        [(AppDelegate *)[NSApplication sharedApplication].delegate updateStatusOfStatusBar];
-
-    } else {
-        DDLogWarn(@"no device");
+        DDLogInfo(@"no device selected");
     }
 }
 
 - (IBAction)didClickStop:(id)sender
 {
     [[DeviceTracker sharedTracker] stopMonitoring];
+    [(AppDelegate *)[NSApplication sharedApplication].delegate updateStatusOfStatusBar];
+}
+
+- (IBAction)saveAndRestart:(id)sender
+{
+    if (!self.tmpSelectedDevice) {
+        DDLogError(@"please select a device");
+        return;
+    }
+
+    if (self.tfMacPassword.stringValue.length <= 0) {
+        DDLogError(@"please input the login password of Mac");
+        return;
+    }
+
+    [[DeviceTracker sharedTracker] stopMonitoring];
+
+    // save device and password
+    [MGMonitorController sharedMonitorController].selectedDevice = self.tmpSelectedDevice;
+    [MGMonitorController sharedMonitorController].password = self.tfMacPassword.stringValue;
+    [DeviceKeeper saveFavoriteDevice:[MGMonitorController sharedMonitorController].selectedDevice.addressString forUser:nil];
+    [DeviceKeeper setThresholdRSSI:kDefaultInRangeThreshold ofDevice:[MGMonitorController sharedMonitorController].selectedDevice.addressString forUser:nil];
+    [DeviceKeeper savePassword:[MGMonitorController sharedMonitorController].password forUser:[MGMonitorController sharedMonitorController].userUID];
+
+    // leave some time for stop
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kMGMonitorTrackerTimeInteval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[DeviceTracker sharedTracker] startMonitoring];
+        [(AppDelegate *)[NSApplication sharedApplication].delegate updateStatusOfStatusBar];
+    });
+
+    [self.window close];
 }
 
 #pragma mark - authorization view delegate

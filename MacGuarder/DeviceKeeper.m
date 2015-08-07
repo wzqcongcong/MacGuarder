@@ -11,14 +11,12 @@
 
 NSInteger const kDefaultInRangeThreshold = -60;
 
-// by Plist
+// stored by Plist (encryption)
 static NSString * const kUserInfo                      = @"UserInfo"; // UserInfo.plist
 static NSString * const kDevicesConfig                 = @"DevicesConfig"; // DevicesConfig.plist
-static NSString * const kDevicesConfig_favoriteDevices = @"favoriteDevices"; // array
-static NSString * const kDevicesConfig_storedDevices   = @"storedDevices"; // dictionary
-static NSString * const kDevicesConfig_storedDevices_thresholdRSSI  = @"thresholdRSSI";
+static NSString * const kDevicesConfigFavoriteDevices  = @"favoriteDevices"; // array
 
-// by NSUserDefaults
+// stored by NSUserDefaults
 static NSString * const kDevices                       = @"com.GoKuStudio.MacGuarder.Devices";
 static NSString * const kThresholdRSSI                 = @"MacGuarderThresholdRSSI";
 
@@ -42,20 +40,15 @@ extern int ddLogLevel;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+ (BOOL)deviceExists:(NSString *)deviceAddress
-{
-    return ([[DeviceKeeper devices] objectForKey:deviceAddress] != nil);
-}
-
 + (void)setThresholdRSSI:(NSInteger)RSSI ofDevice:(NSString *)deviceAddress forUser:(NSString *)uid
 {
     NSMutableDictionary *devices = [DeviceKeeper devices];
-    NSMutableDictionary *deviceDict = [[devices objectForKey:deviceAddress] mutableCopy];
-    if (!deviceDict) {
-        deviceDict = [NSMutableDictionary dictionary];
+    NSMutableDictionary *deviceSettings = [[devices objectForKey:deviceAddress] mutableCopy];
+    if (!deviceSettings) {
+        deviceSettings = [NSMutableDictionary dictionary];
     }
-    [deviceDict setObject:[NSNumber numberWithInteger:RSSI] forKey:kThresholdRSSI];
-    [devices setObject:deviceDict forKey:deviceAddress];
+    [deviceSettings setObject:[NSNumber numberWithInteger:RSSI] forKey:kThresholdRSSI];
+    [devices setObject:deviceSettings forKey:deviceAddress];
     [DeviceKeeper saveDevices:devices];
 }
 
@@ -63,7 +56,10 @@ extern int ddLogLevel;
 {
     NSMutableDictionary *devices = [DeviceKeeper devices];
     if ([devices objectForKey:deviceAddress]) {
-        return [[[devices objectForKey:deviceAddress] objectForKey:kThresholdRSSI] intValue];
+        NSNumber *thresholdRSSI = [[devices objectForKey:deviceAddress] objectForKey:kThresholdRSSI];
+        if (thresholdRSSI) {
+            return [thresholdRSSI integerValue];
+        }
     }
     return kDefaultInRangeThreshold;
 }
@@ -73,15 +69,15 @@ extern int ddLogLevel;
     NSString *configPlist = [[NSBundle mainBundle] pathForResource:kDevicesConfig ofType:@"plist"];
     NSMutableDictionary *configDic = [NSMutableDictionary dictionaryWithContentsOfFile:configPlist];
     
-    NSMutableArray *favoriteDevices = [configDic valueForKey:kDevicesConfig_favoriteDevices];
+    NSMutableArray *favoriteDevices = [configDic valueForKey:kDevicesConfigFavoriteDevices];
     if (!favoriteDevices) {
         favoriteDevices = [NSMutableArray arrayWithCapacity:1];
-        [configDic setObject:favoriteDevices forKey:kDevicesConfig_favoriteDevices];
+        [configDic setObject:favoriteDevices forKey:kDevicesConfigFavoriteDevices];
     }
     [favoriteDevices removeAllObjects];
     [favoriteDevices addObject:deviceAddress];
     
-    [configDic writeToFile:configPlist atomically:YES];    
+    [configDic writeToFile:configPlist atomically:YES];
 }
 
 + (NSArray *)getFavoriteDevicesForUser:(NSString *)uid
@@ -89,7 +85,7 @@ extern int ddLogLevel;
     NSString *configPlist = [[NSBundle mainBundle] pathForResource:kDevicesConfig ofType:@"plist"];
     NSDictionary *configDic = [NSDictionary dictionaryWithContentsOfFile:configPlist];
     
-    NSArray *favoriteDevices = [configDic valueForKey:kDevicesConfig_favoriteDevices];
+    NSArray *favoriteDevices = [configDic valueForKey:kDevicesConfigFavoriteDevices];
     return favoriteDevices;
 }
 
@@ -97,6 +93,7 @@ extern int ddLogLevel;
 {
     NSString *userPlist = [[NSBundle mainBundle] pathForResource:kUserInfo ofType:@"plist"];
     NSMutableDictionary *userDic = [NSMutableDictionary dictionaryWithContentsOfFile:userPlist];
+
     [userDic setObject:password forKey:uid];
     [userDic writeToFile:userPlist atomically:YES];
 }
@@ -107,7 +104,7 @@ extern int ddLogLevel;
     NSDictionary *userDic = [NSDictionary dictionaryWithContentsOfFile:userPlist];
     
     NSString *password = [userDic valueForKey:uid];
-    return (password ? password : @"");
+    return (password ? : @"");
 }
 
 @end

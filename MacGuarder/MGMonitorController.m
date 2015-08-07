@@ -25,11 +25,22 @@ extern int ddLogLevel;
     static dispatch_once_t onceToken = 0;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[MGMonitorController alloc] init];
-        sharedInstance.userUID = [NSString stringWithFormat:@"%d", getuid()];
-
+        [sharedInstance prepareToInit];
         [sharedInstance setupDeviceTracker];
     });
     return sharedInstance;
+}
+
+- (void)setPassword:(NSString *)password
+{
+    _password = password;
+    [MacGuarderHelper setPassword:password];
+}
+
+- (void)setSelectedDevice:(IOBluetoothDevice *)selectedDevice
+{
+    _selectedDevice = selectedDevice;
+    [DeviceTracker sharedTracker].deviceToMonitor = selectedDevice;
 }
 
 - (void)setupDeviceTracker
@@ -56,9 +67,52 @@ extern int ddLogLevel;
     };
 }
 
-- (BOOL)isReadyToManuallyStartMonitor
+- (void)prepareToInit
 {
-    return (self.password.length > 0) && (self.selectedDevice || [DeviceKeeper getFavoriteDevicesForUser:nil].count > 0);
+    self.userUID = [NSString stringWithFormat:@"%d", getuid()];
+
+    self.password = [DeviceKeeper getPasswordForUser:self.userUID];
+
+    [self getDeviceByFavoriteDevicesOfUser];
+}
+
+- (void)getDeviceByFavoriteDevicesOfUser
+{
+    NSArray *favoriteDevices = [DeviceKeeper getFavoriteDevicesForUser:nil];
+    if (favoriteDevices.count > 0) {
+        NSString *theFavoriteDevice = [favoriteDevices firstObject];
+
+        // construct favorite device
+        BluetoothDeviceAddress *deviceAddress = malloc(sizeof(BluetoothDeviceAddress));
+        IOBluetoothNSStringToDeviceAddress(theFavoriteDevice, deviceAddress);
+        self.selectedDevice = [IOBluetoothDevice deviceWithAddress:deviceAddress];
+        if (deviceAddress) {
+            free(deviceAddress);
+        }
+    }
+}
+
+- (BOOL)isPreparedToStartMonitor
+{
+    return (self.password.length > 0) && self.selectedDevice;
+}
+
+- (IOBluetoothDevice *)selectDevice
+{
+    IOBluetoothDeviceSelectorController *deviceSelector = [IOBluetoothDeviceSelectorController deviceSelector];
+    // show dialog to select
+    [deviceSelector runModal];
+
+    NSArray *results = [deviceSelector getResults];
+
+    if (results.count > 0) {
+        IOBluetoothDevice *device = results.firstObject;
+        [device performSDPQuery:self];
+        return device;
+
+    } else {
+        return nil;
+    }
 }
 
 - (void)automaticallyStartMonitor
@@ -69,34 +123,19 @@ extern int ddLogLevel;
 - (void)trackFavoriteDevicesNow
 {
     if (!self.selectedDevice) {
-        NSArray *favoriteDevices = [DeviceKeeper getFavoriteDevicesForUser:nil];
-
-        if (favoriteDevices && (favoriteDevices.count > 0)) {
-            NSString *theFavoriteDevice = [favoriteDevices firstObject];
-
-            // construct favorite device
-            BluetoothDeviceAddress *deviceAddress = malloc(sizeof(BluetoothDeviceAddress));
-            IOBluetoothNSStringToDeviceAddress(theFavoriteDevice, deviceAddress);
-            self.selectedDevice = [IOBluetoothDevice deviceWithAddress:deviceAddress];
-            if (deviceAddress) {
-                free(deviceAddress);
-            }
-        }
+        [self getDeviceByFavoriteDevicesOfUser];
     }
 
     if (!self.selectedDevice) {
-        DDLogWarn(@"no favorite device to monitor automatically");
+        DDLogInfo(@"no favorite device to monitor automatically");
         return;
     }
 
-    [DeviceTracker sharedTracker].device = self.selectedDevice;
-    DDLogInfo(@"monitoring favorite device: %@ [%@]", [DeviceTracker sharedTracker].device.name, [DeviceTracker sharedTracker].device.addressString);
+    DDLogInfo(@"prepare for favorite device: %@ [%@]", self.selectedDevice.name, self.selectedDevice.addressString);
+    [DeviceTracker sharedTracker].deviceToMonitor = self.selectedDevice;
+    [MacGuarderHelper setPassword:self.password];
 
-    [MacGuarderHelper setPassword:[DeviceKeeper getPasswordForUser:self.userUID]];
-
-    if (![[DeviceTracker sharedTracker] isMonitoring]) {
-        [[DeviceTracker sharedTracker] startMonitoring];
-    }
+    [[DeviceTracker sharedTracker] startMonitoring];
 }
 
 /*

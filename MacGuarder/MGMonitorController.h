@@ -19,7 +19,9 @@
 
 + (MGMonitorController *)sharedMonitorController;
 
-- (BOOL)isReadyToManuallyStartMonitor;
+- (BOOL)isPreparedToStartMonitor;
 - (void)automaticallyStartMonitor;
+
+- (IOBluetoothDevice *)selectDevice;
 
 @end

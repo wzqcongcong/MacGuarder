@@ -57,18 +57,18 @@ static NSUInteger const kDefaultNumberOfSamples = 5;
     }
 
     for (NSNumber *n in self.samples) {
-        accumulator += [n intValue];
+        accumulator += [n integerValue];
     }
     return accumulator / (NSInteger)self.samples.count;
 }
 
 - (NSInteger)getMaximumVariation
 {
-    NSInteger min = [[self.samples firstObject] intValue];
-    NSInteger max = [[self.samples firstObject] intValue];
+    NSInteger min = [[self.samples firstObject] integerValue];
+    NSInteger max = [[self.samples firstObject] integerValue];
     
     for (NSNumber *n in self.samples) {
-        NSInteger nn = [n intValue];
+        NSInteger nn = [n integerValue];
         if (nn > max) max = nn;
         if (nn < min) min = nn;
     }

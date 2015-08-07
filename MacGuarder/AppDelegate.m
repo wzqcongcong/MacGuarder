@@ -48,10 +48,16 @@ int ddLogLevel = DDLogLevelInfo;
 {
     [AppDelegate setupLog];
 
-    [[MGMonitorController sharedMonitorController] automaticallyStartMonitor];
+    [MGMonitorController sharedMonitorController]; // just init MGMonitorController
 
     self.statusBarController = [[MGStatusBarController alloc] init];
     self.statusBarController.view.hidden = YES; // load status bar menu
+    [self updateStatusOfStatusBar];
+
+    if ([[MGMonitorController sharedMonitorController] isPreparedToStartMonitor]) {
+        [[MGMonitorController sharedMonitorController] automaticallyStartMonitor];
+        [self updateStatusOfStatusBar];
+    }
 }
 
 - (void)showSettingsWindow

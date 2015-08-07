@@ -9,7 +9,7 @@
 #import "MacGuarderHelper.h"
 #import "LogFormatter.h"
 
-static NSString *password;
+static NSString *password = @"";
 
 extern int ddLogLevel;
 
@@ -94,7 +94,7 @@ extern int ddLogLevel;
 + (NSInteger)getScreensaverDelay
 {
     NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.apple.screensaver"];
-    return [[prefs objectForKey:@"askForPasswordDelay"] intValue];
+    return [[prefs objectForKey:@"askForPasswordDelay"] integerValue];
 }
 
 + (BOOL)getScreensaverAskForPassword

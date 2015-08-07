@@ -19,14 +19,14 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Settings" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="default" id="1Np-GZ-R3E">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
-            <rect key="contentRect" x="335" y="390" width="400" height="286"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="contentRect" x="335" y="390" width="400" height="308"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" placeholderIntrinsicWidth="353" placeholderIntrinsicHeight="207" id="Q4N-1Z-NFM">
-                <rect key="frame" x="0.0" y="0.0" width="400" height="286"/>
+                <rect key="frame" x="0.0" y="0.0" width="400" height="308"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box autoresizesSubviews="NO" title="Device" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="bEo-AR-4gJ">
-                        <rect key="frame" x="17" y="182" width="366" height="84"/>
+                        <rect key="frame" x="17" y="204" width="366" height="84"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="364" height="68"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -62,7 +62,7 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <box autoresizesSubviews="NO" title="Mac" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="ld1-Fm-4On">
-                        <rect key="frame" x="17" y="54" width="366" height="124"/>
+                        <rect key="frame" x="17" y="76" width="366" height="124"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="364" height="108"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -77,7 +77,7 @@
                                 </textField>
                                 <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hQz-z7-ouW">
                                     <rect key="frame" x="141" y="74" width="211" height="22"/>
-                                    <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="bCI-YA-5Px">
+                                    <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" usesSingleLineMode="YES" bezelStyle="round" id="bCI-YA-5Px">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -107,7 +107,7 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="drn-Xh-qyC" userLabel="Action">
-                        <rect key="frame" x="0.0" y="10" width="400" height="40"/>
+                        <rect key="frame" x="0.0" y="20" width="400" height="40"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uwD-mH-Y6O">
                                 <rect key="frame" x="215" y="5" width="167" height="29"/>
@@ -140,12 +140,11 @@
                     </customView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="drn-Xh-qyC" secondAttribute="bottom" constant="10" id="1Ty-I3-WtN"/>
+                    <constraint firstAttribute="bottom" secondItem="drn-Xh-qyC" secondAttribute="bottom" constant="20" id="1Ty-I3-WtN"/>
                     <constraint firstAttribute="trailing" secondItem="drn-Xh-qyC" secondAttribute="trailing" id="AeI-Bv-xyg"/>
                     <constraint firstItem="bEo-AR-4gJ" firstAttribute="leading" secondItem="Q4N-1Z-NFM" secondAttribute="leading" constant="20" symbolic="YES" id="H4O-h7-4mK"/>
-                    <constraint firstItem="drn-Xh-qyC" firstAttribute="top" secondItem="ld1-Fm-4On" secondAttribute="bottom" constant="8" symbolic="YES" id="HFb-0N-hRF"/>
                     <constraint firstItem="drn-Xh-qyC" firstAttribute="leading" secondItem="Q4N-1Z-NFM" secondAttribute="leading" id="JZd-Od-Vf7"/>
-                    <constraint firstItem="drn-Xh-qyC" firstAttribute="top" secondItem="ld1-Fm-4On" secondAttribute="bottom" constant="8" symbolic="YES" id="K3z-hJ-FSk"/>
+                    <constraint firstItem="drn-Xh-qyC" firstAttribute="top" secondItem="ld1-Fm-4On" secondAttribute="bottom" constant="20" id="K3z-hJ-FSk"/>
                     <constraint firstAttribute="trailing" secondItem="bEo-AR-4gJ" secondAttribute="trailing" constant="20" symbolic="YES" id="OMl-cF-nXF"/>
                     <constraint firstItem="ld1-Fm-4On" firstAttribute="top" secondItem="bEo-AR-4gJ" secondAttribute="bottom" constant="8" symbolic="YES" id="RN8-JH-KBa"/>
                     <constraint firstAttribute="trailing" secondItem="ld1-Fm-4On" secondAttribute="trailing" constant="20" symbolic="YES" id="Rwz-N1-zSw"/>
