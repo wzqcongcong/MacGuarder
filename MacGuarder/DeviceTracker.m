@@ -56,7 +56,7 @@ extern int ddLogLevel;
         self.isMonitoring = YES;
 
         self.inRangeThreshold = [DeviceKeeper getThresholdRSSIOfDevice:self.deviceToMonitor.addressString];
-        DDLogInfo(@"set threshold for device %@ [%@]: %ld", self.deviceToMonitor.name, self.deviceToMonitor.addressString, self.inRangeThreshold);
+        DDLogInfo(@"set threshold [%ld] for device: %@ [%@]", self.inRangeThreshold, self.deviceToMonitor.name, self.deviceToMonitor.addressString);
         DDLogInfo(@"now monitoring: %@ [%@]", self.deviceToMonitor.name, self.deviceToMonitor.addressString);
 
         [[RSSISmootheningFilter sharedInstance] reset];
