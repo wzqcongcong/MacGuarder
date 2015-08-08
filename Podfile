@@ -2,6 +2,7 @@
 platform :osx, '10.10'
 
 pod "CocoaLumberjack"
+pod "RNCryptor"
 
 target 'MacGuarder' do
 

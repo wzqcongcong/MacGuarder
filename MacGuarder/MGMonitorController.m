@@ -78,7 +78,7 @@ extern int ddLogLevel;
 
 - (void)getDeviceByFavoriteDevicesOfUser
 {
-    NSArray *favoriteDevices = [DeviceKeeper getFavoriteDevicesForUser:nil];
+    NSArray *favoriteDevices = [DeviceKeeper getFavoriteDevices];
     if (favoriteDevices.count > 0) {
         NSString *theFavoriteDevice = [favoriteDevices firstObject];
 

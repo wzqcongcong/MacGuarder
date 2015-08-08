@@ -12,11 +12,12 @@ extern NSInteger const kDefaultInRangeThreshold;
 
 @interface DeviceKeeper : NSObject
 
-+ (void)setThresholdRSSI:(NSInteger)RSSI ofDevice:(NSString *)deviceAddress forUser:(NSString *)uid;
-+ (NSInteger)getThresholdRSSIOfDevice:(NSString *)deviceAddress forUser:(NSString *)uid;
++ (void)setThresholdRSSI:(NSInteger)RSSI forDevice:(NSString *)deviceAddress;
++ (NSInteger)getThresholdRSSIOfDevice:(NSString *)deviceAddress;
 
-+ (void)saveFavoriteDevice:(NSString *)deviceAddress forUser:(NSString *)uid;
-+ (NSArray *)getFavoriteDevicesForUser:(NSString *)uid;
++ (void)saveFavoriteDevice:(NSString *)deviceAddress;
++ (NSArray *)getFavoriteDevices;
+
 + (void)savePassword:(NSString *)password forUser:(NSString *)uid;
 + (NSString *)getPasswordForUser:(NSString *)uid;
 

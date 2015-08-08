@@ -15,8 +15,6 @@
 		84E68BA21AA5B8E600D3811A /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E68BA11AA5B8E600D3811A /* SecurityInterface.framework */; };
 		84E68BA41AA5BA3700D3811A /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E68BA31AA5BA3700D3811A /* CoreBluetooth.framework */; };
 		84E68BA81AA5D8DA00D3811A /* LogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E68BA71AA5D8DA00D3811A /* LogFormatter.m */; };
-		CE420BA2198794F10026B346 /* DevicesConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE420BA1198794F10026B346 /* DevicesConfig.plist */; };
-		CE420BA51987B7070026B346 /* UserInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE420BA41987B7070026B346 /* UserInfo.plist */; };
 		CEBF843B197FDE5400EBE976 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBF843A197FDE5400EBE976 /* Cocoa.framework */; };
 		CEBF8445197FDE5400EBE976 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEBF8443197FDE5400EBE976 /* InfoPlist.strings */; };
 		CEBF8447197FDE5400EBE976 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF8446197FDE5400EBE976 /* main.m */; };
@@ -49,8 +47,6 @@
 		84E68BA61AA5D8DA00D3811A /* LogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogFormatter.h; sourceTree = "<group>"; };
 		84E68BA71AA5D8DA00D3811A /* LogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogFormatter.m; sourceTree = "<group>"; };
 		8A764A8BF97A91FAC78246BD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		CE420BA1198794F10026B346 /* DevicesConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DevicesConfig.plist; sourceTree = "<group>"; };
-		CE420BA41987B7070026B346 /* UserInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInfo.plist; sourceTree = "<group>"; };
 		CEBF8437197FDE5400EBE976 /* MacGuarder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacGuarder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEBF843A197FDE5400EBE976 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		CEBF843D197FDE5400EBE976 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -212,8 +208,6 @@
 			children = (
 				CEBF84A71980AD3400EBE976 /* DeviceKeeper.h */,
 				CEBF84A81980AD3400EBE976 /* DeviceKeeper.m */,
-				CE420BA1198794F10026B346 /* DevicesConfig.plist */,
-				CE420BA41987B7070026B346 /* UserInfo.plist */,
 			);
 			name = DeviceKeeper;
 			sourceTree = "<group>";
@@ -288,8 +282,6 @@
 				CEBF844B197FDE5400EBE976 /* Credits.rtf in Resources */,
 				84478F301B74A3EF00B766AF /* MGStatusBarController.xib in Resources */,
 				84478F2A1B74972400B766AF /* MGSettingsWindowController.xib in Resources */,
-				CE420BA51987B7070026B346 /* UserInfo.plist in Resources */,
-				CE420BA2198794F10026B346 /* DevicesConfig.plist in Resources */,
 				CEBF8451197FDE5400EBE976 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

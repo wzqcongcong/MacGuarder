@@ -105,8 +105,8 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
     // save device and password
     [MGMonitorController sharedMonitorController].selectedDevice = self.tmpSelectedDevice;
     [MGMonitorController sharedMonitorController].password = self.tfMacPassword.stringValue;
-    [DeviceKeeper saveFavoriteDevice:[MGMonitorController sharedMonitorController].selectedDevice.addressString forUser:nil];
-    [DeviceKeeper setThresholdRSSI:kDefaultInRangeThreshold ofDevice:[MGMonitorController sharedMonitorController].selectedDevice.addressString forUser:nil];
+    [DeviceKeeper saveFavoriteDevice:[MGMonitorController sharedMonitorController].selectedDevice.addressString];
+    [DeviceKeeper setThresholdRSSI:kDefaultInRangeThreshold forDevice:[MGMonitorController sharedMonitorController].selectedDevice.addressString];
     [DeviceKeeper savePassword:[MGMonitorController sharedMonitorController].password forUser:[MGMonitorController sharedMonitorController].userUID];
 
     // leave some time for stop
@@ -122,6 +122,8 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
 
 -(void)authorizationViewDidAuthorize:(SFAuthorizationView *)view
 {
+    // need manually active app, because the app is agent, and the system unlock UI will lock focus.
+    [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
     self.tfMacPassword.enabled = YES;
 
     AuthorizationRights *rights = self.authorizationView.authorizationRights;

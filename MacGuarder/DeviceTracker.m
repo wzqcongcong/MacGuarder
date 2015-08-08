@@ -46,7 +46,7 @@ extern int ddLogLevel;
     if (!self.isMonitoring && self.deviceToMonitor) {
         self.isMonitoring = YES;
 
-        self.inRangeThreshold = [DeviceKeeper getThresholdRSSIOfDevice:self.deviceToMonitor.addressString forUser:nil];
+        self.inRangeThreshold = [DeviceKeeper getThresholdRSSIOfDevice:self.deviceToMonitor.addressString];
         DDLogInfo(@"set threshold for device %@: %ld", self.deviceToMonitor.name, self.inRangeThreshold);
         DDLogInfo(@"now monitoring: %@ [%@]", self.deviceToMonitor.name, self.deviceToMonitor.addressString);
 

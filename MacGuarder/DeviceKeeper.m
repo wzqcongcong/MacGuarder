@@ -8,103 +8,116 @@
 
 #import "DeviceKeeper.h"
 #import "LogFormatter.h"
+#import "RNEncryptor.h"
+#import "RNDecryptor.h"
 
-NSInteger const kDefaultInRangeThreshold = -60;
+NSInteger const kDefaultInRangeThreshold    = -60;
 
-// stored by Plist (encryption)
-static NSString * const kUserInfo                      = @"UserInfo"; // UserInfo.plist
-static NSString * const kDevicesConfig                 = @"DevicesConfig"; // DevicesConfig.plist
-static NSString * const kDevicesConfigFavoriteDevices  = @"favoriteDevices"; // array
+static NSString * const kDeviceSettings     = @"DeviceSettings"; // {"addressString": dicSettings}
+static NSString * const kThresholdRSSI      = @"MacGuarderThresholdRSSI";
 
-// stored by NSUserDefaults
-static NSString * const kDevices                       = @"com.GoKuStudio.MacGuarder.Devices";
-static NSString * const kThresholdRSSI                 = @"MacGuarderThresholdRSSI";
+static NSString * const kFavoriteDevices    = @"FavoriteDevices"; // ["addressString"]
+
+// stored with encryption
+static NSString * const kUserInfo           = @"UserInfo"; // {"uid": "password"}
+
+static NSString * const kDeviceKeeperKey    = @"com.GoKuStudio.MacGuarder.DeviceKeeperKey";
 
 extern int ddLogLevel;
 
 @implementation DeviceKeeper
 
-+ (NSMutableDictionary *)devices
++ (void)setThresholdRSSI:(NSInteger)RSSI forDevice:(NSString *)deviceAddress
 {
-    NSMutableDictionary *devices = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kDevices] mutableCopy];
-    if (!devices) {
-        devices = [NSMutableDictionary dictionary];
-        [DeviceKeeper saveDevices:devices];
-    }
-    return devices;
-}
-
-+ (void)saveDevices:(NSMutableDictionary *)devices
-{
-    [[NSUserDefaults standardUserDefaults] setObject:devices forKey:kDevices];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-+ (void)setThresholdRSSI:(NSInteger)RSSI ofDevice:(NSString *)deviceAddress forUser:(NSString *)uid
-{
-    NSMutableDictionary *devices = [DeviceKeeper devices];
-    NSMutableDictionary *deviceSettings = [[devices objectForKey:deviceAddress] mutableCopy];
+    NSMutableDictionary *deviceSettings = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kDeviceSettings] mutableCopy];
     if (!deviceSettings) {
         deviceSettings = [NSMutableDictionary dictionary];
     }
-    [deviceSettings setObject:[NSNumber numberWithInteger:RSSI] forKey:kThresholdRSSI];
-    [devices setObject:deviceSettings forKey:deviceAddress];
-    [DeviceKeeper saveDevices:devices];
+
+    NSMutableDictionary *settings = [[deviceSettings objectForKey:deviceAddress] mutableCopy];
+    if (!settings) {
+        settings = [NSMutableDictionary dictionary];
+    }
+
+    [settings setObject:[NSNumber numberWithInteger:RSSI] forKey:kThresholdRSSI];
+    [deviceSettings setObject:settings forKey:deviceAddress];
+
+    [[NSUserDefaults standardUserDefaults] setObject:deviceSettings forKey:kDeviceSettings];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+ (NSInteger)getThresholdRSSIOfDevice:(NSString *)deviceAddress forUser:(NSString *)uid
++ (NSInteger)getThresholdRSSIOfDevice:(NSString *)deviceAddress
 {
-    NSMutableDictionary *devices = [DeviceKeeper devices];
-    if ([devices objectForKey:deviceAddress]) {
-        NSNumber *thresholdRSSI = [[devices objectForKey:deviceAddress] objectForKey:kThresholdRSSI];
-        if (thresholdRSSI) {
-            return [thresholdRSSI integerValue];
+    NSDictionary *deviceSettings = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kDeviceSettings];
+    if (deviceSettings) {
+        NSDictionary *settings = [deviceSettings objectForKey:deviceAddress];
+        if (settings) {
+            NSNumber *thresholdRSSI = [settings objectForKey:kThresholdRSSI];
+            if (thresholdRSSI) {
+                return [thresholdRSSI integerValue];
+            }
         }
     }
+
     return kDefaultInRangeThreshold;
 }
 
-+ (void)saveFavoriteDevice:(NSString *)deviceAddress forUser:(NSString *)uid
++ (void)saveFavoriteDevice:(NSString *)deviceAddress
 {
-    NSString *configPlist = [[NSBundle mainBundle] pathForResource:kDevicesConfig ofType:@"plist"];
-    NSMutableDictionary *configDic = [NSMutableDictionary dictionaryWithContentsOfFile:configPlist];
-    
-    NSMutableArray *favoriteDevices = [configDic valueForKey:kDevicesConfigFavoriteDevices];
+    NSMutableArray *favoriteDevices = [[[NSUserDefaults standardUserDefaults] arrayForKey:kFavoriteDevices] mutableCopy];
     if (!favoriteDevices) {
-        favoriteDevices = [NSMutableArray arrayWithCapacity:1];
-        [configDic setObject:favoriteDevices forKey:kDevicesConfigFavoriteDevices];
+        favoriteDevices = [NSMutableArray array];
     }
+
     [favoriteDevices removeAllObjects];
     [favoriteDevices addObject:deviceAddress];
-    
-    [configDic writeToFile:configPlist atomically:YES];
+
+    [[NSUserDefaults standardUserDefaults] setObject:favoriteDevices forKey:kFavoriteDevices];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+ (NSArray *)getFavoriteDevicesForUser:(NSString *)uid
++ (NSArray *)getFavoriteDevices
 {
-    NSString *configPlist = [[NSBundle mainBundle] pathForResource:kDevicesConfig ofType:@"plist"];
-    NSDictionary *configDic = [NSDictionary dictionaryWithContentsOfFile:configPlist];
-    
-    NSArray *favoriteDevices = [configDic valueForKey:kDevicesConfigFavoriteDevices];
+    NSArray *favoriteDevices = [[NSUserDefaults standardUserDefaults] arrayForKey:kFavoriteDevices];
     return favoriteDevices;
 }
 
 + (void)savePassword:(NSString *)password forUser:(NSString *)uid
 {
-    NSString *userPlist = [[NSBundle mainBundle] pathForResource:kUserInfo ofType:@"plist"];
-    NSMutableDictionary *userDic = [NSMutableDictionary dictionaryWithContentsOfFile:userPlist];
+    NSMutableDictionary *userInfo = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kUserInfo] mutableCopy];
+    if (!userInfo) {
+        userInfo = [NSMutableDictionary dictionary];
+    }
 
-    [userDic setObject:password forKey:uid];
-    [userDic writeToFile:userPlist atomically:YES];
+    NSData *plainData = [password dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *encryptedData = [RNEncryptor encryptData:plainData
+                                        withSettings:kRNCryptorAES256Settings
+                                            password:kDeviceKeeperKey
+                                               error:NULL];
+
+    [userInfo setObject:encryptedData forKey:uid];
+
+    [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kUserInfo];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (NSString *)getPasswordForUser:(NSString *)uid
 {
-    NSString *userPlist = [[NSBundle mainBundle] pathForResource:kUserInfo ofType:@"plist"];
-    NSDictionary *userDic = [NSDictionary dictionaryWithContentsOfFile:userPlist];
-    
-    NSString *password = [userDic valueForKey:uid];
-    return (password ? : @"");
+    NSMutableDictionary *userInfo = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kUserInfo] mutableCopy];
+    if (userInfo) {
+        NSData *encryptedData = [userInfo objectForKey:uid];
+        if (encryptedData) {
+            NSData *decryptedData = [RNDecryptor decryptData:encryptedData
+                                                withPassword:kDeviceKeeperKey
+                                                       error:NULL];
+            if (decryptedData) {
+                NSString *password = [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding];
+                return password;
+            }
+        }
+    }
+
+    return nil;
 }
 
 @end
