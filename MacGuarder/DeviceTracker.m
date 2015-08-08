@@ -20,6 +20,7 @@ extern int ddLogLevel;
 
 @interface DeviceTracker ()
 
+@property (nonatomic, strong) NSThread *workThread;
 @property (atomic, readwrite, assign) BOOL isMonitoring;
 @property (nonatomic, readwrite, assign) BOOL deviceInRange;
 
@@ -41,21 +42,31 @@ extern int ddLogLevel;
     return sharedInstance;
 }
 
+- (void)setDeviceToMonitor:(IOBluetoothDevice *)deviceToMonitor
+{
+    if ([_deviceToMonitor isConnected]) {
+        [_deviceToMonitor closeConnection];
+    }
+    _deviceToMonitor = deviceToMonitor;
+}
+
 - (void)startMonitoring
 {
     if (!self.isMonitoring && self.deviceToMonitor) {
         self.isMonitoring = YES;
 
         self.inRangeThreshold = [DeviceKeeper getThresholdRSSIOfDevice:self.deviceToMonitor.addressString];
-        DDLogInfo(@"set threshold for device %@: %ld", self.deviceToMonitor.name, self.inRangeThreshold);
+        DDLogInfo(@"set threshold for device %@ [%@]: %ld", self.deviceToMonitor.name, self.deviceToMonitor.addressString, self.inRangeThreshold);
         DDLogInfo(@"now monitoring: %@ [%@]", self.deviceToMonitor.name, self.deviceToMonitor.addressString);
 
         [[RSSISmootheningFilter sharedInstance] reset];
 
-        [NSThread detachNewThreadSelector:@selector(updateStatus) toTarget:self withObject:nil];
-
         self.deviceInRange = YES;
         self.initialRSSI = -127;
+
+        self.workThread = [[NSThread alloc] initWithTarget:self selector:@selector(updateStatus) object:nil];
+        self.workThread.name = [NSString stringWithFormat:@"%@", [NSDate date]];
+        [self.workThread start];
 
     } else {
         DDLogError(@"can not start monitor, please use \"Settings\" to setup device.");
@@ -65,12 +76,18 @@ extern int ddLogLevel;
 - (void)stopMonitoring
 {
     self.isMonitoring = NO;
-    [self.deviceToMonitor closeConnection];
+
+    [self.workThread cancel];
+
+    if (self.deviceToMonitor.isConnected) {
+        [self.deviceToMonitor closeConnection];
+    }
 }
 
 - (void)updateStatus
 {
-    while (self.isMonitoring) {
+    DDLogVerbose(@"work thread <%@> start", [NSThread currentThread].name);
+    while (!([NSThread currentThread].isCancelled) && self.isMonitoring) {
 
         if (self.deviceToMonitor) {
             BOOL reconnected = NO;
@@ -136,8 +153,11 @@ extern int ddLogLevel;
         [NSThread sleepForTimeInterval:kMGMonitorTrackerTimeInteval];
     }
     
-    DDLogInfo(@"close connection");
-    [self.deviceToMonitor closeConnection];
+    if (self.deviceToMonitor.isConnected) {
+        [self.deviceToMonitor closeConnection];
+    }
+
+    DDLogVerbose(@"work thread <%@> stop", [NSThread currentThread].name);
 }
 
 #pragma mark - IOBluetoothDeviceAsyncCallbacks delegate
