@@ -100,7 +100,8 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
     }
 
     [[DeviceTracker sharedTracker] stopMonitoring];
-
+    [(AppDelegate *)[NSApplication sharedApplication].delegate updateStatusOfStatusBar];
+    
     // save device and password
     [MGMonitorController sharedMonitorController].selectedDevice = self.tmpSelectedDevice;
     [MGMonitorController sharedMonitorController].password = self.tfMacPassword.stringValue;

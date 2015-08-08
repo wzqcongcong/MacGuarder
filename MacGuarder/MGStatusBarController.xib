@@ -18,13 +18,6 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <menu id="OGE-gG-nPb">
             <items>
-                <menuItem title="Settings" id="U5p-M7-iHJ">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="clickMenuItemSettings:" target="-2" id="jeG-Mh-IEY"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="DsU-xs-f6f"/>
                 <menuItem title="Start" id="h3W-0p-2UE">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -38,6 +31,13 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="iHn-uV-K7Q"/>
+                <menuItem title="Settings" id="U5p-M7-iHJ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="clickMenuItemSettings:" target="-2" id="jeG-Mh-IEY"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="DsU-xs-f6f"/>
                 <menuItem title="Quit" id="viq-E4-Sdj">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
