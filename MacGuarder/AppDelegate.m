@@ -61,7 +61,7 @@ int ddLogLevel = DDLogLevelInfo;
         }
     }
 
-    [self showSettingsWindow];
+//    [self showSettingsWindow];
 }
 
 - (void)showSettingsWindow
