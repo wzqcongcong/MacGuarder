@@ -100,6 +100,8 @@ extern int ddLogLevel;
                 if (reconnected) {
                     DDLogInfo(@"connected");
                     self.initialRSSI = self.currentRSSI;
+                } else {
+                    DDLogInfo(@"no connection");
                 }
             }
 
