@@ -9,7 +9,7 @@
 #import "DeviceTracker.h"
 #import "LogFormatter.h"
 #import "RSSISmootheningFilter.h"
-#import "DeviceKeeper.h"
+#import "ConfigManager.h"
 
 float const kMGMonitorTrackerTimeInteval  = 1;
 
@@ -55,7 +55,7 @@ extern int ddLogLevel;
     if (!self.isMonitoring && self.deviceToMonitor) {
         self.isMonitoring = YES;
 
-        self.inRangeThreshold = [DeviceKeeper getThresholdRSSIOfDevice:self.deviceToMonitor.addressString];
+        self.inRangeThreshold = [ConfigManager getThresholdRSSIOfDevice:self.deviceToMonitor.addressString];
         DDLogInfo(@"set threshold [%ld] for device: %@ [%@]", self.inRangeThreshold, self.deviceToMonitor.name, self.deviceToMonitor.addressString);
         DDLogInfo(@"now monitoring: %@ [%@]", self.deviceToMonitor.name, self.deviceToMonitor.addressString);
 

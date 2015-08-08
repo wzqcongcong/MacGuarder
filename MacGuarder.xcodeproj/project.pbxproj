@@ -24,10 +24,11 @@
 		CEBF8453197FDE5400EBE976 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEBF8452197FDE5400EBE976 /* Images.xcassets */; };
 		CEBF849E197FDF2200EBE976 /* MacGuarderHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF849D197FDF2200EBE976 /* MacGuarderHelper.m */; };
 		CEBF84A61980AD2300EBE976 /* DeviceTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF84A51980AD2300EBE976 /* DeviceTracker.m */; };
-		CEBF84A91980AD3400EBE976 /* DeviceKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF84A81980AD3400EBE976 /* DeviceKeeper.m */; };
+		CEBF84A91980AD3400EBE976 /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF84A81980AD3400EBE976 /* ConfigManager.m */; };
 		CEBF84AB1980B2F600EBE976 /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBF84AA1980B2F600EBE976 /* IOBluetooth.framework */; };
 		CEBF84AD1980B2FD00EBE976 /* IOBluetoothUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBF84AC1980B2FD00EBE976 /* IOBluetoothUI.framework */; };
 		CEBF84B01980B61300EBE976 /* RSSISmootheningFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF84AF1980B61300EBE976 /* RSSISmootheningFilter.m */; };
+		E5C88B4F1B75EBFC00791716 /* SmoothWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C88B4E1B75EBFC00791716 /* SmoothWindow.m */; };
 		FE771E7BBB59FED757D89189 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18485F5168589B19A4D497A3 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -65,12 +66,14 @@
 		CEBF849D197FDF2200EBE976 /* MacGuarderHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacGuarderHelper.m; sourceTree = "<group>"; };
 		CEBF84A41980AD2300EBE976 /* DeviceTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceTracker.h; sourceTree = "<group>"; };
 		CEBF84A51980AD2300EBE976 /* DeviceTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceTracker.m; sourceTree = "<group>"; };
-		CEBF84A71980AD3400EBE976 /* DeviceKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceKeeper.h; sourceTree = "<group>"; };
-		CEBF84A81980AD3400EBE976 /* DeviceKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceKeeper.m; sourceTree = "<group>"; };
+		CEBF84A71980AD3400EBE976 /* ConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
+		CEBF84A81980AD3400EBE976 /* ConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigManager.m; sourceTree = "<group>"; };
 		CEBF84AA1980B2F600EBE976 /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = System/Library/Frameworks/IOBluetooth.framework; sourceTree = SDKROOT; };
 		CEBF84AC1980B2FD00EBE976 /* IOBluetoothUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetoothUI.framework; path = System/Library/Frameworks/IOBluetoothUI.framework; sourceTree = SDKROOT; };
 		CEBF84AE1980B61300EBE976 /* RSSISmootheningFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSISmootheningFilter.h; sourceTree = "<group>"; };
 		CEBF84AF1980B61300EBE976 /* RSSISmootheningFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSISmootheningFilter.m; sourceTree = "<group>"; };
+		E5C88B4D1B75EBFC00791716 /* SmoothWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmoothWindow.h; sourceTree = "<group>"; };
+		E5C88B4E1B75EBFC00791716 /* SmoothWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmoothWindow.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +107,8 @@
 			children = (
 				84E68BA61AA5D8DA00D3811A /* LogFormatter.h */,
 				84E68BA71AA5D8DA00D3811A /* LogFormatter.m */,
+				CEBF84A71980AD3400EBE976 /* ConfigManager.h */,
+				CEBF84A81980AD3400EBE976 /* ConfigManager.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -153,14 +158,13 @@
 		CEBF8440197FDE5400EBE976 /* MacGuarder */ = {
 			isa = PBXGroup;
 			children = (
-				84E68BA51AA5D88700D3811A /* Common */,
 				CEBF844C197FDE5400EBE976 /* AppDelegate.h */,
 				CEBF844D197FDE5400EBE976 /* AppDelegate.m */,
 				84478F311B74A90600B766AF /* MGMonitorController.h */,
 				84478F321B74A90600B766AF /* MGMonitorController.m */,
+				84E68BA51AA5D88700D3811A /* Common */,
 				CEBF84A1197FE44C00EBE976 /* ViewController */,
 				CEBF84A31980ACB700EBE976 /* DeviceTracker */,
-				CEBF84A21980ACA000EBE976 /* DeviceKeeper */,
 				CEBF849B197FDF2200EBE976 /* Helper */,
 				CEBF8441197FDE5400EBE976 /* Supporting Files */,
 			);
@@ -199,17 +203,10 @@
 				84478F261B74972400B766AF /* MGSettingsWindowController.h */,
 				84478F271B74972400B766AF /* MGSettingsWindowController.m */,
 				84478F281B74972400B766AF /* MGSettingsWindowController.xib */,
+				E5C88B4D1B75EBFC00791716 /* SmoothWindow.h */,
+				E5C88B4E1B75EBFC00791716 /* SmoothWindow.m */,
 			);
 			name = ViewController;
-			sourceTree = "<group>";
-		};
-		CEBF84A21980ACA000EBE976 /* DeviceKeeper */ = {
-			isa = PBXGroup;
-			children = (
-				CEBF84A71980AD3400EBE976 /* DeviceKeeper.h */,
-				CEBF84A81980AD3400EBE976 /* DeviceKeeper.m */,
-			);
-			name = DeviceKeeper;
 			sourceTree = "<group>";
 		};
 		CEBF84A31980ACB700EBE976 /* DeviceTracker */ = {
@@ -330,10 +327,11 @@
 				84478F2F1B74A3EF00B766AF /* MGStatusBarController.m in Sources */,
 				84478F291B74972400B766AF /* MGSettingsWindowController.m in Sources */,
 				CEBF844E197FDE5400EBE976 /* AppDelegate.m in Sources */,
+				E5C88B4F1B75EBFC00791716 /* SmoothWindow.m in Sources */,
 				CEBF84B01980B61300EBE976 /* RSSISmootheningFilter.m in Sources */,
 				CEBF8447197FDE5400EBE976 /* main.m in Sources */,
 				CEBF849E197FDF2200EBE976 /* MacGuarderHelper.m in Sources */,
-				CEBF84A91980AD3400EBE976 /* DeviceKeeper.m in Sources */,
+				CEBF84A91980AD3400EBE976 /* ConfigManager.m in Sources */,
 				CEBF84A61980AD2300EBE976 /* DeviceTracker.m in Sources */,
 				84E68BA81AA5D8DA00D3811A /* LogFormatter.m in Sources */,
 			);

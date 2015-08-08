@@ -1,5 +1,5 @@
 //
-//  DeviceKeeper.h
+//  ConfigManager.h
 //  MacGuarder
 //
 //  Created by GoKu on 14-7-24.
@@ -10,7 +10,10 @@
 
 extern NSInteger const kDefaultInRangeThreshold;
 
-@interface DeviceKeeper : NSObject
+@interface ConfigManager : NSObject
+
++ (void)setAutoStartMonitor:(BOOL)autoStart;
++ (BOOL)isAutoStartMonitor;
 
 + (void)setThresholdRSSI:(NSInteger)RSSI forDevice:(NSString *)deviceAddress;
 + (NSInteger)getThresholdRSSIOfDevice:(NSString *)deviceAddress;

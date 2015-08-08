@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DeviceKeeper.h"
+#import "ConfigManager.h"
 #import "DeviceTracker.h"
 #import "MacGuarderHelper.h"
 

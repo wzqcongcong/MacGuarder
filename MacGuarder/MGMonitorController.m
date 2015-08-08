@@ -71,14 +71,14 @@ extern int ddLogLevel;
 {
     self.userUID = [NSString stringWithFormat:@"%d", getuid()];
 
-    self.password = [DeviceKeeper getPasswordForUser:self.userUID];
+    self.password = [ConfigManager getPasswordForUser:self.userUID];
 
     [self getDeviceByFavoriteDevicesOfUser];
 }
 
 - (void)getDeviceByFavoriteDevicesOfUser
 {
-    NSArray *favoriteDevices = [DeviceKeeper getFavoriteDevices];
+    NSArray *favoriteDevices = [ConfigManager getFavoriteDevices];
     if (favoriteDevices.count > 0) {
         NSString *theFavoriteDevice = [favoriteDevices firstObject];
 

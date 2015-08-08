@@ -20,16 +20,20 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
 
 @interface MGSettingsWindowController ()
 
+@property (weak) IBOutlet NSToolbarItem *toolbarGeneral;
+@property (weak) IBOutlet NSToolbarItem *toolbarApp;
+
+@property (strong) IBOutlet NSView *settingGeneralView;
 @property (weak) IBOutlet NSTextField *infoLabel;
 @property (weak) IBOutlet NSButton *btSelectDevice;
-
 @property (weak) IBOutlet NSSecureTextField *tfMacPassword;
 @property (weak) IBOutlet SFAuthorizationView *authorizationView;
-
-@property (weak) IBOutlet NSButton *btStart;
 @property (weak) IBOutlet NSButton *btStop;
-
+@property (weak) IBOutlet NSButton *btSaveAndRestart;
 @property (nonatomic, strong) IOBluetoothDevice *tmpSelectedDevice;
+
+@property (strong) IBOutlet NSView *settingAppView;
+@property (weak) IBOutlet NSButton *checkAutoStartMonitor;
 
 @end
 
@@ -59,12 +63,79 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
     // mannually sync lock status of admin user rights
     [self.authorizationView updateStatus:self.authorizationView];
 
-    self.tmpSelectedDevice = [MGMonitorController sharedMonitorController].selectedDevice;
-    self.infoLabel.stringValue = self.tmpSelectedDevice ? self.tmpSelectedDevice.name : @"Please select a device";
-    self.tfMacPassword.stringValue = [MGMonitorController sharedMonitorController].password ? : @"";
+    // show General by default
+    self.window.toolbar.selectedItemIdentifier = self.toolbarGeneral.itemIdentifier;
+    [self clickTabSettingGeneral:self.toolbarGeneral];
+}
+
+- (void)switchToTabView:(NSView *)settingView withAnimation:(BOOL)animation
+{
+    NSView *windowView = self.window.contentView;
+    CGFloat oldHeight = windowView.frame.size.height;
+
+    for (NSView *view in windowView.subviews) {
+        [view removeFromSuperview];
+    }
+
+    [windowView addSubview:settingView];
+    CGFloat newHeight = settingView.frame.size.height;
+
+    NSPoint origin = settingView.frame.origin;
+    origin.y += (oldHeight - newHeight);
+    [settingView setFrameOrigin:origin];
+
+    NSRect frame = self.window.frame;
+    frame.size.height += (newHeight - oldHeight);
+    frame.origin.y -= (newHeight - oldHeight);
+    [self.window setFrame:frame display:YES animate:animation];
+
+    /* constraint can not create the animation effect
+    [windowView.animator addConstraints:@[[NSLayoutConstraint constraintWithItem:settingView
+                                                                       attribute:NSLayoutAttributeTop
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:windowView
+                                                                       attribute:NSLayoutAttributeTop
+                                                                      multiplier:1
+                                                                        constant:0],
+                                          [NSLayoutConstraint constraintWithItem:settingView
+                                                                       attribute:NSLayoutAttributeBottom
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:windowView
+                                                                       attribute:NSLayoutAttributeBottom
+                                                                      multiplier:1
+                                                                        constant:0],
+                                          [NSLayoutConstraint constraintWithItem:settingView
+                                                                       attribute:NSLayoutAttributeLeading
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:windowView
+                                                                       attribute:NSLayoutAttributeLeading
+                                                                      multiplier:1
+                                                                        constant:0],
+                                          [NSLayoutConstraint constraintWithItem:settingView
+                                                                       attribute:NSLayoutAttributeTrailing
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:windowView
+                                                                       attribute:NSLayoutAttributeTrailing
+                                                                      multiplier:1
+                                                                        constant:0]]];
+    //*/
 }
 
 #pragma mark - UI action
+
+- (IBAction)clickTabSettingGeneral:(id)sender {
+    self.tmpSelectedDevice = [MGMonitorController sharedMonitorController].selectedDevice;
+    self.infoLabel.stringValue = self.tmpSelectedDevice ? self.tmpSelectedDevice.name : @"Please select a device";
+    self.tfMacPassword.stringValue = [MGMonitorController sharedMonitorController].password ? : @"";
+
+    [self switchToTabView:self.settingGeneralView withAnimation:YES];
+}
+
+- (IBAction)clickTabSettingApp:(id)sender {
+    self.checkAutoStartMonitor.state = [ConfigManager isAutoStartMonitor] ? NSOnState : NSOffState;
+
+    [self switchToTabView:self.settingAppView withAnimation:YES];
+}
 
 - (IBAction)didClickSelectDevice:(id)sender
 {
@@ -81,7 +152,7 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
     }
 }
 
-- (IBAction)didClickStop:(id)sender
+- (IBAction)stop:(id)sender
 {
     [[DeviceTracker sharedTracker] stopMonitoring];
     [(AppDelegate *)[NSApplication sharedApplication].delegate updateStatusOfStatusBar];
@@ -105,9 +176,9 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
     // save device and password
     [MGMonitorController sharedMonitorController].selectedDevice = self.tmpSelectedDevice;
     [MGMonitorController sharedMonitorController].password = self.tfMacPassword.stringValue;
-    [DeviceKeeper saveFavoriteDevice:[MGMonitorController sharedMonitorController].selectedDevice.addressString];
-    [DeviceKeeper setThresholdRSSI:kDefaultInRangeThreshold forDevice:[MGMonitorController sharedMonitorController].selectedDevice.addressString];
-    [DeviceKeeper savePassword:[MGMonitorController sharedMonitorController].password forUser:[MGMonitorController sharedMonitorController].userUID];
+    [ConfigManager saveFavoriteDevice:[MGMonitorController sharedMonitorController].selectedDevice.addressString];
+    [ConfigManager setThresholdRSSI:kDefaultInRangeThreshold forDevice:[MGMonitorController sharedMonitorController].selectedDevice.addressString];
+    [ConfigManager savePassword:[MGMonitorController sharedMonitorController].password forUser:[MGMonitorController sharedMonitorController].userUID];
 
     // leave some time for stop
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kMGMonitorTrackerTimeInteval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -116,6 +187,11 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
     });
 
     [self.window close];
+}
+
+- (IBAction)clickCheckAutoStartMonitor:(id)sender {
+    BOOL autoStart = (self.checkAutoStartMonitor.state == NSOnState);
+    [ConfigManager setAutoStartMonitor:autoStart];
 }
 
 #pragma mark - authorization view delegate

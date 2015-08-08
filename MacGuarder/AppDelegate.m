@@ -54,15 +54,22 @@ int ddLogLevel = DDLogLevelInfo;
     self.statusBarController.view.hidden = YES; // load status bar menu
     [self updateStatusOfStatusBar];
 
-    if ([[MGMonitorController sharedMonitorController] isPreparedToStartMonitor]) {
-        [[MGMonitorController sharedMonitorController] automaticallyStartMonitor];
-        [self updateStatusOfStatusBar];
+    if ([ConfigManager isAutoStartMonitor]) {
+        if ([[MGMonitorController sharedMonitorController] isPreparedToStartMonitor]) {
+            [[MGMonitorController sharedMonitorController] automaticallyStartMonitor];
+            [self updateStatusOfStatusBar];
+        }
     }
+
+    [self showSettingsWindow];
 }
 
 - (void)showSettingsWindow
 {
-    self.settingsWindowController = [[MGSettingsWindowController alloc] init];
+    if (!self.settingsWindowController) {
+        self.settingsWindowController = [[MGSettingsWindowController alloc] init];
+    }
+
     [self.settingsWindowController showWindow:self];
     [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
     [self.settingsWindowController.window orderFront:self];

@@ -1,17 +1,19 @@
 //
-//  DeviceKeeper.m
+//  ConfigManager.m
 //  MacGuarder
 //
 //  Created by GoKu on 14-7-24.
 //  Copyright (c) 2014年 GoKuStudio. All rights reserved.
 //
 
-#import "DeviceKeeper.h"
+#import "ConfigManager.h"
 #import "LogFormatter.h"
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
 
 NSInteger const kDefaultInRangeThreshold    = -60;
+
+static NSString * const kAutoStartMonitor   = @"AutoStartMonitor";
 
 static NSString * const kDeviceSettings     = @"DeviceSettings"; // {"addressString": dicSettings}
 static NSString * const kThresholdRSSI      = @"MacGuarderThresholdRSSI";
@@ -25,7 +27,18 @@ static NSString * const kDeviceKeeperKey    = @"com.GoKuStudio.MacGuarder.Device
 
 extern int ddLogLevel;
 
-@implementation DeviceKeeper
+@implementation ConfigManager
+
++ (void)setAutoStartMonitor:(BOOL)autoStart
+{
+    [[NSUserDefaults standardUserDefaults] setBool:autoStart forKey:kAutoStartMonitor];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (BOOL)isAutoStartMonitor
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kAutoStartMonitor];
+}
 
 + (void)setThresholdRSSI:(NSInteger)RSSI forDevice:(NSString *)deviceAddress
 {
