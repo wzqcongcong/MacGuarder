@@ -20,8 +20,9 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
 
 @interface MGSettingsWindowController ()
 
-@property (weak) IBOutlet NSToolbarItem *toolbarGeneral;
-@property (weak) IBOutlet NSToolbarItem *toolbarApp;
+@property (weak) NSToolbarItem *lastSelectedToolbarItem;
+@property (weak) IBOutlet NSToolbarItem *toolbarItemGeneral;
+@property (weak) IBOutlet NSToolbarItem *toolbarItemApp;
 
 @property (strong) IBOutlet NSView *settingGeneralView;
 @property (weak) IBOutlet NSTextField *infoLabel;
@@ -63,30 +64,34 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
     // mannually sync lock status of admin user rights
     [self.authorizationView updateStatus:self.authorizationView];
 
+    self.lastSelectedToolbarItem = nil;
+
     // show General by default
-    self.window.toolbar.selectedItemIdentifier = self.toolbarGeneral.itemIdentifier;
-    [self clickTabSettingGeneral:self.toolbarGeneral];
+    self.window.toolbar.selectedItemIdentifier = self.toolbarItemGeneral.itemIdentifier;
+    [self clickTabSettingGeneral:self.toolbarItemGeneral];
 }
 
 - (void)switchToTabView:(NSView *)settingView withAnimation:(BOOL)animation
 {
     NSView *windowView = self.window.contentView;
-    CGFloat oldHeight = windowView.frame.size.height;
-
     for (NSView *view in windowView.subviews) {
         [view removeFromSuperview];
     }
 
+    CGFloat oldHeight = windowView.frame.size.height;
+
     [windowView addSubview:settingView];
     CGFloat newHeight = settingView.frame.size.height;
 
+    CGFloat delta = newHeight - oldHeight;
+
     NSPoint origin = settingView.frame.origin;
-    origin.y += (oldHeight - newHeight);
+    origin.y -= delta;
     [settingView setFrameOrigin:origin];
 
     NSRect frame = self.window.frame;
-    frame.size.height += (newHeight - oldHeight);
-    frame.origin.y -= (newHeight - oldHeight);
+    frame.size.height += delta;
+    frame.origin.y -= delta;
     [self.window setFrame:frame display:YES animate:animation];
 
     /* constraint can not create the animation effect
@@ -124,17 +129,25 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
 #pragma mark - UI action
 
 - (IBAction)clickTabSettingGeneral:(id)sender {
-    self.tmpSelectedDevice = [MGMonitorController sharedMonitorController].selectedDevice;
-    self.infoLabel.stringValue = self.tmpSelectedDevice ? self.tmpSelectedDevice.name : @"Please select a device";
-    self.tfMacPassword.stringValue = [MGMonitorController sharedMonitorController].password ? : @"";
+    if (self.lastSelectedToolbarItem != sender) {
+        self.tmpSelectedDevice = [MGMonitorController sharedMonitorController].selectedDevice;
+        self.infoLabel.stringValue = self.tmpSelectedDevice ? self.tmpSelectedDevice.name : @"Please select a device";
+        self.tfMacPassword.stringValue = [MGMonitorController sharedMonitorController].password ? : @"";
 
-    [self switchToTabView:self.settingGeneralView withAnimation:YES];
+        [self switchToTabView:self.settingGeneralView withAnimation:YES];
+    }
+
+    self.lastSelectedToolbarItem = sender;
 }
 
 - (IBAction)clickTabSettingApp:(id)sender {
-    self.checkAutoStartMonitor.state = [ConfigManager isAutoStartMonitor] ? NSOnState : NSOffState;
+    if (self.lastSelectedToolbarItem != sender) {
+        self.checkAutoStartMonitor.state = [ConfigManager isAutoStartMonitor] ? NSOnState : NSOffState;
 
-    [self switchToTabView:self.settingAppView withAnimation:YES];
+        [self switchToTabView:self.settingAppView withAnimation:YES];
+    }
+
+    self.lastSelectedToolbarItem = sender;
 }
 
 - (IBAction)didClickSelectDevice:(id)sender

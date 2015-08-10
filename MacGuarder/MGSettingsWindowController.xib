@@ -15,8 +15,8 @@
                 <outlet property="settingAppView" destination="N1p-iR-ldr" id="7X9-dP-Zd1"/>
                 <outlet property="settingGeneralView" destination="Aix-cN-ofR" id="2Rg-cx-lB6"/>
                 <outlet property="tfMacPassword" destination="bjl-en-o99" id="KBw-oc-36f"/>
-                <outlet property="toolbarApp" destination="gA4-NP-sOQ" id="f1u-sJ-wF1"/>
-                <outlet property="toolbarGeneral" destination="dwo-yh-PTs" id="lsW-Di-8Fe"/>
+                <outlet property="toolbarItemApp" destination="gA4-NP-sOQ" id="u3Q-lf-gBR"/>
+                <outlet property="toolbarItemGeneral" destination="dwo-yh-PTs" id="2YL-MO-HPc"/>
                 <outlet property="window" destination="1Np-GZ-R3E" id="H3g-cD-vcT"/>
             </connections>
         </customObject>
@@ -24,10 +24,10 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Settings" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="default" id="1Np-GZ-R3E">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" unifiedTitleAndToolbar="YES"/>
-            <rect key="contentRect" x="335" y="390" width="400" height="308"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="contentRect" x="335" y="390" width="400" height="100"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <view key="contentView" placeholderIntrinsicWidth="353" placeholderIntrinsicHeight="207" id="Q4N-1Z-NFM">
-                <rect key="frame" x="0.0" y="0.0" width="400" height="308"/>
+                <rect key="frame" x="0.0" y="1" width="400" height="100"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
             <toolbar key="toolbar" implicitIdentifier="96F7B6EA-6238-40F5-B94E-DBF37BF5AD22" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="Ctj-JH-DKO">
@@ -51,7 +51,7 @@
                     <toolbarItem reference="LeY-Sg-UWh"/>
                 </defaultToolbarItems>
             </toolbar>
-            <point key="canvasLocation" x="481.5" y="569"/>
+            <point key="canvasLocation" x="481" y="648"/>
         </window>
         <view placeholderIntrinsicWidth="353" placeholderIntrinsicHeight="207" id="Aix-cN-ofR">
             <rect key="frame" x="0.0" y="0.0" width="400" height="308"/>
@@ -64,7 +64,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cEr-PT-Vp9" userLabel="info">
-                                <rect key="frame" x="145" y="24" width="4" height="17"/>
+                                <rect key="frame" x="145" y="25" width="4" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="ATz-Nl-RRq">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -210,7 +210,7 @@
                 <constraint firstAttribute="trailing" secondItem="y3R-eH-DHP" secondAttribute="trailing" constant="20" id="IO7-Gq-mRq"/>
                 <constraint firstItem="y3R-eH-DHP" firstAttribute="leading" secondItem="N1p-iR-ldr" secondAttribute="leading" constant="20" id="xgO-rv-I2r"/>
             </constraints>
-            <point key="canvasLocation" x="480.5" y="1258"/>
+            <point key="canvasLocation" x="481" y="1256"/>
         </customView>
     </objects>
     <resources>
