@@ -3,6 +3,7 @@ platform :osx, '10.10'
 
 pod "CocoaLumberjack"
 pod "RNCryptor"
+pod "SoundManager"
 
 target 'MacGuarder' do
 

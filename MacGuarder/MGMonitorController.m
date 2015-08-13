@@ -8,6 +8,7 @@
 
 #import "MGMonitorController.h"
 #import "LogFormatter.h"
+#import "SoundManager.h"
 
 extern int ddLogLevel;
 
@@ -50,6 +51,7 @@ extern int ddLogLevel;
             if ([MacGuarderHelper isScreenLocked]) {
                 DDLogInfo(@"unlock Mac");
                 [MacGuarderHelper unlock];
+                [[Sound soundNamed:@"unlock.mp3"] play];
 
             } else {
                 DDLogInfo(@"Mac was unlocked already, do nothing.");
@@ -59,6 +61,7 @@ extern int ddLogLevel;
             if (![MacGuarderHelper isScreenLocked]) {
                 DDLogInfo(@"lock Mac");
                 [MacGuarderHelper lock];
+                [[Sound soundNamed:@"lock.mp3"] play];
 
             } else {
                 DDLogInfo(@"Mac was locked already, do nothing.");

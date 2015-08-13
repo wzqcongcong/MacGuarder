@@ -28,6 +28,8 @@
 		CEBF84AB1980B2F600EBE976 /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBF84AA1980B2F600EBE976 /* IOBluetooth.framework */; };
 		CEBF84AD1980B2FD00EBE976 /* IOBluetoothUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBF84AC1980B2FD00EBE976 /* IOBluetoothUI.framework */; };
 		CEBF84B01980B61300EBE976 /* RSSISmootheningFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF84AF1980B61300EBE976 /* RSSISmootheningFilter.m */; };
+		E54957181B7CCEDD00173029 /* lock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E54957161B7CCEDD00173029 /* lock.mp3 */; };
+		E54957191B7CCEDD00173029 /* unlock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E54957171B7CCEDD00173029 /* unlock.mp3 */; };
 		E5C88B4F1B75EBFC00791716 /* SmoothWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C88B4E1B75EBFC00791716 /* SmoothWindow.m */; };
 		FE771E7BBB59FED757D89189 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18485F5168589B19A4D497A3 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -72,6 +74,8 @@
 		CEBF84AC1980B2FD00EBE976 /* IOBluetoothUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetoothUI.framework; path = System/Library/Frameworks/IOBluetoothUI.framework; sourceTree = SDKROOT; };
 		CEBF84AE1980B61300EBE976 /* RSSISmootheningFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSISmootheningFilter.h; sourceTree = "<group>"; };
 		CEBF84AF1980B61300EBE976 /* RSSISmootheningFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSISmootheningFilter.m; sourceTree = "<group>"; };
+		E54957161B7CCEDD00173029 /* lock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lock.mp3; sourceTree = "<group>"; };
+		E54957171B7CCEDD00173029 /* unlock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = unlock.mp3; sourceTree = "<group>"; };
 		E5C88B4D1B75EBFC00791716 /* SmoothWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmoothWindow.h; sourceTree = "<group>"; };
 		E5C88B4E1B75EBFC00791716 /* SmoothWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmoothWindow.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,6 +179,8 @@
 			isa = PBXGroup;
 			children = (
 				CEBF8452197FDE5400EBE976 /* Images.xcassets */,
+				E54957161B7CCEDD00173029 /* lock.mp3 */,
+				E54957171B7CCEDD00173029 /* unlock.mp3 */,
 				CEBF844F197FDE5400EBE976 /* MainMenu.xib */,
 				CEBF8442197FDE5400EBE976 /* MacGuarder-Info.plist */,
 				CEBF8443197FDE5400EBE976 /* InfoPlist.strings */,
@@ -276,7 +282,9 @@
 			files = (
 				CEBF8445197FDE5400EBE976 /* InfoPlist.strings in Resources */,
 				CEBF8453197FDE5400EBE976 /* Images.xcassets in Resources */,
+				E54957181B7CCEDD00173029 /* lock.mp3 in Resources */,
 				CEBF844B197FDE5400EBE976 /* Credits.rtf in Resources */,
+				E54957191B7CCEDD00173029 /* unlock.mp3 in Resources */,
 				84478F301B74A3EF00B766AF /* MGStatusBarController.xib in Resources */,
 				84478F2A1B74972400B766AF /* MGSettingsWindowController.xib in Resources */,
 				CEBF8451197FDE5400EBE976 /* MainMenu.xib in Resources */,
