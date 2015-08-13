@@ -15,6 +15,7 @@ extern float const kMGMonitorTrackerTimeInteval;
 @class DeviceTracker;
 
 typedef void (^DeviceRangeStatusUpdateBlock)(DeviceTracker *tracker);   // callback for updating device range status
+typedef void (^DeviceRSSIBroadcastBlock)(NSInteger rssi);              // callback for broadcasting device current rssi
 
 @interface DeviceTracker : NSObject <IOBluetoothDeviceAsyncCallbacks>
 
@@ -22,11 +23,15 @@ typedef void (^DeviceRangeStatusUpdateBlock)(DeviceTracker *tracker);   // callb
 @property (nonatomic, strong) IOBluetoothDevice *deviceToMonitor;                // the device to be monitored
 
 @property (nonatomic, readonly, assign) BOOL deviceInRange;
-@property (nonatomic, assign) NSInteger inRangeThreshold;               // default is -70, range is (weak signal) -127..+20 (strong signal)
+@property (nonatomic, assign) NSInteger inRangeThreshold;               // default is -60, range is (weak signal) -127..+20 (strong signal)
 
 @property (nonatomic, copy) DeviceRangeStatusUpdateBlock deviceRangeStatusUpdateBlock;
+@property (nonatomic, copy) DeviceRSSIBroadcastBlock deviceRSSIBroadcastBlock;
 
 + (DeviceTracker *)sharedTracker;
+
+- (void)startBroadcastingRSSIForDevice:(IOBluetoothDevice *)device;
+- (void)stopBroadcastingRSSI;
 
 - (void)startMonitoring;
 - (void)stopMonitoring;

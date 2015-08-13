@@ -27,6 +27,10 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
 @property (strong) IBOutlet NSView *settingGeneralView;
 @property (weak) IBOutlet NSTextField *infoLabel;
 @property (weak) IBOutlet NSButton *btSelectDevice;
+@property (weak) IBOutlet NSView *rssiView;
+@property (weak) IBOutlet NSTextField *rssiThresholdValue;
+@property (weak) IBOutlet NSLevelIndicator *rssiCurrentValueIndicator;
+@property (weak) IBOutlet NSSlider *rssiThresholdSetSlider;
 @property (weak) IBOutlet NSSecureTextField *tfMacPassword;
 @property (weak) IBOutlet SFAuthorizationView *authorizationView;
 @property (weak) IBOutlet NSButton *btStop;
@@ -57,6 +61,8 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
     // 2. But Apple's Preferences->Users & Groups app uses a higher super root user right,
     //    even the admin user logins Mac, this kind of right is still not got, need to input password to get it.
 
+    self.window.delegate = self;
+    
     [_authorizationView setString:[kAUTH_RIGHT_CONFIG_MODIFY UTF8String]];
     [_authorizationView setAutoupdate:YES];
     [_authorizationView setDelegate:self];
@@ -66,13 +72,35 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
 
     self.lastSelectedToolbarItem = nil;
 
+    [DeviceTracker sharedTracker].deviceRSSIBroadcastBlock = ^(NSInteger rssi) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.rssiCurrentValueIndicator.integerValue = self.rssiCurrentValueIndicator.minValue + (self.rssiCurrentValueIndicator.maxValue - self.rssiCurrentValueIndicator.minValue) * (rssi - self.rssiThresholdSetSlider.minValue) / (self.rssiThresholdSetSlider.maxValue - self.rssiThresholdSetSlider.minValue);
+        });
+    };
+
     // show General by default
     self.window.toolbar.selectedItemIdentifier = self.toolbarItemGeneral.itemIdentifier;
     [self clickTabSettingGeneral:self.toolbarItemGeneral];
 }
 
+- (void)windowWillClose:(NSNotification *)notification
+{
+    // hide dock
+    [NSApp setActivationPolicy:NSApplicationActivationPolicyAccessory];
+
+    [[DeviceTracker sharedTracker] stopBroadcastingRSSI];
+}
+
 - (void)switchToTabView:(NSView *)settingView withAnimation:(BOOL)animation
 {
+    if (settingView == self.settingGeneralView) {
+        [[DeviceTracker sharedTracker] stopBroadcastingRSSI];
+        [[DeviceTracker sharedTracker] startBroadcastingRSSIForDevice:self.tmpSelectedDevice];
+
+    } else {
+        [[DeviceTracker sharedTracker] stopBroadcastingRSSI];
+    }
+
     NSView *windowView = self.window.contentView;
     for (NSView *view in windowView.subviews) {
         [view removeFromSuperview];
@@ -132,6 +160,11 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
     if (self.lastSelectedToolbarItem != sender) {
         self.tmpSelectedDevice = [MGMonitorController sharedMonitorController].selectedDevice;
         self.infoLabel.stringValue = self.tmpSelectedDevice ? self.tmpSelectedDevice.name : @"Please select a device";
+        self.rssiView.alphaValue = (self.tmpSelectedDevice == nil) ? 0.5 : 1;
+        self.rssiCurrentValueIndicator.integerValue = self.rssiCurrentValueIndicator.minValue;
+        self.rssiThresholdSetSlider.enabled = !(self.tmpSelectedDevice == nil);
+        self.rssiThresholdSetSlider.integerValue = [ConfigManager getThresholdRSSIOfDevice:self.tmpSelectedDevice.addressString];
+        self.rssiThresholdValue.stringValue = [NSString stringWithFormat:@"%ld", self.rssiThresholdSetSlider.integerValue];
         self.tfMacPassword.stringValue = [MGMonitorController sharedMonitorController].password ? : @"";
 
         [self switchToTabView:self.settingGeneralView withAnimation:YES];
@@ -155,14 +188,30 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
     IOBluetoothDevice *newSelectedDevice = [[MGMonitorController sharedMonitorController] selectDevice];
 
     if (newSelectedDevice) {
+        [[DeviceTracker sharedTracker] stopBroadcastingRSSI];
+
         self.tmpSelectedDevice = newSelectedDevice;
 
         DDLogInfo(@"select device: %@ [%@]", self.tmpSelectedDevice.name, self.tmpSelectedDevice.addressString);
         self.infoLabel.stringValue = self.tmpSelectedDevice.name;
 
+        self.rssiCurrentValueIndicator.integerValue = self.rssiCurrentValueIndicator.minValue;
+        self.rssiThresholdSetSlider.integerValue = [ConfigManager getThresholdRSSIOfDevice:self.tmpSelectedDevice.addressString];
+        self.rssiThresholdValue.stringValue = [NSString stringWithFormat:@"%ld", self.rssiThresholdSetSlider.integerValue];
+
+        [[DeviceTracker sharedTracker] startBroadcastingRSSIForDevice:self.tmpSelectedDevice];
+
     } else {
         DDLogInfo(@"no device selected");
     }
+
+    self.rssiView.alphaValue = (self.tmpSelectedDevice == nil) ? 0.5 : 1;
+    self.rssiThresholdSetSlider.enabled = !(self.tmpSelectedDevice == nil);
+}
+
+- (IBAction)changeSlider:(id)sender
+{
+    self.rssiThresholdValue.stringValue = [NSString stringWithFormat:@"%ld", self.rssiThresholdSetSlider.integerValue];
 }
 
 - (IBAction)stop:(id)sender
@@ -190,7 +239,7 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
     [MGMonitorController sharedMonitorController].selectedDevice = self.tmpSelectedDevice;
     [MGMonitorController sharedMonitorController].password = self.tfMacPassword.stringValue;
     [ConfigManager saveFavoriteDevice:[MGMonitorController sharedMonitorController].selectedDevice.addressString];
-    [ConfigManager setThresholdRSSI:kDefaultInRangeThreshold forDevice:[MGMonitorController sharedMonitorController].selectedDevice.addressString];
+    [ConfigManager setThresholdRSSI:self.rssiThresholdSetSlider.integerValue forDevice:[MGMonitorController sharedMonitorController].selectedDevice.addressString];
     [ConfigManager savePassword:[MGMonitorController sharedMonitorController].password forUser:[MGMonitorController sharedMonitorController].userUID];
 
     // leave some time for stop

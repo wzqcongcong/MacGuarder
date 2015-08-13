@@ -8,6 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface MGSettingsWindowController : NSWindowController
+@interface MGSettingsWindowController : NSWindowController <NSWindowDelegate>
 
 @end

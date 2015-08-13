@@ -68,7 +68,15 @@ int ddLogLevel = DDLogLevelInfo;
 {
     if (!self.settingsWindowController) {
         self.settingsWindowController = [[MGSettingsWindowController alloc] init];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(settingWindowWillClose:)
+                                                     name:NSWindowWillCloseNotification
+                                                   object:self.settingsWindowController.window];
     }
+
+    // show dock
+    [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
 
     [self.settingsWindowController showWindow:self];
     [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
@@ -78,6 +86,15 @@ int ddLogLevel = DDLogLevelInfo;
 - (void)updateStatusOfStatusBar
 {
     [self.statusBarController updateStatusOfStatusBar];
+}
+
+-(void)settingWindowWillClose:(NSNotification*)notification
+{
+    NSWindow *sender = [notification object];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSWindowWillCloseNotification
+                                                  object:sender];
+    self.settingsWindowController = nil;
 }
 
 @end

@@ -24,6 +24,9 @@ extern int ddLogLevel;
 @property (atomic, readwrite, assign) BOOL isMonitoring;
 @property (nonatomic, readwrite, assign) BOOL deviceInRange;
 
+@property (nonatomic, strong) NSThread *broadcastThread;
+@property (nonatomic, strong) IOBluetoothDevice *deviceToBroadcast;
+
 @property (nonatomic, assign) BluetoothHCIRSSIValue initialRSSI;
 @property (nonatomic, assign) BluetoothHCIRSSIValue currentRSSI;
 
@@ -41,6 +44,82 @@ extern int ddLogLevel;
     });
     return sharedInstance;
 }
+
+#pragma mark - broadcast
+
+- (void)startBroadcastingRSSIForDevice:(IOBluetoothDevice *)device
+{
+    if (device) {
+        self.deviceToBroadcast = device;
+
+        self.broadcastThread = [[NSThread alloc] initWithTarget:self selector:@selector(updateBroadcastStatus) object:nil];
+        self.broadcastThread.name = [NSString stringWithFormat:@"%@", [NSDate date]];
+        [self.broadcastThread start];
+    }
+}
+
+- (void)stopBroadcastingRSSI
+{
+    [self.broadcastThread cancel];
+
+    if (self.deviceToBroadcast.isConnected) {
+        if (!self.isMonitoring ||
+            ![self.deviceToBroadcast.addressString isEqualToString:self.deviceToMonitor.addressString]) {
+            [self.deviceToBroadcast closeConnection];
+        }
+    }
+
+    self.deviceToBroadcast = nil;
+}
+
+- (void)updateBroadcastStatus
+{
+    DDLogVerbose(@"broadcast thread <%@> start", [NSThread currentThread].name);
+    while (!([NSThread currentThread].isCancelled)) {
+
+        if (self.deviceToBroadcast) {
+            if (![self.deviceToBroadcast isConnected]) {
+                if (self.deviceRSSIBroadcastBlock) {
+                    self.deviceRSSIBroadcastBlock(-127);
+                }
+
+                [self.deviceToBroadcast openConnection];
+            }
+
+            if ([self.deviceToBroadcast isConnected]) {
+                BluetoothHCIRSSIValue rawRSSI = [self.deviceToBroadcast rawRSSI];
+                DDLogVerbose(@"broadcast raw RSSI: %hhd", rawRSSI);
+
+                if (self.deviceRSSIBroadcastBlock) {
+                    self.deviceRSSIBroadcastBlock(rawRSSI);
+                }
+
+            } else {
+                if (self.deviceRSSIBroadcastBlock) {
+                    self.deviceRSSIBroadcastBlock(-127);
+                }
+            }
+
+        } else {
+            if (self.deviceRSSIBroadcastBlock) {
+                self.deviceRSSIBroadcastBlock(-127);
+            }
+        }
+
+        [NSThread sleepForTimeInterval:kMGMonitorTrackerTimeInteval];
+    }
+
+    if (self.deviceToBroadcast.isConnected) {
+        if (!self.isMonitoring ||
+            ![self.deviceToBroadcast.addressString isEqualToString:self.deviceToMonitor.addressString]) {
+            [self.deviceToBroadcast closeConnection];
+        }
+    }
+
+    DDLogVerbose(@"broadcast thread <%@> stop", [NSThread currentThread].name);
+}
+
+#pragma mark - monitor
 
 - (void)setDeviceToMonitor:(IOBluetoothDevice *)deviceToMonitor
 {
