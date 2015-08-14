@@ -51,6 +51,7 @@
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="LeY-Sg-UWh"/>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
+                    <toolbarItem reference="LeY-Sg-UWh"/>
                     <toolbarItem reference="dwo-yh-PTs"/>
                     <toolbarItem reference="gA4-NP-sOQ"/>
                     <toolbarItem reference="LeY-Sg-UWh"/>
