@@ -30,7 +30,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES"/>
             <rect key="contentRect" x="335" y="500" width="400" height="200"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <view key="contentView" placeholderIntrinsicWidth="353" placeholderIntrinsicHeight="207" id="Q4N-1Z-NFM">
                 <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -96,11 +96,11 @@
                                         </textFieldCell>
                                     </textField>
                                     <levelIndicator verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="09q-Tu-Nue">
-                                        <rect key="frame" x="51" y="33" width="258" height="18"/>
+                                        <rect key="frame" x="51" y="34" width="258" height="18"/>
                                         <levelIndicatorCell key="cell" alignment="left" maxValue="50" id="6Cx-yo-tIM"/>
                                     </levelIndicator>
                                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VpY-uW-Szu">
-                                        <rect key="frame" x="42" y="8" width="276" height="25"/>
+                                        <rect key="frame" x="42" y="8" width="276" height="26"/>
                                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="-127" maxValue="20" doubleValue="-127" tickMarkPosition="above" numberOfTickMarks="50" sliderType="linear" id="kU1-xG-ekp"/>
                                         <connections>
                                             <action selector="changeSlider:" target="-2" id="aJV-fI-deK"/>

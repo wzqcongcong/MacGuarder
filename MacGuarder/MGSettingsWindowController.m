@@ -159,7 +159,7 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
 - (IBAction)clickTabSettingGeneral:(id)sender {
     if (self.lastSelectedToolbarItem != sender) {
         self.tmpSelectedDevice = [MGMonitorController sharedMonitorController].selectedDevice;
-        self.infoLabel.stringValue = self.tmpSelectedDevice ? self.tmpSelectedDevice.name : @"Please select a device";
+        self.infoLabel.stringValue = self.tmpSelectedDevice.name ? : @"Please select a device";
         self.rssiView.alphaValue = (self.tmpSelectedDevice == nil) ? 0.5 : 1;
         self.rssiCurrentValueIndicator.integerValue = self.rssiCurrentValueIndicator.minValue;
         self.rssiThresholdSetSlider.enabled = !(self.tmpSelectedDevice == nil);
@@ -193,7 +193,7 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
         self.tmpSelectedDevice = newSelectedDevice;
 
         DDLogInfo(@"select device: %@ [%@]", self.tmpSelectedDevice.name, self.tmpSelectedDevice.addressString);
-        self.infoLabel.stringValue = self.tmpSelectedDevice.name;
+        self.infoLabel.stringValue = self.tmpSelectedDevice.name ? : @"Please select a device";
 
         self.rssiCurrentValueIndicator.integerValue = self.rssiCurrentValueIndicator.minValue;
         self.rssiThresholdSetSlider.integerValue = [ConfigManager getThresholdRSSIOfDevice:self.tmpSelectedDevice.addressString];
