@@ -27,7 +27,6 @@ extern int ddLogLevel;
 @property (nonatomic, strong) NSThread *broadcastThread;
 @property (nonatomic, strong) IOBluetoothDevice *deviceToBroadcast;
 
-@property (nonatomic, assign) BluetoothHCIRSSIValue initialRSSI;
 @property (nonatomic, assign) BluetoothHCIRSSIValue currentRSSI;
 
 @end
@@ -141,7 +140,7 @@ extern int ddLogLevel;
         [[RSSISmootheningFilter sharedInstance] reset];
 
         self.deviceInRange = YES;
-        self.initialRSSI = -127;
+        self.currentRSSI = +127;
 
         self.workThread = [[NSThread alloc] initWithTarget:self selector:@selector(updateStatus) object:nil];
         self.workThread.name = [NSString stringWithFormat:@"%@", [NSDate date]];
@@ -178,7 +177,6 @@ extern int ddLogLevel;
 
                 if (reconnected) {
                     DDLogInfo(@"connected");
-                    self.initialRSSI = self.currentRSSI;
                 } else {
                     DDLogInfo(@"no connection");
                 }
@@ -186,13 +184,17 @@ extern int ddLogLevel;
 
             if (self.deviceToMonitor.isConnected) {
                 BluetoothHCIRSSIValue rawRSSI = [self.deviceToMonitor rawRSSI];
-                [[RSSISmootheningFilter sharedInstance] addSample:rawRSSI];
-                self.currentRSSI = [[RSSISmootheningFilter sharedInstance] getMedianValue];
-                DDLogVerbose(@"connected, current raw RSSI: %d", rawRSSI);
-                DDLogVerbose(@"connected, current RSSI: %d", self.currentRSSI);
+
+                // add valid RSSI into sample
+                if (rawRSSI != 127) {
+                    [[RSSISmootheningFilter sharedInstance] addSample:rawRSSI];
+                    self.currentRSSI = [[RSSISmootheningFilter sharedInstance] getMedianValue];
+                    DDLogVerbose(@"connected, current raw RSSI: %d", rawRSSI);
+                    DDLogVerbose(@"connected, current RSSI: %d", self.currentRSSI);
+                }
                 
                 // device is in area
-                if (self.currentRSSI > self.inRangeThreshold) {
+                if (self.currentRSSI >= self.inRangeThreshold) {
                     DDLogVerbose(@"connected, device is in area.");
                     // device was out of area before, trigger unlock.
                     if (!self.deviceInRange) {

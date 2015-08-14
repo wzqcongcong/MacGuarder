@@ -67,6 +67,8 @@ extern int ddLogLevel;
         [MacGuarderHelper setScreensaverAskForPassword:screensaverAskForPassword];
         [MacGuarderHelper setScreensaverDelay:screensaverDelay];
     });
+
+    sleep(1); // waiting login window
 }
 
 + (void)unlock

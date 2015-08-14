@@ -32,7 +32,6 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
 @property (weak) IBOutlet NSTextField *rssiThresholdValue;
 @property (weak) IBOutlet NSLevelIndicator *rssiCurrentValueIndicator;
 @property (weak) IBOutlet NSSlider *rssiThresholdSetSlider;
-@property (weak) IBOutlet NSBox *sectionMac;
 @property (weak) IBOutlet NSSecureTextField *tfMacPassword;
 @property (weak) IBOutlet SFAuthorizationView *authorizationView;
 @property (weak) IBOutlet NSButton *btStop;
@@ -236,7 +235,7 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
     }
 
     if (self.tfMacPassword.stringValue.length <= 0) {
-        [[[FocusGuideView alloc] init] focusOnView:self.sectionMac
+        [[[FocusGuideView alloc] init] focusOnView:self.tfMacPassword
                                    withRepeatTimes:4
                                         focusTitle:@"please input login password"
                                         focusColor:[NSColor redColor]

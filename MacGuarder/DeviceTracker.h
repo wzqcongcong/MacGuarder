@@ -23,7 +23,7 @@ typedef void (^DeviceRSSIBroadcastBlock)(NSInteger rssi);              // callba
 @property (nonatomic, strong) IOBluetoothDevice *deviceToMonitor;                // the device to be monitored
 
 @property (nonatomic, readonly, assign) BOOL deviceInRange;
-@property (nonatomic, assign) NSInteger inRangeThreshold;               // default is -60, range is (weak signal) -127..+20 (strong signal)
+@property (nonatomic, assign) NSInteger inRangeThreshold;               // default is -60, BluetoothHCIRSSIValue, range is (weak signal) -127..+20 (strong signal)
 
 @property (nonatomic, copy) DeviceRangeStatusUpdateBlock deviceRangeStatusUpdateBlock;
 @property (nonatomic, copy) DeviceRSSIBroadcastBlock deviceRSSIBroadcastBlock;

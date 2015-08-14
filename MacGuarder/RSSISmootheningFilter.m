@@ -1,7 +1,7 @@
 
 #import "RSSISmootheningFilter.h"
 
-static NSUInteger const kDefaultNumberOfSamples = 5;
+static NSUInteger const kDefaultNumberOfSamples = 3;
 
 @interface RSSISmootheningFilter ()
 
@@ -53,7 +53,7 @@ static NSUInteger const kDefaultNumberOfSamples = 5;
 {
     NSInteger accumulator = 0;
     if (self.samples.count == 0) {
-        return accumulator;
+        return 127; // just like the behaviour of IOBluetoothDevice.rawRSSI
     }
 
     for (NSNumber *n in self.samples) {
