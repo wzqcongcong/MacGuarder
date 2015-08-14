@@ -15,6 +15,8 @@
 		84E68BA21AA5B8E600D3811A /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E68BA11AA5B8E600D3811A /* SecurityInterface.framework */; };
 		84E68BA41AA5BA3700D3811A /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E68BA31AA5BA3700D3811A /* CoreBluetooth.framework */; };
 		84E68BA81AA5D8DA00D3811A /* LogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E68BA71AA5D8DA00D3811A /* LogFormatter.m */; };
+		84EAADD01B7DB1BF0098086D /* FocusGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EAADCF1B7DB1BF0098086D /* FocusGuideView.m */; };
+		84EAADD41B7DE36D0098086D /* NS(Attributed)String+Geometrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EAADD31B7DE36D0098086D /* NS(Attributed)String+Geometrics.m */; };
 		CEBF843B197FDE5400EBE976 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBF843A197FDE5400EBE976 /* Cocoa.framework */; };
 		CEBF8445197FDE5400EBE976 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEBF8443197FDE5400EBE976 /* InfoPlist.strings */; };
 		CEBF8447197FDE5400EBE976 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF8446197FDE5400EBE976 /* main.m */; };
@@ -49,6 +51,10 @@
 		84E68BA31AA5BA3700D3811A /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		84E68BA61AA5D8DA00D3811A /* LogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogFormatter.h; sourceTree = "<group>"; };
 		84E68BA71AA5D8DA00D3811A /* LogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogFormatter.m; sourceTree = "<group>"; };
+		84EAADCE1B7DB1BF0098086D /* FocusGuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FocusGuideView.h; sourceTree = "<group>"; };
+		84EAADCF1B7DB1BF0098086D /* FocusGuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FocusGuideView.m; sourceTree = "<group>"; };
+		84EAADD21B7DE36D0098086D /* NS(Attributed)String+Geometrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NS(Attributed)String+Geometrics.h"; sourceTree = "<group>"; };
+		84EAADD31B7DE36D0098086D /* NS(Attributed)String+Geometrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NS(Attributed)String+Geometrics.m"; sourceTree = "<group>"; };
 		8A764A8BF97A91FAC78246BD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CEBF8437197FDE5400EBE976 /* MacGuarder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacGuarder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEBF843A197FDE5400EBE976 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -64,8 +70,8 @@
 		CEBF844D197FDE5400EBE976 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CEBF8450197FDE5400EBE976 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		CEBF8452197FDE5400EBE976 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		CEBF849C197FDF2200EBE976 /* MacGuarderHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacGuarderHelper.h; sourceTree = "<group>"; };
-		CEBF849D197FDF2200EBE976 /* MacGuarderHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacGuarderHelper.m; sourceTree = "<group>"; };
+		CEBF849C197FDF2200EBE976 /* MacGuarderHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MacGuarderHelper.h; path = Helper/MacGuarderHelper.h; sourceTree = "<group>"; };
+		CEBF849D197FDF2200EBE976 /* MacGuarderHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MacGuarderHelper.m; path = Helper/MacGuarderHelper.m; sourceTree = "<group>"; };
 		CEBF84A41980AD2300EBE976 /* DeviceTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceTracker.h; sourceTree = "<group>"; };
 		CEBF84A51980AD2300EBE976 /* DeviceTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceTracker.m; sourceTree = "<group>"; };
 		CEBF84A71980AD3400EBE976 /* ConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
@@ -109,12 +115,21 @@
 		84E68BA51AA5D88700D3811A /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				84E68BA61AA5D8DA00D3811A /* LogFormatter.h */,
-				84E68BA71AA5D8DA00D3811A /* LogFormatter.m */,
 				CEBF84A71980AD3400EBE976 /* ConfigManager.h */,
 				CEBF84A81980AD3400EBE976 /* ConfigManager.m */,
+				84E68BA61AA5D8DA00D3811A /* LogFormatter.h */,
+				84E68BA71AA5D8DA00D3811A /* LogFormatter.m */,
 			);
 			name = Common;
+			sourceTree = "<group>";
+		};
+		84EAADD11B7DE36D0098086D /* 3rd */ = {
+			isa = PBXGroup;
+			children = (
+				84EAADD21B7DE36D0098086D /* NS(Attributed)String+Geometrics.h */,
+				84EAADD31B7DE36D0098086D /* NS(Attributed)String+Geometrics.m */,
+			);
+			path = 3rd;
 			sourceTree = "<group>";
 		};
 		CEBF842E197FDE5400EBE976 = {
@@ -164,12 +179,10 @@
 			children = (
 				CEBF844C197FDE5400EBE976 /* AppDelegate.h */,
 				CEBF844D197FDE5400EBE976 /* AppDelegate.m */,
-				84478F311B74A90600B766AF /* MGMonitorController.h */,
-				84478F321B74A90600B766AF /* MGMonitorController.m */,
+				CEBF84A1197FE44C00EBE976 /* UI */,
+				CEBF84A31980ACB700EBE976 /* Core */,
 				84E68BA51AA5D88700D3811A /* Common */,
-				CEBF84A1197FE44C00EBE976 /* ViewController */,
-				CEBF84A31980ACB700EBE976 /* DeviceTracker */,
-				CEBF849B197FDF2200EBE976 /* Helper */,
+				84EAADD11B7DE36D0098086D /* 3rd */,
 				CEBF8441197FDE5400EBE976 /* Supporting Files */,
 			);
 			path = MacGuarder;
@@ -191,16 +204,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		CEBF849B197FDF2200EBE976 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				CEBF849C197FDF2200EBE976 /* MacGuarderHelper.h */,
-				CEBF849D197FDF2200EBE976 /* MacGuarderHelper.m */,
-			);
-			path = Helper;
-			sourceTree = "<group>";
-		};
-		CEBF84A1197FE44C00EBE976 /* ViewController */ = {
+		CEBF84A1197FE44C00EBE976 /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				84478F2C1B74A3EF00B766AF /* MGStatusBarController.h */,
@@ -211,19 +215,25 @@
 				84478F281B74972400B766AF /* MGSettingsWindowController.xib */,
 				E5C88B4D1B75EBFC00791716 /* SmoothWindow.h */,
 				E5C88B4E1B75EBFC00791716 /* SmoothWindow.m */,
+				84EAADCE1B7DB1BF0098086D /* FocusGuideView.h */,
+				84EAADCF1B7DB1BF0098086D /* FocusGuideView.m */,
 			);
-			name = ViewController;
+			name = UI;
 			sourceTree = "<group>";
 		};
-		CEBF84A31980ACB700EBE976 /* DeviceTracker */ = {
+		CEBF84A31980ACB700EBE976 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				84478F311B74A90600B766AF /* MGMonitorController.h */,
+				84478F321B74A90600B766AF /* MGMonitorController.m */,
 				CEBF84A41980AD2300EBE976 /* DeviceTracker.h */,
 				CEBF84A51980AD2300EBE976 /* DeviceTracker.m */,
 				CEBF84AE1980B61300EBE976 /* RSSISmootheningFilter.h */,
 				CEBF84AF1980B61300EBE976 /* RSSISmootheningFilter.m */,
+				CEBF849C197FDF2200EBE976 /* MacGuarderHelper.h */,
+				CEBF849D197FDF2200EBE976 /* MacGuarderHelper.m */,
 			);
-			name = DeviceTracker;
+			name = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,11 +345,13 @@
 				84478F2F1B74A3EF00B766AF /* MGStatusBarController.m in Sources */,
 				84478F291B74972400B766AF /* MGSettingsWindowController.m in Sources */,
 				CEBF844E197FDE5400EBE976 /* AppDelegate.m in Sources */,
+				84EAADD01B7DB1BF0098086D /* FocusGuideView.m in Sources */,
 				E5C88B4F1B75EBFC00791716 /* SmoothWindow.m in Sources */,
 				CEBF84B01980B61300EBE976 /* RSSISmootheningFilter.m in Sources */,
 				CEBF8447197FDE5400EBE976 /* main.m in Sources */,
 				CEBF849E197FDF2200EBE976 /* MacGuarderHelper.m in Sources */,
 				CEBF84A91980AD3400EBE976 /* ConfigManager.m in Sources */,
+				84EAADD41B7DE36D0098086D /* NS(Attributed)String+Geometrics.m in Sources */,
 				CEBF84A61980AD2300EBE976 /* DeviceTracker.m in Sources */,
 				84E68BA81AA5D8DA00D3811A /* LogFormatter.m in Sources */,
 			);

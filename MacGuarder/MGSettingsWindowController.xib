@@ -16,6 +16,7 @@
                 <outlet property="rssiThresholdSetSlider" destination="VpY-uW-Szu" id="qoz-Z7-xJj"/>
                 <outlet property="rssiThresholdValue" destination="wMr-ba-YHv" id="jYt-eB-E8n"/>
                 <outlet property="rssiView" destination="QKI-Pk-ycW" id="dbj-Er-953"/>
+                <outlet property="sectionMac" destination="Pde-Uj-VXW" id="eeQ-y9-XV0"/>
                 <outlet property="settingAppView" destination="N1p-iR-ldr" id="7X9-dP-Zd1"/>
                 <outlet property="settingGeneralView" destination="Aix-cN-ofR" id="2Rg-cx-lB6"/>
                 <outlet property="tfMacPassword" destination="bjl-en-o99" id="KBw-oc-36f"/>
