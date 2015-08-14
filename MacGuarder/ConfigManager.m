@@ -10,6 +10,7 @@
 #import "LogFormatter.h"
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
+#import "Valet.h"
 
 NSInteger const kDefaultInRangeThreshold    = -60;
 
@@ -97,10 +98,7 @@ extern int ddLogLevel;
 
 + (void)savePassword:(NSString *)password forUser:(NSString *)uid
 {
-    NSMutableDictionary *userInfo = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kUserInfo] mutableCopy];
-    if (!userInfo) {
-        userInfo = [NSMutableDictionary dictionary];
-    }
+    VALValet *myValet = [[VALValet alloc] initWithIdentifier:kDeviceKeeperKey accessibility:VALAccessibilityAfterFirstUnlock];
 
     NSData *plainData = [password dataUsingEncoding:NSUTF8StringEncoding];
     NSData *encryptedData = [RNEncryptor encryptData:plainData
@@ -108,25 +106,20 @@ extern int ddLogLevel;
                                             password:kDeviceKeeperKey
                                                error:NULL];
 
-    [userInfo setObject:encryptedData forKey:uid];
-
-    [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kUserInfo];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [myValet setObject:encryptedData forKey:[NSString stringWithFormat:@"%@_%@", kUserInfo, uid]];
 }
 
 + (NSString *)getPasswordForUser:(NSString *)uid
 {
-    NSMutableDictionary *userInfo = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kUserInfo] mutableCopy];
-    if (userInfo) {
-        NSData *encryptedData = [userInfo objectForKey:uid];
-        if (encryptedData) {
-            NSData *decryptedData = [RNDecryptor decryptData:encryptedData
-                                                withPassword:kDeviceKeeperKey
-                                                       error:NULL];
-            if (decryptedData) {
-                NSString *password = [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding];
-                return password;
-            }
+    VALValet *myValet = [[VALValet alloc] initWithIdentifier:kDeviceKeeperKey accessibility:VALAccessibilityAfterFirstUnlock];
+    NSData *encryptedData = [myValet objectForKey:[NSString stringWithFormat:@"%@_%@", kUserInfo, uid]];
+    if (encryptedData) {
+        NSData *decryptedData = [RNDecryptor decryptData:encryptedData
+                                            withPassword:kDeviceKeeperKey
+                                                   error:NULL];
+        if (decryptedData) {
+            NSString *password = [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding];
+            return password;
         }
     }
 

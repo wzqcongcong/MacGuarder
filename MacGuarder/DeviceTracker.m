@@ -62,12 +62,12 @@ extern int ddLogLevel;
 {
     [self.broadcastThread cancel];
 
-    if (self.deviceToBroadcast.isConnected) {
-        if (!self.isMonitoring ||
-            ![self.deviceToBroadcast.addressString isEqualToString:self.deviceToMonitor.addressString]) {
-            [self.deviceToBroadcast closeConnection];
-        }
-    }
+//    if (self.deviceToBroadcast.isConnected) {
+//        if (!self.isMonitoring ||
+//            ![self.deviceToBroadcast.addressString isEqualToString:self.deviceToMonitor.addressString]) {
+//            [self.deviceToBroadcast closeConnection];
+//        }
+//    }
 
     self.deviceToBroadcast = nil;
 }
@@ -78,7 +78,7 @@ extern int ddLogLevel;
     while (!([NSThread currentThread].isCancelled)) {
 
         if (self.deviceToBroadcast) {
-            if (![self.deviceToBroadcast isConnected]) {
+            if (!self.deviceToBroadcast.isConnected) {
                 if (self.deviceRSSIBroadcastBlock) {
                     self.deviceRSSIBroadcastBlock(-127);
                 }
@@ -86,7 +86,7 @@ extern int ddLogLevel;
                 [self.deviceToBroadcast openConnection];
             }
 
-            if ([self.deviceToBroadcast isConnected]) {
+            if (self.deviceToBroadcast.isConnected) {
                 BluetoothHCIRSSIValue rawRSSI = [self.deviceToBroadcast rawRSSI];
                 DDLogVerbose(@"broadcast raw RSSI: %hhd", rawRSSI);
 
@@ -109,12 +109,12 @@ extern int ddLogLevel;
         [NSThread sleepForTimeInterval:kMGMonitorTrackerTimeInteval];
     }
 
-    if (self.deviceToBroadcast.isConnected) {
-        if (!self.isMonitoring ||
-            ![self.deviceToBroadcast.addressString isEqualToString:self.deviceToMonitor.addressString]) {
-            [self.deviceToBroadcast closeConnection];
-        }
-    }
+//    if (self.deviceToBroadcast.isConnected) {
+//        if (!self.isMonitoring ||
+//            ![self.deviceToBroadcast.addressString isEqualToString:self.deviceToMonitor.addressString]) {
+//            [self.deviceToBroadcast closeConnection];
+//        }
+//    }
 
     DDLogVerbose(@"broadcast thread <%@> stop", [NSThread currentThread].name);
 }
@@ -123,9 +123,9 @@ extern int ddLogLevel;
 
 - (void)setDeviceToMonitor:(IOBluetoothDevice *)deviceToMonitor
 {
-    if ([_deviceToMonitor isConnected]) {
-        [_deviceToMonitor closeConnection];
-    }
+//    if (_deviceToMonitor.isConnected) {
+//        [_deviceToMonitor closeConnection];
+//    }
     _deviceToMonitor = deviceToMonitor;
 }
 
@@ -158,9 +158,9 @@ extern int ddLogLevel;
 
     [self.workThread cancel];
 
-    if (self.deviceToMonitor.isConnected) {
-        [self.deviceToMonitor closeConnection];
-    }
+//    if (self.deviceToMonitor.isConnected) {
+//        [self.deviceToMonitor closeConnection];
+//    }
 }
 
 - (void)updateStatus
@@ -171,7 +171,7 @@ extern int ddLogLevel;
         if (self.deviceToMonitor) {
             BOOL reconnected = NO;
             
-            if (![self.deviceToMonitor isConnected]) {
+            if (!self.deviceToMonitor.isConnected) {
                 DDLogInfo(@"connecting");
                 reconnected = ([self.deviceToMonitor openConnection] == kIOReturnSuccess);
                 [[RSSISmootheningFilter sharedInstance] reset];
@@ -184,7 +184,7 @@ extern int ddLogLevel;
                 }
             }
 
-            if ([self.deviceToMonitor isConnected]) {
+            if (self.deviceToMonitor.isConnected) {
                 BluetoothHCIRSSIValue rawRSSI = [self.deviceToMonitor rawRSSI];
                 [[RSSISmootheningFilter sharedInstance] addSample:rawRSSI];
                 self.currentRSSI = [[RSSISmootheningFilter sharedInstance] getMedianValue];
@@ -234,9 +234,9 @@ extern int ddLogLevel;
         [NSThread sleepForTimeInterval:kMGMonitorTrackerTimeInteval];
     }
     
-    if (self.deviceToMonitor.isConnected) {
-        [self.deviceToMonitor closeConnection];
-    }
+//    if (self.deviceToMonitor.isConnected) {
+//        [self.deviceToMonitor closeConnection];
+//    }
 
     DDLogVerbose(@"work thread <%@> stop", [NSThread currentThread].name);
 }
