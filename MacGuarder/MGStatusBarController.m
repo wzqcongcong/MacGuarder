@@ -43,12 +43,14 @@ extern int ddLogLevel;
     self.statusItem.toolTip = @"MacGuarder";
 //    self.statusItem.title = self.statusItem.toolTip;
     self.statusItem.image = [NSImage imageNamed:@"monitor.idle"];
+    [self.statusItem.image setTemplate:YES];
     self.statusItem.menu = self.statusBarMenu;
 }
 
 - (void)updateStatusOfStatusBar
 {
     self.statusItem.image = [DeviceTracker sharedTracker].isMonitoring ? [NSImage imageNamed:@"monitor.working"] : [NSImage imageNamed:@"monitor.idle"];
+    [self.statusItem.image setTemplate:YES];
     [self.statusBarMenu update];
 }
 
