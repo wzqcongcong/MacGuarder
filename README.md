@@ -15,5 +15,4 @@ lock &amp; unlock Mac by iPhone with Bluetooth
 - start
 
 When the device is out of scope, Mac will be locked.
-
 When the device is in the scope, Mac will be unlocked.
