@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
+extern DDLogLevel ddLogLevel;
+
 @interface LogFormatter :  NSObject <DDLogFormatter>
+
++ (void)setupLog;
++ (void)updateLogLevel:(DDLogLevel)newLogLevel;
 
 @end

@@ -15,8 +15,6 @@
 //#import "GCDWebServer.h"
 //#import "GCDWebServerDataResponse.h"
 
-extern int ddLogLevel;
-
 static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarder";
 
 @interface MGSettingsWindowController ()

@@ -11,8 +11,6 @@
 
 static NSString *password = @"";
 
-extern int ddLogLevel;
-
 @implementation MacGuarderHelper
 
 + (void)setPassword:(NSString *)p

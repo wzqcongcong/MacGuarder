@@ -8,6 +8,8 @@
 
 #import "LogFormatter.h"
 
+DDLogLevel ddLogLevel = DDLogLevelInfo;
+
 @interface LogFormatter ()
 
 @property (nonatomic, strong) NSDateFormatter *dateFormat;
@@ -15,6 +17,32 @@
 @end
 
 @implementation LogFormatter
+
++ (void)setupLog
+{
+    LogFormatter *logFormatter = [[LogFormatter alloc] init];
+
+    DDASLLogger *aslLogger = [DDASLLogger sharedInstance];
+    [aslLogger setLogFormatter:logFormatter];
+    [DDLog addLogger:aslLogger];
+
+    DDTTYLogger *ttyLogger = [DDTTYLogger sharedInstance];
+    [ttyLogger setLogFormatter:logFormatter];
+    [DDLog addLogger:ttyLogger];
+
+    NSString *logDir = [NSString stringWithFormat:@"%@/Library/Logs/%@", NSHomeDirectory(), [NSBundle mainBundle].bundleIdentifier];
+    DDLogFileManagerDefault *logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logDir];
+    DDFileLogger *fileLogger = [[DDFileLogger alloc] initWithLogFileManager:(logFileManager)];
+    fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+    fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
+    [fileLogger setLogFormatter:logFormatter];
+    [DDLog addLogger:fileLogger];
+}
+
++ (void)updateLogLevel:(DDLogLevel)newLogLevel
+{
+    ddLogLevel = newLogLevel;
+}
 
 - (id)init
 {

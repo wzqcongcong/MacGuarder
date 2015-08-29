@@ -12,8 +12,6 @@
 #import "MGStatusBarController.h"
 #import "MGSettingsWindowController.h"
 
-int ddLogLevel = DDLogLevelInfo;
-
 @interface AppDelegate ()
 
 @property (nonatomic, strong) MGStatusBarController *statusBarController;
@@ -23,30 +21,9 @@ int ddLogLevel = DDLogLevelInfo;
 
 @implementation AppDelegate
 
-+ (void)setupLog
-{
-    LogFormatter *logFormatter = [[LogFormatter alloc] init];
-
-    DDASLLogger *aslLogger = [DDASLLogger sharedInstance];
-    [aslLogger setLogFormatter:logFormatter];
-    [DDLog addLogger:aslLogger];
-
-    DDTTYLogger *ttyLogger = [DDTTYLogger sharedInstance];
-    [ttyLogger setLogFormatter:logFormatter];
-    [DDLog addLogger:ttyLogger];
-
-    NSString *logDir = [NSString stringWithFormat:@"%@/Library/Logs/GoKuStudio/MacGuarder", NSHomeDirectory()];
-    DDLogFileManagerDefault *logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logDir];
-    DDFileLogger *fileLogger = [[DDFileLogger alloc] initWithLogFileManager:(logFileManager)];
-    fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
-    fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
-    [fileLogger setLogFormatter:logFormatter];
-    [DDLog addLogger:fileLogger];
-}
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    [AppDelegate setupLog];
+    [LogFormatter setupLog];
 
     [MGMonitorController sharedMonitorController]; // just init MGMonitorController
 

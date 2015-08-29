@@ -11,8 +11,6 @@
 #import "MGMonitorController.h"
 #import "AppDelegate.h"
 
-extern int ddLogLevel;
-
 @interface MGStatusBarController ()
 
 @property (nonatomic, strong) NSStatusItem *statusItem;

@@ -26,8 +26,6 @@ static NSString * const kUserInfo           = @"UserInfo"; // {"uid": "password"
 
 static NSString * const kDeviceKeeperKey    = @"com.GoKuStudio.MacGuarder.DeviceKeeperKey";
 
-extern int ddLogLevel;
-
 @implementation ConfigManager
 
 + (void)setAutoStartMonitor:(BOOL)autoStart

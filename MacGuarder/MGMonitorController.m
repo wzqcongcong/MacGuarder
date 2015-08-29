@@ -10,8 +10,6 @@
 #import "LogFormatter.h"
 #import "SoundManager.h"
 
-extern int ddLogLevel;
-
 @interface MGMonitorController ()
 
 @property (nonatomic, readwrite, strong) NSString *userUID;
