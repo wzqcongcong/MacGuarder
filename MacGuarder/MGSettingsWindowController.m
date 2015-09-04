@@ -106,19 +106,26 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
     }
 
     CGFloat oldHeight = windowView.frame.size.height;
+    CGFloat oldWidth = windowView.frame.size.width;
 
     [windowView addSubview:settingView];
     CGFloat newHeight = settingView.frame.size.height;
+    CGFloat newWidth = settingView.frame.size.width;
 
-    CGFloat delta = newHeight - oldHeight;
+    CGFloat deltaHeight = newHeight - oldHeight;
+    CGFloat deltaWidth = newWidth - oldWidth;
 
     NSPoint origin = settingView.frame.origin;
-    origin.y -= delta;
+    origin.y -= deltaHeight;
+    // no need to change for origin.x
+    // because the default NSAutoresizingMaskOptions of settingView is: NSViewMaxXMargin + NSViewMinYMargin
+    // that means: MinX is fixed, MaxY is fixed.
     [settingView setFrameOrigin:origin];
 
     NSRect frame = self.window.frame;
-    frame.size.height += delta;
-    frame.origin.y -= delta;
+    frame.size.height += deltaHeight;
+    frame.origin.y -= deltaHeight;
+    frame.size.width += deltaWidth;
     [self.window setFrame:frame display:YES animate:animation];
 
     /* constraint can not create the animation effect
