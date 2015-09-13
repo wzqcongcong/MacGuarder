@@ -7,10 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ServiceManagement/ServiceManagement.h>
+
+extern NSString * const kLoginItemBundleID;
 
 extern NSInteger const kDefaultInRangeThreshold;
 
 @interface ConfigManager : NSObject
+
++ (void)setLoginItemEnabled:(BOOL)enabled;
++ (BOOL)loginItemEnabled;
 
 + (void)setAutoStartMonitor:(BOOL)autoStart;
 + (BOOL)isAutoStartMonitor;

@@ -37,6 +37,7 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
 @property (nonatomic, strong) IOBluetoothDevice *tmpSelectedDevice;
 
 @property (strong) IBOutlet NSView *settingAppView;
+@property (weak) IBOutlet NSButton *checkLoginItem;
 @property (weak) IBOutlet NSButton *checkAutoStartMonitor;
 
 @end
@@ -181,6 +182,7 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
 
 - (IBAction)clickTabSettingApp:(id)sender {
     if (self.lastSelectedToolbarItem != sender) {
+        self.checkLoginItem.state = [ConfigManager loginItemEnabled] ? NSOnState : NSOffState;
         self.checkAutoStartMonitor.state = [ConfigManager isAutoStartMonitor] ? NSOnState : NSOffState;
 
         [self switchToTabView:self.settingAppView withAnimation:YES];
@@ -188,6 +190,8 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
 
     self.lastSelectedToolbarItem = sender;
 }
+
+#pragma mark - setting: General
 
 - (IBAction)didClickSelectDevice:(id)sender
 {
@@ -267,6 +271,45 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
     });
 
     [self.window close];
+}
+
+#pragma mark - setting: App
+
+- (IBAction)clickCheckLoginItem:(id)sender {
+    NSInteger stateAfterClick = self.checkLoginItem.state;
+    NSInteger stateBeforeClick = 1 - stateAfterClick;
+
+    BOOL loginItemEnabled = (stateAfterClick == NSOnState);
+
+    BOOL ret = SMLoginItemSetEnabled((__bridge CFStringRef)kLoginItemBundleID, loginItemEnabled);
+    if (ret) {
+        [ConfigManager setLoginItemEnabled:loginItemEnabled];
+
+    } else {
+        self.checkLoginItem.state = stateBeforeClick;
+    }
+}
+
+- (BOOL)userLoginItemEnabled
+{
+    BOOL enabled = NO;
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    // the easy and sane method [SMJobCopyDictionary] can pose problems when sandboxed. -_-!
+    NSArray *jobs = (__bridge_transfer NSArray *)(SMCopyAllJobDictionaries(kSMDomainUserLaunchd));
+#pragma clang diagnostic pop
+
+    if (jobs.count > 0) {
+        for (NSDictionary *job in jobs) {
+            if ([kLoginItemBundleID isEqualToString:[job objectForKey:@"Label"]]) {
+                enabled = [[job objectForKey:@"OnDemand"] boolValue];
+                break;
+            }
+        }
+    }
+
+    return enabled;
 }
 
 - (IBAction)clickCheckAutoStartMonitor:(id)sender {

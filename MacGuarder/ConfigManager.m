@@ -12,7 +12,11 @@
 #import "RNDecryptor.h"
 #import "Valet.h"
 
+NSString * const kLoginItemBundleID = @"com.gokustudio.MacGuarderLoginItem";
+
 NSInteger const kDefaultInRangeThreshold    = -60;
+
+static NSString * const kLoginItemEnabled   = @"LoginItemEnabled";
 
 static NSString * const kAutoStartMonitor   = @"AutoStartMonitor";
 
@@ -27,6 +31,17 @@ static NSString * const kUserInfo           = @"UserInfo"; // {"uid": "password"
 static NSString * const kDeviceKeeperKey    = @"com.GoKuStudio.MacGuarder.DeviceKeeperKey";
 
 @implementation ConfigManager
+
++ (void)setLoginItemEnabled:(BOOL)enabled
+{
+    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:kLoginItemEnabled];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (BOOL)loginItemEnabled
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kLoginItemEnabled];
+}
 
 + (void)setAutoStartMonitor:(BOOL)autoStart
 {

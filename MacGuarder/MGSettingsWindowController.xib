@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
@@ -11,6 +11,7 @@
                 <outlet property="btSelectDevice" destination="3OV-PE-Ew1" id="KcK-Oi-cXh"/>
                 <outlet property="btStop" destination="xQk-Ud-TWj" id="iZy-jv-hV3"/>
                 <outlet property="checkAutoStartMonitor" destination="y3R-eH-DHP" id="xee-9Z-zD1"/>
+                <outlet property="checkLoginItem" destination="fBQ-hX-WPZ" id="a7i-w6-cfP"/>
                 <outlet property="infoLabel" destination="cEr-PT-Vp9" id="fC0-RN-dKU"/>
                 <outlet property="rssiCurrentValueIndicator" destination="09q-Tu-Nue" id="Zrc-Xy-pPs"/>
                 <outlet property="rssiThresholdSetSlider" destination="VpY-uW-Szu" id="qoz-Z7-xJj"/>
@@ -263,13 +264,26 @@
             <point key="canvasLocation" x="481" y="955"/>
         </view>
         <customView id="N1p-iR-ldr" userLabel="app">
-            <rect key="frame" x="0.0" y="0.0" width="400" height="100"/>
+            <rect key="frame" x="0.0" y="0.0" width="400" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="y3R-eH-DHP">
-                    <rect key="frame" x="18" y="18" width="364" height="64"/>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="fBQ-hX-WPZ" userLabel="login">
+                    <rect key="frame" x="18" y="58" width="364" height="44"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="60" id="kzO-e9-Gzu"/>
+                        <constraint firstAttribute="height" constant="40" id="G5q-la-TLn"/>
+                    </constraints>
+                    <buttonCell key="cell" type="check" title="Launch app automatically after login your Mac." bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="qmV-D3-Xoe">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="clickCheckLoginItem:" target="-2" id="ZF3-eU-tzS"/>
+                    </connections>
+                </button>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="y3R-eH-DHP" userLabel="monitor">
+                    <rect key="frame" x="18" y="18" width="364" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="kzO-e9-Gzu"/>
                     </constraints>
                     <buttonCell key="cell" type="check" title="Start monitor automatically after launching app." bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="a7y-Bv-nH5">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -281,12 +295,15 @@
                 </button>
             </subviews>
             <constraints>
+                <constraint firstItem="fBQ-hX-WPZ" firstAttribute="top" secondItem="N1p-iR-ldr" secondAttribute="top" constant="20" id="Cne-4R-bEx"/>
                 <constraint firstAttribute="bottom" secondItem="y3R-eH-DHP" secondAttribute="bottom" constant="20" id="HOl-gb-nEW"/>
-                <constraint firstItem="y3R-eH-DHP" firstAttribute="top" secondItem="N1p-iR-ldr" secondAttribute="top" constant="20" id="IEb-c1-0ew"/>
                 <constraint firstAttribute="trailing" secondItem="y3R-eH-DHP" secondAttribute="trailing" constant="20" id="IO7-Gq-mRq"/>
+                <constraint firstAttribute="trailing" secondItem="fBQ-hX-WPZ" secondAttribute="trailing" constant="20" id="RmF-sg-NS8"/>
+                <constraint firstItem="fBQ-hX-WPZ" firstAttribute="leading" secondItem="N1p-iR-ldr" secondAttribute="leading" constant="20" id="aqD-kv-fv0"/>
+                <constraint firstItem="y3R-eH-DHP" firstAttribute="top" secondItem="fBQ-hX-WPZ" secondAttribute="bottom" id="mF6-fv-9In"/>
                 <constraint firstItem="y3R-eH-DHP" firstAttribute="leading" secondItem="N1p-iR-ldr" secondAttribute="leading" constant="20" id="xgO-rv-I2r"/>
             </constraints>
-            <point key="canvasLocation" x="481" y="1256"/>
+            <point key="canvasLocation" x="481" y="1282"/>
         </customView>
     </objects>
     <resources>

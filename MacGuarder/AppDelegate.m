@@ -21,6 +21,12 @@
 
 @implementation AppDelegate
 
+- (BOOL)setupLoginItem
+{
+    BOOL ret = SMLoginItemSetEnabled((__bridge CFStringRef)kLoginItemBundleID, [ConfigManager loginItemEnabled]);
+    return ret;
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     [LogFormatter setupLog];
@@ -39,6 +45,8 @@
     }
 
 //    [self showSettingsWindow];
+
+    [self setupLoginItem];
 }
 
 - (void)showSettingsWindow

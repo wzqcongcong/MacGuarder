@@ -32,9 +32,39 @@
 		CEBF84B01980B61300EBE976 /* RSSISmootheningFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF84AF1980B61300EBE976 /* RSSISmootheningFilter.m */; };
 		E54957181B7CCEDD00173029 /* lock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E54957161B7CCEDD00173029 /* lock.mp3 */; };
 		E54957191B7CCEDD00173029 /* unlock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E54957171B7CCEDD00173029 /* unlock.mp3 */; };
+		E56712011BA5345000922FF7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E56712001BA5345000922FF7 /* AppDelegate.m */; };
+		E56712031BA5345000922FF7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E56712021BA5345000922FF7 /* main.m */; };
+		E56712051BA5345000922FF7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E56712041BA5345000922FF7 /* Images.xcassets */; };
+		E56712081BA5345000922FF7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E56712061BA5345000922FF7 /* MainMenu.xib */; };
+		E567121C1BA535E800922FF7 /* MacGuarderLoginItem.app in Login Item */ = {isa = PBXBuildFile; fileRef = E56711FB1BA5345000922FF7 /* MacGuarderLoginItem.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E56712201BA541F700922FF7 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E567121F1BA541F600922FF7 /* ServiceManagement.framework */; };
 		E5C88B4F1B75EBFC00791716 /* SmoothWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C88B4E1B75EBFC00791716 /* SmoothWindow.m */; };
 		FE771E7BBB59FED757D89189 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18485F5168589B19A4D497A3 /* libPods.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E567121D1BA535EF00922FF7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CEBF842F197FDE5400EBE976 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E56711FA1BA5345000922FF7;
+			remoteInfo = MacGuarderLoginItem;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E567121B1BA535C600922FF7 /* Login Item */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				E567121C1BA535E800922FF7 /* MacGuarderLoginItem.app in Login Item */,
+			);
+			name = "Login Item";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		18485F5168589B19A4D497A3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +112,14 @@
 		CEBF84AF1980B61300EBE976 /* RSSISmootheningFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSISmootheningFilter.m; sourceTree = "<group>"; };
 		E54957161B7CCEDD00173029 /* lock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lock.mp3; sourceTree = "<group>"; };
 		E54957171B7CCEDD00173029 /* unlock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = unlock.mp3; sourceTree = "<group>"; };
+		E56711FB1BA5345000922FF7 /* MacGuarderLoginItem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacGuarderLoginItem.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E56711FE1BA5345000922FF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E56711FF1BA5345000922FF7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E56712001BA5345000922FF7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E56712021BA5345000922FF7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E56712041BA5345000922FF7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		E56712071BA5345000922FF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		E567121F1BA541F600922FF7 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		E5C88B4D1B75EBFC00791716 /* SmoothWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmoothWindow.h; sourceTree = "<group>"; };
 		E5C88B4E1B75EBFC00791716 /* SmoothWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmoothWindow.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,8 +133,16 @@
 				CEBF84AD1980B2FD00EBE976 /* IOBluetoothUI.framework in Frameworks */,
 				CEBF84AB1980B2F600EBE976 /* IOBluetooth.framework in Frameworks */,
 				84E68BA21AA5B8E600D3811A /* SecurityInterface.framework in Frameworks */,
+				E56712201BA541F700922FF7 /* ServiceManagement.framework in Frameworks */,
 				CEBF843B197FDE5400EBE976 /* Cocoa.framework in Frameworks */,
 				FE771E7BBB59FED757D89189 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E56711F81BA5345000922FF7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				CEBF8440197FDE5400EBE976 /* MacGuarder */,
+				E56711FC1BA5345000922FF7 /* MacGuarderLoginItem */,
 				CEBF8439197FDE5400EBE976 /* Frameworks */,
 				CEBF8438197FDE5400EBE976 /* Products */,
 				21C0EB1D560DD20CA95D1BEC /* Pods */,
@@ -146,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				CEBF8437197FDE5400EBE976 /* MacGuarder.app */,
+				E56711FB1BA5345000922FF7 /* MacGuarderLoginItem.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -153,6 +201,7 @@
 		CEBF8439197FDE5400EBE976 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E567121F1BA541F600922FF7 /* ServiceManagement.framework */,
 				84E68BA31AA5BA3700D3811A /* CoreBluetooth.framework */,
 				CEBF84AC1980B2FD00EBE976 /* IOBluetoothUI.framework */,
 				CEBF84AA1980B2F600EBE976 /* IOBluetooth.framework */,
@@ -236,6 +285,27 @@
 			name = Core;
 			sourceTree = "<group>";
 		};
+		E56711FC1BA5345000922FF7 /* MacGuarderLoginItem */ = {
+			isa = PBXGroup;
+			children = (
+				E56711FF1BA5345000922FF7 /* AppDelegate.h */,
+				E56712001BA5345000922FF7 /* AppDelegate.m */,
+				E56711FD1BA5345000922FF7 /* Supporting Files */,
+			);
+			path = MacGuarderLoginItem;
+			sourceTree = "<group>";
+		};
+		E56711FD1BA5345000922FF7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E56712041BA5345000922FF7 /* Images.xcassets */,
+				E56711FE1BA5345000922FF7 /* Info.plist */,
+				E56712021BA5345000922FF7 /* main.m */,
+				E56712061BA5345000922FF7 /* MainMenu.xib */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -248,14 +318,33 @@
 				CEBF8434197FDE5400EBE976 /* Frameworks */,
 				CEBF8435197FDE5400EBE976 /* Resources */,
 				37C52E71C0C2F77482096856 /* Copy Pods Resources */,
+				E567121B1BA535C600922FF7 /* Login Item */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E567121E1BA535EF00922FF7 /* PBXTargetDependency */,
+			);
+			name = MacGuarder;
+			productName = MacGuarder;
+			productReference = CEBF8437197FDE5400EBE976 /* MacGuarder.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E56711FA1BA5345000922FF7 /* MacGuarderLoginItem */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E56712191BA5345100922FF7 /* Build configuration list for PBXNativeTarget "MacGuarderLoginItem" */;
+			buildPhases = (
+				E56711F71BA5345000922FF7 /* Sources */,
+				E56711F81BA5345000922FF7 /* Frameworks */,
+				E56711F91BA5345000922FF7 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = MacGuarder;
-			productName = MacGuarder;
-			productReference = CEBF8437197FDE5400EBE976 /* MacGuarder.app */;
+			name = MacGuarderLoginItem;
+			productName = MacGuarderLoginItem;
+			productReference = E56711FB1BA5345000922FF7 /* MacGuarderLoginItem.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -266,6 +355,11 @@
 			attributes = {
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = GoKuStudio;
+				TargetAttributes = {
+					E56711FA1BA5345000922FF7 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
 			};
 			buildConfigurationList = CEBF8432197FDE5400EBE976 /* Build configuration list for PBXProject "MacGuarder" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -281,6 +375,7 @@
 			projectRoot = "";
 			targets = (
 				CEBF8436197FDE5400EBE976 /* MacGuarder */,
+				E56711FA1BA5345000922FF7 /* MacGuarderLoginItem */,
 			);
 		};
 /* End PBXProject section */
@@ -298,6 +393,15 @@
 				84478F301B74A3EF00B766AF /* MGStatusBarController.xib in Resources */,
 				84478F2A1B74972400B766AF /* MGSettingsWindowController.xib in Resources */,
 				CEBF8451197FDE5400EBE976 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E56711F91BA5345000922FF7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E56712051BA5345000922FF7 /* Images.xcassets in Resources */,
+				E56712081BA5345000922FF7 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,7 +461,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E56711F71BA5345000922FF7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E56712031BA5345000922FF7 /* main.m in Sources */,
+				E56712011BA5345000922FF7 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E567121E1BA535EF00922FF7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E56711FA1BA5345000922FF7 /* MacGuarderLoginItem */;
+			targetProxy = E567121D1BA535EF00922FF7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CEBF8443197FDE5400EBE976 /* InfoPlist.strings */ = {
@@ -380,6 +501,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				CEBF8450197FDE5400EBE976 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		E56712061BA5345000922FF7 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E56712071BA5345000922FF7 /* Base */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -487,6 +616,44 @@
 			};
 			name = Release;
 		};
+		E56712151BA5345100922FF7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MacGuarderLoginItem/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E56712161BA5345100922FF7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = MacGuarderLoginItem/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -507,6 +674,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		E56712191BA5345100922FF7 /* Build configuration list for PBXNativeTarget "MacGuarderLoginItem" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E56712151BA5345100922FF7 /* Debug */,
+				E56712161BA5345100922FF7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
