@@ -44,7 +44,7 @@
     NSBundle *wrapperAppBundle = [NSBundle bundleWithPath:wrapperAppBundlePath];
     if (wrapperAppBundle) {
         bundleID = wrapperAppBundle.bundleIdentifier;
-        NSLog(@"%@", bundleID);
+//        NSLog(@"%@", bundleID);
     }
 
     return bundleID;
@@ -60,7 +60,7 @@
         return NO;
 
     } else {
-        NSLog(@"invalid app bundleID: %@", appBundleID);
+//        NSLog(@"invalid app bundleID: %@", appBundleID);
         return NO;
     }
 }
