@@ -270,7 +270,7 @@ static NSString * const kAUTH_RIGHT_CONFIG_MODIFY   = @"com.GoKuStudio.MacGuarde
         [(AppDelegate *)[NSApplication sharedApplication].delegate updateStatusOfStatusBar];
     });
 
-    [self.window close];
+//    [self.window close];
 }
 
 #pragma mark - setting: App
