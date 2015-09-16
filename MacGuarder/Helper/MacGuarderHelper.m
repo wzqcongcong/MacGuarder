@@ -104,20 +104,18 @@ static NSString *password = @"";
 
 + (void)setScreensaverDelay:(NSInteger)value
 {
-    NSArray *arguments = @[@"write", @"com.apple.screensaver", @"askForPasswordDelay", [NSString stringWithFormat:@"%li", value]];
-    NSTask *resetDelayTask = [[NSTask alloc] init];
-    [resetDelayTask setArguments:arguments];
-    [resetDelayTask setLaunchPath: @"/usr/bin/defaults"];
-    [resetDelayTask launch];
+    NSMutableDictionary *prefs = [[[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.apple.screensaver"] mutableCopy];
+    [prefs setValue:[NSString stringWithFormat:@"%li", value] forKey:@"askForPasswordDelay"];
+    [[NSUserDefaults standardUserDefaults] setPersistentDomain:prefs forName:@"com.apple.screensaver"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (void)setScreensaverAskForPassword:(BOOL)value
 {
-    NSArray *arguments = @[@"write", @"com.apple.screensaver", @"askForPassword", [NSString stringWithFormat:@"%i", value]];
-    NSTask *resetDelayTask = [[NSTask alloc] init];
-    [resetDelayTask setArguments:arguments];
-    [resetDelayTask setLaunchPath: @"/usr/bin/defaults"];
-    [resetDelayTask launch];
+    NSMutableDictionary *prefs = [[[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.apple.screensaver"] mutableCopy];
+    [prefs setValue:[NSString stringWithFormat:@"%hhi", value] forKey:@"askForPassword"];
+    [[NSUserDefaults standardUserDefaults] setPersistentDomain:prefs forName:@"com.apple.screensaver"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 
     NSAppleScript *kickSecurityPreferencesScript = [[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:@"tell application \"System Events\" to tell security preferences to set require password to wake to %@", value ? @"true" : @"false"]];
     [kickSecurityPreferencesScript executeAndReturnError:nil];
