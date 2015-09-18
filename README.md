@@ -8,11 +8,14 @@ lock &amp; unlock Mac by iPhone with Bluetooth
 
 ![Settings](screenshot/Settings.png)
 
+
 ## Usage ##
 
-- select a device to monitor
-- set the RSSI threshold for selected device
-- start
+1. select a bluetooth device to monitor
+2. set the RSSI threshold for selected device
+<br/>(the closer your device is, the bigger the RSSI value will be)
+3. input your login password of Mac
+4. save & start
 
 When the device is out of scope, Mac will be locked.
 When the device is in the scope, Mac will be unlocked.
