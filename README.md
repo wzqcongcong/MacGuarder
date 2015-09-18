@@ -17,5 +17,5 @@ lock &amp; unlock Mac by iPhone with Bluetooth
 3. input your login password of Mac
 4. save & start
 
-When the device is out of scope, Mac will be locked.
+When the device is out of scope, Mac will be locked. <br/>
 When the device is in the scope, Mac will be unlocked.
