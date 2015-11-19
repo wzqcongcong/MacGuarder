@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DA827C6DF3A33BCD7C4910C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77AD1AE29EF9C7A2BE6CD107 /* Pods.framework */; };
 		84478F291B74972400B766AF /* MGSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84478F271B74972400B766AF /* MGSettingsWindowController.m */; };
 		84478F2A1B74972400B766AF /* MGSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84478F281B74972400B766AF /* MGSettingsWindowController.xib */; };
 		84478F2F1B74A3EF00B766AF /* MGStatusBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84478F2D1B74A3EF00B766AF /* MGStatusBarController.m */; };
@@ -39,7 +40,6 @@
 		E567121C1BA535E800922FF7 /* MacGuarderLoginItem.app in Login Item */ = {isa = PBXBuildFile; fileRef = E56711FB1BA5345000922FF7 /* MacGuarderLoginItem.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E56712201BA541F700922FF7 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E567121F1BA541F600922FF7 /* ServiceManagement.framework */; };
 		E5C88B4F1B75EBFC00791716 /* SmoothWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C88B4E1B75EBFC00791716 /* SmoothWindow.m */; };
-		FE771E7BBB59FED757D89189 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18485F5168589B19A4D497A3 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,8 +67,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		18485F5168589B19A4D497A3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		46D7CA48E9101EEC9D6C855E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		77AD1AE29EF9C7A2BE6CD107 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84478F261B74972400B766AF /* MGSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSettingsWindowController.h; sourceTree = "<group>"; };
 		84478F271B74972400B766AF /* MGSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSettingsWindowController.m; sourceTree = "<group>"; };
 		84478F281B74972400B766AF /* MGSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGSettingsWindowController.xib; sourceTree = "<group>"; };
@@ -135,7 +135,7 @@
 				84E68BA21AA5B8E600D3811A /* SecurityInterface.framework in Frameworks */,
 				E56712201BA541F700922FF7 /* ServiceManagement.framework in Frameworks */,
 				CEBF843B197FDE5400EBE976 /* Cocoa.framework in Frameworks */,
-				FE771E7BBB59FED757D89189 /* libPods.a in Frameworks */,
+				4DA827C6DF3A33BCD7C4910C /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,7 +208,7 @@
 				84E68BA11AA5B8E600D3811A /* SecurityInterface.framework */,
 				CEBF843A197FDE5400EBE976 /* Cocoa.framework */,
 				CEBF843C197FDE5400EBE976 /* Other Frameworks */,
-				18485F5168589B19A4D497A3 /* libPods.a */,
+				77AD1AE29EF9C7A2BE6CD107 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -319,6 +319,7 @@
 				CEBF8435197FDE5400EBE976 /* Resources */,
 				37C52E71C0C2F77482096856 /* Copy Pods Resources */,
 				E567121B1BA535C600922FF7 /* Login Item */,
+				597438A2D434608DD6795D80 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -436,6 +437,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		597438A2D434608DD6795D80 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
