@@ -8,8 +8,7 @@
 
 #import "ConfigManager.h"
 #import "LogFormatter.h"
-#import "RNEncryptor.h"
-#import "RNDecryptor.h"
+#import "RNCryptor-Swift.h"
 #import "Valet.h"
 
 NSString * const kLoginItemBundleID = @"com.gokustudio.MacGuarderLoginItem";
@@ -114,10 +113,10 @@ static NSString * const kDeviceKeeperKey    = @"com.GoKuStudio.MacGuarder.Device
     VALValet *myValet = [[VALValet alloc] initWithIdentifier:kDeviceKeeperKey accessibility:VALAccessibilityAfterFirstUnlock];
 
     NSData *plainData = [password dataUsingEncoding:NSUTF8StringEncoding];
-    NSData *encryptedData = [RNEncryptor encryptData:plainData
-                                        withSettings:kRNCryptorAES256Settings
-                                            password:kDeviceKeeperKey
-                                               error:NULL];
+
+    RNEncryptor *encryptor = [[RNEncryptor alloc] initWithPassword:kDeviceKeeperKey];
+    NSData *encryptedData = [encryptor encryptData:plainData];
+    
 
     [myValet setObject:encryptedData forKey:[NSString stringWithFormat:@"%@_%@", kUserInfo, uid]];
 }
@@ -127,9 +126,8 @@ static NSString * const kDeviceKeeperKey    = @"com.GoKuStudio.MacGuarder.Device
     VALValet *myValet = [[VALValet alloc] initWithIdentifier:kDeviceKeeperKey accessibility:VALAccessibilityAfterFirstUnlock];
     NSData *encryptedData = [myValet objectForKey:[NSString stringWithFormat:@"%@_%@", kUserInfo, uid]];
     if (encryptedData) {
-        NSData *decryptedData = [RNDecryptor decryptData:encryptedData
-                                            withPassword:kDeviceKeeperKey
-                                                   error:NULL];
+        RNDecryptor *decryptor = [[RNDecryptor alloc] initWithPassword:kDeviceKeeperKey];
+        NSData *decryptedData = [decryptor decryptData:encryptedData error:nil];
         if (decryptedData) {
             NSString *password = [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding];
             return password;
