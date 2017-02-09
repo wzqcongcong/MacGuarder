@@ -1,7 +1,7 @@
 
 ## MacGuarder ##
 
-lock &amp; unlock Mac by iPhone with Bluetooth
+Lock &amp; Unlock Mac by iPhone with Bluetooth
 
 
 ![StatusBarIcon](screenshot/icon.png)
